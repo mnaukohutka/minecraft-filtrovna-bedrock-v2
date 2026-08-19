@@ -1,0 +1,24 @@
+{
+  "format_version": "1.10.0",
+  "render_controllers": [
+    {
+      "controller.filtrovna.golem_inside.default": {
+        "arrays": {
+          "textures": [
+            "Array.Persona.Textures",
+            "Array.Skin.Textures"
+          ]
+        },
+        "geometry": "Geometry.filtrovna_golem_inside",
+        "materials": [
+          {
+            "*": "Material.Default"
+          }
+        ],
+        "textures": [
+          "Texture.filtrovna_copper_golem"
+        ]
+      }
+    }
+  ]
+}

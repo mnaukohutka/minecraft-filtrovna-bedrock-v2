@@ -1,0 +1,79 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.filtrovna_filtr",
+        "texture_width": 64,
+        "texture_height": 64,
+        "visible_bounds_width": 2,
+        "visible_bounds_height": 2,
+        "visible_bounds_offset": [0, 0, 0]
+      },
+      "bones": [
+        {
+          "name": "root",
+          "pivot": [0, 0, 0],
+          "cubes": [
+            {
+              "name": "base",
+              "origin": [-8, 0, -8],
+              "size": [16, 16, 16],
+              "uv": [0, 0],
+              "mirror": false
+            },
+            {
+              "name": "front_glass",
+              "origin": [-7, 1, -8.1],
+              "size": [14, 12, 0.2],
+              "uv": [0, 0],
+              "mirror": false
+            },
+            {
+              "name": "front_bulb",
+              "origin": [-2, 0, -8.2],
+              "size": [4, 4, 0.2],
+              "uv": [0, 0],
+              "mirror": false
+            },
+            {
+              "name": "side_plus",
+              "origin": [-8.1, 4, -4],
+              "size": [0.2, 8, 8],
+              "uv": [0, 0],
+              "mirror": false
+            },
+            {
+              "name": "side_minus",
+              "origin": [8, 4, -4],
+              "size": [0.2, 8, 8],
+              "uv": [0, 0],
+              "mirror": false
+            },
+            {
+              "name": "top_grate",
+              "origin": [-8, 15.9, -8],
+              "size": [16, 0.2, 16],
+              "uv": [0, 0],
+              "mirror": false
+            },
+            {
+              "name": "bottom_bulb",
+              "origin": [-2, -0.1, -2],
+              "size": [4, 0.2, 4],
+              "uv": [0, 0],
+              "mirror": false
+            },
+            {
+              "name": "back_grate",
+              "origin": [-8, 0, 7.9],
+              "size": [16, 16, 0.2],
+              "uv": [0, 0],
+              "mirror": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

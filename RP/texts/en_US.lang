@@ -1,0 +1,41 @@
+# Filtrovna - English Localization
+
+# Blocks
+tile.filtrovna:filtr.name=Filter
+tile.filtrovna:filtr.description=Intelligent sorting block with copper golem
+
+# Entity
+entity.filtrovna:golem_inside.name=Filter Golem
+entity.filtrovna:golem_inside.description=Internal entity for sorting items
+entity.filtrovna:mini_copper_golem.name=Mini Copper Golem
+entity.filtrovna:mini_copper_golem.description=Helper for collecting and delivering items
+
+# UI Texts
+filtrovna.ui.title=Filter - Golem Management
+filtrovna.ui.section.vstup=INPUT (0-8)
+filtrovna.ui.section.filtr=FILTER RULES (9-18)
+filtrovna.ui.section.match=OUTPUT - MATCH (19-27)
+filtrovna.ui.section.ne=WASTE - NE (28-36)
+filtrovna.ui.empty=Empty
+filtrovna.ui.clear_slot=Clear Slot
+filtrovna.ui.set_item=Set Item
+filtrovna.ui.amount=Amount
+
+# State Messages
+filtrovna.state.idle=Idle
+filtrovna.state.processing=Processing
+filtrovna.state.match=Match Found
+filtrovna.state.ne=No Match
+filtrovna.state.drop=Item Dropped
+filtrovna.state.stuck=Stuck
+
+# Error Messages
+filtrovna.error.no_golem=§cError: Golem not found!
+filtrovna.error.no_inventory=§cError: Inventory not accessible!
+filtrovna.error.invalid_slot=§cError: Invalid slot!
+filtrovna.error.full_inventory=§cError: Inventory is full!
+
+# Success Messages
+filtrovna.success.slot_cleared=§aSlot cleared
+filtrovna.success.item_set=§aItem set
+filtrovna.success.items_delivered=§aItems delivered

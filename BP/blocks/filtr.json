@@ -1,0 +1,121 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:block": {
+    "description": {
+      "identifier": "filtrovna:filtr",
+      "menu_category": {
+        "category": "items_to_blocks",
+        "group": "itemGroup.name.redstone"
+      },
+      "traits": {
+        "minecraft:placement_direction": {
+          "enabled_states": ["minecraft:cardinal_direction"]
+        }
+      }
+    },
+    "components": {
+      "minecraft:geometry": "geometry.filtrovna_filtr",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "waxed_copper_block",
+          "render_method": "opaque"
+        },
+        "front_glass": {
+          "texture": "filtr_front_glass",
+          "render_method": "blend"
+        },
+        "front_bulb_green": {
+          "texture": "filtr_front_bulb_green",
+          "render_method": "opaque"
+        },
+        "front_bulb_blue": {
+          "texture": "filtr_front_bulb_blue",
+          "render_method": "opaque"
+        },
+        "front_bulb_yellow": {
+          "texture": "filtr_front_bulb_yellow",
+          "render_method": "opaque"
+        },
+        "front_bulb_orange": {
+          "texture": "filtr_front_bulb_orange",
+          "render_method": "opaque"
+        },
+        "front_bulb_red": {
+          "texture": "filtr_front_bulb_red",
+          "render_method": "opaque"
+        },
+        "front_bulb_white": {
+          "texture": "filtr_front_bulb_white",
+          "render_method": "opaque"
+        },
+        "bottom_bulb": {
+          "texture": "filtr_bottom_bulb",
+          "render_method": "opaque"
+        },
+        "side_plus": {
+          "texture": "filtr_side_plus",
+          "render_method": "opaque"
+        },
+        "side_minus": {
+          "texture": "filtr_side_minus",
+          "render_method": "opaque"
+        },
+        "top_grate": {
+          "texture": "filtr_top_grate",
+          "render_method": "opaque"
+        },
+        "back_grate": {
+          "texture": "filtr_back_grate",
+          "render_method": "opaque"
+        }
+      },
+      "minecraft:destructible_by_mining": {
+        "seconds": 3.5
+      },
+      "minecraft:explosion_resistance": {
+        "resistance": 6.0
+      },
+      "minecraft:map_color": "#B87333",
+      "minecraft:sound": "copper",
+      "minecraft:light_emission": {
+        "emission": 8
+      },
+      "minecraft:placement_filter": {
+        "conditions": [
+          {
+            "block_filter": {
+              "tags": "minecraft:replaceable"
+            },
+            "allowed": true
+          }
+        ]
+      }
+    },
+    "permutations": [
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'north'",
+        "components": {
+          "minecraft:rotation": [0, 0, 0]
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'south'",
+        "components": {
+          "minecraft:rotation": [0, 180, 0]
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
+        "components": {
+          "minecraft:rotation": [0, 270, 0]
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
+        "components": {
+          "minecraft:rotation": [0, 90, 0]
+        }
+      }
+    ]
+  }
+}

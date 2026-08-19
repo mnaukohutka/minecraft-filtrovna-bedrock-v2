@@ -1,13 +1,12 @@
---- AKTUÁLNÍ KÓD ZPRÁVě
-
 {
   "format_version": 2,
   "header": {
     "name": "Filtrovna Behavior Pack",
-    "description": "Intellentní třídící systém s Měděnými Golemy",
+    "description": "Inteligentní třídící systém s Měděnými Golemy pro Minecraft Bedrock Edition",
     "uuid": "f8a1b2c3-d4e5-4a6b-8c7d-9e0f1a2b3c4d",
     "version": [1, 0, 0],
-    "min_engine_version": [1, 21, 0]
+    "min_engine_version": [1, 21, 30],
+    "author": "mnaukohutka"
   },
   "modules": [
     {
@@ -17,13 +16,20 @@
     },
     {
       "type": "script",
+      "language": "javascript",
       "uuid": "d6a1b2c3-d4e5-4a6b-8c7d-9e0f1a2b3c4f",
+      "entry": "scripts/main.js",
       "version": [1, 0, 0]
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.14.0"
     },
     {
-      "type": "script",
-      "uuid": "d6a1b2c3-d4e5-4a6b-8c7d-9e0f1a2b3c4g",
-      "version": [1, 0, 0]
+      "module_name": "@minecraft/server-ui",
+      "version": "1.2.0"
     }
   ]
 }

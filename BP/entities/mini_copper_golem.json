@@ -1,0 +1,187 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "filtrovna:mini_copper_golem",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:type_family": {
+        "families": ["mob", "copper_golem", "filtrovna_helper"]
+      },
+      "minecraft:inventory": {
+        "inventory_size": 10,
+        "container_type": "container",
+        "restrict_to_owner": true
+      },
+      "minecraft:scale": {
+        "value": 0.55
+      },
+      "minecraft:movement": {
+        "value": 0.3
+      },
+      "minecraft:movement.basic": {
+        "max_turn": 50.0
+      },
+      "minecraft:health": {
+        "value": 15,
+        "max": 15
+      },
+      "minecraft:physics": {
+        "has_gravity": true,
+        "has_collision": true
+      },
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:interact": {
+        "interactions": [
+          {
+            "on_interact": {
+              "filters": {
+                "test": "has_equipment",
+                "subject": "other",
+                "domain": "hand",
+                "value": "minecraft:honeycomb"
+              },
+              "event": "filtrovna:wax_golem",
+              "use_item": true,
+              "transform_to_item": ""
+            }
+          }
+        ]
+      },
+      "minecraft:navigation.walk": {
+        "can_path_over_water": true,
+        "can_walk_over_powder_snow": true,
+        "can_walk_in_lava": false
+      },
+      "minecraft:navigation.climb": {
+        "max_height": 1
+      },
+      "minecraft:navigation.swim": {
+        "can_path_over_water": true
+      },
+      "minecraft:navigation.fly": {
+        "can_path_over_water": false
+      },
+      "minecraft:sensor.vibration": {
+        "range": 16.0
+      },
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": 0
+      },
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "cause": "all",
+          "deals_damage": true
+        }
+      },
+      "minecraft:nametag": {
+        "always_show": false
+      }
+    },
+    "component_groups": {
+      "filtrovna:copper": {
+        "components": {
+          "minecraft:scale": {
+            "value": 0.55
+          },
+          "minecraft:movement": {
+            "value": 0.3
+          }
+        }
+      },
+      "filtrovna:exposed": {
+        "components": {
+          "minecraft:scale": {
+            "value": 0.55
+          },
+          "minecraft:movement": {
+            "value": 0.255
+          }
+        }
+      },
+      "filtrovna:weathered": {
+        "components": {
+          "minecraft:scale": {
+            "value": 0.55
+          },
+          "minecraft:movement": {
+            "value": 0.21
+          }
+        }
+      },
+      "filtrovna:oxidized": {
+        "components": {
+          "minecraft:scale": {
+            "value": 0.55
+          },
+          "minecraft:movement": {
+            "value": 0.175
+          }
+        }
+      },
+      "filtrovna:waxed": {
+        "components": {
+          "minecraft:scale": {
+            "value": 0.55
+          },
+          "minecraft:movement": {
+            "value": 0.3
+          }
+        }
+      }
+    },
+    "events": {
+      "filtrovna:wax_golem": {
+        "add": {
+          "component_groups": ["filtrovna:waxed"]
+        },
+        "remove": {
+          "component_groups": ["filtrovna:copper", "filtrovna:exposed", "filtrovna:weathered", "filtrovna:oxidized"]
+        }
+      },
+      "filtrovna:oxidize": {
+        "sequence": [
+          {
+            "add": {
+              "component_groups": ["filtrovna:exposed"]
+            },
+            "remove": {
+              "component_groups": ["filtrovna:copper", "filtrovna:waxed"]
+            }
+          },
+          {
+            "add": {
+              "component_groups": ["filtrovna:weathered"]
+            },
+            "remove": {
+              "component_groups": ["filtrovna:exposed"]
+            }
+          },
+          {
+            "add": {
+              "component_groups": ["filtrovna:oxidized"]
+            },
+            "remove": {
+              "component_groups": ["filtrovna:weathered"]
+            }
+          }
+        ]
+      },
+      "filtrovna:deoxidize": {
+        "add": {
+          "component_groups": ["filtrovna:copper"]
+        },
+        "remove": {
+          "component_groups": ["filtrovna:exposed", "filtrovna:weathered", "filtrovna:oxidized"]
+        }
+      }
+    }
+  }
+}

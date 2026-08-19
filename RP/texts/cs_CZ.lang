@@ -1,0 +1,41 @@
+# Filtrovna - Česká lokalizace
+
+# Bloky
+tile.filtrovna:filtr.name=Filtr
+tile.filtrovna:filtr.description=Inteligentní třídící blok s měděným golemem
+
+# Entity
+entity.filtrovna:golem_inside.name=Filtr Golem
+entity.filtrovna:golem_inside.description=Interní entita pro třídění položek
+entity.filtrovna:mini_copper_golem.name=Mini Měděný Golem
+entity.filtrovna:mini_copper_golem.description=Pomocník pro sběr a doručování položek
+
+# UI Texty
+filtrovna.ui.title=Filtr - Správa Golema
+filtrovna.ui.section.vstup=VSTUP (0-8)
+filtrovna.ui.section.filtr=FILTR PRAVIDLA (9-18)
+filtrovna.ui.section.match=VÝSTUP - MATCH (19-27)
+filtrovna.ui.section.ne=ODPAD - NE (28-36)
+filtrovna.ui.empty=Prázdný
+filtrovna.ui.clear_slot=Vyprázdnit slot
+filtrovna.ui.set_item=Nastavit položku
+filtrovna.ui.amount=Množství
+
+# Stavové zprávy
+filtrovna.state.idle=Čeká
+filtrovna.state.processing=Třídí
+filtrovna.state.match=Shoda nalezená
+filtrovna.state.ne=Neshoda
+filtrovna.state.drop=Vyhození položky
+filtrovna.state.stuck=Zaseknutý
+
+# Chybové zprávy
+filtrovna.error.no_golem=§cChyba: Golem nebyl nalezen!
+filtrovna.error.no_inventory=§cChyba: Inventář není dostupný!
+filtrovna.error.invalid_slot=§cChyba: Neplatný slot!
+filtrovna.error.full_inventory=§cChyba: Inventář je plný!
+
+# Úspěšné zprávy
+filtrovna.success.slot_cleared=§aSlot vyprázdněn
+filtrovna.success.item_set=§aPoložka nastavena
+filtrovna.success.items_delivered=§aPoložky doručeny

@@ -1,0 +1,96 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "filtrovna:golem_inside",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:type_family": {
+        "families": ["inanimate", "filtrovna_golem"]
+      },
+      "minecraft:inventory": {
+        "inventory_size": 37,
+        "container_type": "container",
+        "restrict_to_owner": false
+      },
+      "minecraft:scale": {
+        "value": 0.55
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:health": {
+        "value": 1,
+        "max": 1
+      },
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "cause": "all",
+          "deals_damage": false
+        }
+      },
+      "minecraft:nametag": {
+        "always_show": false,
+        "color": "#B87333"
+      }
+    },
+    "component_groups": {
+      "filtrovna:state_idle": {
+        "components": {
+          "minecraft:glow": {
+            "color": "#00FF00",
+            "strength": 8
+          }
+        }
+      },
+      "filtrovna:state_processing": {
+        "components": {
+          "minecraft:glow": {
+            "color": "#FFFF00",
+            "strength": 10
+          }
+        }
+      },
+      "filtrovna:state_match": {
+        "components": {
+          "minecraft:glow": {
+            "color": "#0080FF",
+            "strength": 12
+          }
+        }
+      },
+      "filtrovna:state_ne": {
+        "components": {
+          "minecraft:glow": {
+            "color": "#FF8000",
+            "strength": 12
+          }
+        }
+      },
+      "filtrovna:state_drop": {
+        "components": {
+          "minecraft:glow": {
+            "color": "#FFFFFF",
+            "strength": 15
+          }
+        }
+      },
+      "filtrovna:state_stuck": {
+        "components": {
+          "minecraft:glow": {
+            "color": "#FF0000",
+            "strength": 6
+          }
+        }
+      }
+    }
+  }
+}

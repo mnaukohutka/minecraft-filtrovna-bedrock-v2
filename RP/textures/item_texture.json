@@ -1,0 +1,9 @@
+{
+  "resource_pack_name": "Filtrovna",
+  "texture_name": "atlas.items",
+  "padding": 8,
+  "num_mips": 4,
+  "textures": [
+    "textures/items/filtr_item"
+  ]
+}
