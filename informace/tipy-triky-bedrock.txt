@@ -1,0 +1,51 @@
+Pokročilé Techniky, Triky a Doplňkové Systémy v Minecraft Bedrock
+Tento dokument doplňuje předchozí díly o praktické zkušenosti, skryté mechaniky, lokalizaci, zvuky, částice, síťovou komunikaci a řešení častých problémů, se kterými se vývojář addonů setká.
+1. Trvalé Ukládání Dat (Dynamic Properties API)
+Jedním z nejčastějších problémů vývojářů bývá: Jak si zapamatovat data i po restartu světa nebo odpojení hráče? (Např. úroveň hráče, peníze, mana, stav vlastního bloku).
+K tomu slouží Dynamic Properties v ⁠@minecraft/server⁠.
+A) Vlastnosti Hráče a Entit (Entity Dynamic Properties)
+Před použitím je nutné vlastnost zaregistrovat v události ⁠worldInitialize⁠.
+B) Světové Vlastnosti (World Dynamic Properties)
+Pro globální data (např. kdo vyhrál minihru, celkový čas světa, stav ekonomiky):
+2. Vlastní Zvuky a Zvukové Banky (Sound Definitions)
+Pro přidání vlastních Custom zvuků (ve formátu ⁠.ogg⁠) do hry je potřeba nastavit soubory v Resource Packu.
+A) Umístění souboru
+Soubor ulož do: ⁠RP/sounds/muj_addon/magicka_stela.ogg⁠
+B) Definice zvuku (⁠RP/sounds/sound_definitions.json⁠)
+C) Spuštění zvuku v JS nebo JSONu
+V JS použij:
+3. Vlastní Částice (Particles via Snowstorm)
+Částice (Particles) výrazně zlepšují vizuál kouzel, strojů a efektů. Nejlepším nástrojem pro tvorbu částic je Snowstorm (doplněk do Blockbenchu nebo samostatná aplikace).
+Soubor ulož do: ⁠RP/particles/magicky_kruh.particle.json⁠
+Příklad spuštění částice z JavaScriptu s předáním Molang proměnných:
+4. Vlastní Generování Struktur (Features & Feature Rules)
+Pokud chceš, aby se v přírodě generovaly tvoje vlastní stavby nebo stromy, nepotřebuješ skripty. Použij datově řízený systém ⁠features⁠ a ⁠feature_rules⁠.
+5. Lokalizace a Podpora Více Jazyků (i18n)
+Aby tvůj addon fungoval v češtině, angličtině i dalších jazycích bez nutnosti upravovat kód, používej soubory ⁠.lang⁠.
+Cesta: ⁠RP/texts/cs_CZ.lang⁠ a ⁠RP/texts/en_US.lang⁠
+Obsah ⁠cs_CZ.lang⁠:
+Použití v JS:
+6. Propojení s Vnějším Světem (Webhooks & HTTP)
+Na dedikovaných serverech (BDS) můžeš pomocí modulu ⁠@minecraft/server-net⁠ propojit Minecraft s Discordem nebo webovou databází.
+Nezapomeň v ⁠manifest.json⁠ přidat modul ⁠@minecraft/server-net⁠.
+7. Skryté Zádrhele a Jak se Jim Vyhnout
+Tuto sekci si dobře prostuduj – ušetří ti desítky hodin frustrace při ladění:
+❌ 1. Souběžnost a Async v Eventech
+Pamatuj, že posluchače ⁠beforeEvents⁠ nesmí být ⁠async⁠ funkce, pokud se pokoušíš zrušit událost pomocí ⁠event.cancel = true⁠. Pokud funkci označíš jako ⁠async⁠, event proběhne dříve, než se vyhodnotí tvůj kód, a stornování nebude fungovat!
+❌ 2. Chybějící Namespace
+Každý tvůj custom blok, item, entita nebo příkaz musí mít namespace (např. ⁠muj_addon:blok⁠). Nikdy nepoužívej ⁠minecraft:⁠ jako namespace pro vlastní tvorbu, hra tyto soubory ignoruje nebo selže při načítání.
+❌ 3. Cache a Obnova Souborů v Vývojové Složce
+Když upravíš skript v ⁠development_behavior_packs⁠, Minecraft někdy drží starou verzi v paměti RAM.
+￼ Trik: Použij ve hře příkaz ⁠/reload⁠ pro opětné načtení skriptů bez nutnosti restartovat celou hru a opouštět svět.
+❌ 4. Problémy s Velikostí Písmen (Case-Sensitivity)
+Zatímco Windows nerozlišuje velká a malá písmena v názvech souborů, Android, iOS, Nintendo Switch a Linux servery ano. Pokud máš v JSONu cestu ⁠textures/Items/Mec.png⁠ a soubor se jmenuje ⁠mec.png⁠, na PC ti addon pofrčí, ale na mobilu bude textura průhledná/černorůžová!
+￼ Pravidlo: Používej výhradně malá písmena a podtržítka (⁠snake_case⁠).
+8. Kontrolní Checklist před Vydáním Addonu
+Než pošleš ⁠.mcaddon⁠ kamarádům nebo ho nahrajete na internet, ověř následující body:
+￼ [ ] Smazal jsi ze skriptů všechna testovací volání (⁠console.log⁠, ⁠/say test⁠)?
+￼ [ ] Jsou v manifestu správně spárována UUID a verze balíčků?
+￼ [ ] Jsou všechny textury v rozlišení mocnin dvou (16x16, 32x32, 64x64, 128x128)?
+￼ [ ] Použil jsi v názvech složek a souborů pouze malá písmena bez diakritiky?
+￼ [ ] Otestoval jsi addon na čistém světě bez zapnutých jiných addonů?
+￼ [ ] Zkontroloval jsi Content Log (⁠ContentLog.txt⁠), zda neobsahuje varování nebo skryté chyby?
+Tímto dokumentem je kompletní série návodů dokončena. Nyní máš v rukou veškerou teoretickou i praktickou základnu pro tvorbu profesionálních addonů pro Minecraft Bedrock Edition!
