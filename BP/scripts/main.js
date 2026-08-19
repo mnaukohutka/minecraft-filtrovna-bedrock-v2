@@ -257,16 +257,37 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
 // =============================================================================
 
 system.runInterval(() => {
+  // Hledáme všechny golemy uvnitř bloků a zpracováváme jejich bloky
   const dimensions = ["overworld", "nether", "the_end"];
   
   for (const dimName of dimensions) {
     const dimension = world.getDimension(dimName);
-    const filterBlocks = dimension.getBlocks({
-      type: "filtrovna:filtr"
-    });
-
-    for (const block of filterBlocks) {
-      processFilterBlock(block, dimension);
+    
+    // Najít všechny golemy uvnitř bloků
+    const golems = dimension.getEntities({ type: "filtrovna:golem_inside" });
+    
+    for (const golem of golems) {
+      const golemId = golem.id;
+      const golemLoc = golem.location;
+      
+      // Získat blok na pozici golema
+      const blockX = Math.floor(golemLoc.x);
+      const blockY = Math.floor(golemLoc.y);
+      const blockZ = Math.floor(golemLoc.z);
+      
+      const blocks = dimension.getBlocks({
+        x: blockX, y: blockY, z: blockZ
+      });
+      
+      for (const block of blocks) {
+        if (block.typeId === "filtrovna:filtr") {
+          const blockGolemId = block.getDynamicProperty("golem_id");
+          if (blockGolemId === golemId) {
+            processFilterBlock(block, dimension);
+            break;
+          }
+        }
+      }
     }
   }
 }, 2); // Každé 2 ticky (0.1 vteřiny)
@@ -401,47 +422,55 @@ function processMiniGolem(golem, dimension) {
 
   // Pokud je inventář plný, hledat nejbližší Filtr blok a doručit
   if (inv.emptySlotsCount === 0) {
-    const filterBlocks = dimension.getBlocks({
-      type: "filtrovna:filtr",
-      location: golem.location,
-      maxDistance: 32
-    });
-
-    if (filterBlocks.length > 0) {
-      // Najít nejbližší blok
-      let nearestBlock = null;
+    const filterGolems = dimension.getEntities({ type: "filtrovna:golem_inside" });
+    
+    if (filterGolems.length > 0) {
+      // Najít nejbližší golem uvnitř bloku
+      let nearestGolem = null;
       let minDistance = Infinity;
 
-      for (const block of filterBlocks) {
+      for (const filterGolem of filterGolems) {
         const dist = Math.sqrt(
-          Math.pow(block.location.x - golem.location.x, 2) +
-          Math.pow(block.location.y - golem.location.y, 2) +
-          Math.pow(block.location.z - golem.location.z, 2)
+          Math.pow(filterGolem.location.x - golem.location.x, 2) +
+          Math.pow(filterGolem.location.y - golem.location.y, 2) +
+          Math.pow(filterGolem.location.z - golem.location.z, 2)
         );
         if (dist < minDistance) {
           minDistance = dist;
-          nearestBlock = block;
+          nearestGolem = filterGolem;
         }
       }
 
-      if (nearestBlock) {
-        // Přiblížit se k bloku a vložit položky do VSTUP slotů
-        const golemId = nearestBlock.getDynamicProperty("golem_id");
-        if (golemId) {
-          const targetGolem = world.getEntity(golemId);
-          if (targetGolem) {
-            const targetInv = targetGolem.getComponent("minecraft:inventory")?.container;
-            if (targetInv) {
-              // Vložit všechny položky z inventáře Mini Golema do VSTUP slotů
-              for (let i = 0; i < inv.size; i++) {
-                const item = inv.getItem(i);
-                if (item) {
-                  // Hledat první volný slot ve VSTUPU
-                  for (let j = SLOTS.VSTUP.start; j <= SLOTS.VSTUP.end; j++) {
-                    if (!targetInv.getItem(j)) {
-                      targetInv.setItem(j, item);
-                      inv.setItem(i, undefined);
-                      break;
+      if (nearestGolem) {
+        // Vložit všechny položky z inventáře Mini Golema do VSTUP slotů
+        for (let i = 0; i < inv.size; i++) {
+          const item = inv.getItem(i);
+          if (item) {
+            // Najít blok, který má tento golem přiřazený
+            const blockX = Math.floor(nearestGolem.location.x);
+            const blockY = Math.floor(nearestGolem.location.y);
+            const blockZ = Math.floor(nearestGolem.location.z);
+            
+            const blocks = dimension.getBlocks({
+              x: blockX, y: blockY, z: blockZ
+            });
+            
+            for (const block of blocks) {
+              if (block.typeId === "filtrovna:filtr") {
+                const targetGolemId = block.getDynamicProperty("golem_id");
+                if (targetGolemId === nearestGolem.id) {
+                  const targetGolem = world.getEntity(targetGolemId);
+                  if (targetGolem) {
+                    const targetInv = targetGolem.getComponent("minecraft:inventory")?.container;
+                    if (targetInv) {
+                      // Hledat první volný slot ve VSTUPU
+                      for (let j = SLOTS.VSTUP.start; j <= SLOTS.VSTUP.end; j++) {
+                        if (!targetInv.getItem(j)) {
+                          targetInv.setItem(j, item);
+                          inv.setItem(i, undefined);
+                          break;
+                        }
+                      }
                     }
                   }
                 }
@@ -450,8 +479,8 @@ function processMiniGolem(golem, dimension) {
           }
         }
       }
-      return;
     }
+    return;
   }
 
   // Pokud je inventář prázdný, hledat položky na zemi
@@ -528,13 +557,6 @@ system.runInterval(() => {
     }
   }
 }, 1200); // Každou minutu (1200 ticků)
-
-// =============================================================================
-// INTERAKCE S HOSPODÁŘEM (VOSKOVÁNÍ)
-// =============================================================================
-
-// Tato část je již pokryta v entity definici prostřednictvím interakčního eventu
-// "filtrovna:wax_golem" který se spustí při použití honeycomb na golema
 
 // =============================================================================
 // POMOCNÉ FUNKCE
