@@ -1,0 +1,65 @@
+Kompletní průvodce tvorbou Addonů pro Minecraft Bedrock
+Tento dokument je komplexním manuálem pro tvorbu Addonů v Minecraft Bedrock Edition. Pokrývá vše od základního nastavení až po pokročilé funkce a Developer Scripting API (JavaScript/TypeScript).
+1. Úvod a Příprava vývojového prostředí
+Addony v Bedrock edici se skládají ze dvou hlavních částí:
+1. Resource Pack (RP): Vizuální a zvuková část (textury, modely, animace, zvuky, částice).
+2. Behavior Pack (BP): Logická a datová část (chování entit, vlastnosti bloků/itemů, loot tables, recepty, skripty).
+Nutné nástroje:
+￼ Editor kódu: Visual Studio Code (s rozšířeními jako Blockception's Minecraft Bedrock Development nebo Snowstorm).
+￼ Generátor UUID: Pro ⁠manifest.json⁠ (např. uuidgenerator.net). Každý pack potřebuje unikátní identifikátory.
+￼ 3D Modelovací nástroj: Blockbench – průmyslový standard pro tvorbu modelů a animací do Minecraftu.
+￼ (Volitelné) bridge. IDE: Specializovaný program přímo pro tvorbu addonů, který zjednodušuje psaní JSON souborů.
+Nastavení Minecraftu:
+V nastavení hry (Settings -> Creator) zapni Enable Content Log File a Enable Content Log GUI. Tím se ti budou ve hře zobrazovat chyby v kódu tvého addonu (tzv. Content Log).
+Při vytváření světa pro testování nezapomeň v sekci "Experiments" zapnout Beta APIs a případně další experimentální funkce podle toho, co vyvíjíš.
+2. Základní struktura a Manifesty
+Složky addonu se umisťují do složek hry (ve Windows 10/11):
+￼ ⁠development_behavior_packs⁠
+￼ ⁠development_resource_packs⁠
+Cesta (UWP): ⁠%localappdata%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\⁠
+Struktura složek:
+Manifest.json (Základní stavební kámen)
+Každý pack musí mít svůj manifest. Příklad BP ⁠manifest.json⁠:
+Poznámka: ⁠modules⁠ definuje, co pack obsahuje (data pro JSONy, script pro JS). ⁠dependencies⁠ propojuje BP a RP, a také importuje Scripting API.
+3. Vývoj bez kódování: JSON (Data-Driven mechaniky)
+Bedrock je silně "Data-Driven" (řízený daty). Většinu věcí vytvoříš pomocí JSON souborů.
+A) Vlastní Itemy (Předměty)
+Vytvoř soubor v ⁠BP/items/custom_sword.json⁠:
+V RP/textures/item_texture.json pak musíš spárovat ⁠"ohnivy_mec_ikona"⁠ s reálnou PNG texturou.
+B) Vlastní Bloky
+Bloky používají komponenty (components) a události (events).
+C) Entity (Moby)
+Entity jsou nejsložitější JSON struktury. Skládají se z:
+1. Components: Základní vlastnosti (životy, pohyb, fyzika).
+2. Component Groups: Skupiny vlastností, které se dají dynamicky přidávat/odebírat.
+3. Events: Události, které spouští změny (např. po zásahu se entita naštve = odebere se skupina "v_klidu", přidá se skupina "utoci").
+Příklad části BP pro entitu (např. custom zombie):
+4. Pokročilé JSON mechaniky
+Animation Controllers (Logické "Tickování")
+Pokud nechceš/nemůžeš použít JavaScript, můžeš použít Animation Controllers v BP, které běží neustále a fungují jako stavové automaty (State Machines).
+Můžeš v nich spouštět příkazy (⁠/say⁠, ⁠/particle⁠) na základě podmínek (např. "pokud má entita méně než 5 HP, přejdi do stavu B a spusť explozi").
+Data-Driven Spawning a Biomy
+Můžeš přidávat vlastní pravidla generování pro struktury, stromy a entity pomocí složek ⁠spawn_rules⁠, ⁠features⁠ a ⁠feature_rules⁠.
+5. Vývojářské Scripting API (JavaScript / TypeScript)
+Pro ty nejkomplikovanější vymoženosti se dnes používá modulární systém ⁠@minecraft/server⁠. Je to plnohodnotný JavaScript/TypeScript engine běžící na serveru (nebo na klientovi v singlu).
+Podmínka: Musíš mít v manifestu aktivovanou závislost na ⁠@minecraft/server⁠ a ve světě povolené "Beta APIs" (případně konkrétní verzi API bez bety, pokud už je stabilní).
+A) Základní struktura skriptu (⁠BP/scripts/main.js⁠)
+B) Vlastní formuláře a UI (Server-UI API)
+Chceš udělat vlastní menu jako na serverech? Přidej do manifestu dependenci ⁠@minecraft/server-ui⁠.
+C) Script Custom Components (Nejnovější funkce)
+Nejmodernější způsob, jak propojit JSON bloky/itemy se skripty. V JSONu bloku nadefinuješ komponentu:
+⁠"custom_components": ["muj_addon:magicky_blok"]⁠
+A ve skriptu (main.js) ji zaregistruješ:
+Tímto způsobem eliminuješ potřebu složitých Animation Controllerů a tvoříš vysoce optimalizovaný, čistý kód.
+6. Balení a Publikace (Závěr)
+Když je tvůj addon hotový, potřebuješ ho zabalit, aby ho šlo snadno sdílet.
+1. Zkomprimuj obsah složky BP do ZIP archivu a přejmenuj ho na ⁠.mcpack⁠ (např. ⁠MujAddon_BP.mcpack⁠).
+2. Udělej totéž pro složku RP (např. ⁠MujAddon_RP.mcpack⁠).
+3. (Nejlepší varianta) Zkomprimuj oba packy (složku s BP a složku s RP) do jednoho ZIPu a přejmenuj příponu na ⁠.mcaddon⁠ (např. ⁠MujAddon_Full.mcaddon⁠).
+Když uživatel poklepe na ⁠.mcaddon⁠ soubor, hra automaticky naimportuje jak Behavior Pack, tak Resource Pack.
+Zlatá pravidla a zdroje:
+￼ Verzování je klíč: Pokud něco nefunguje, zkontroluj verzi formátu (⁠"format_version"⁠) v JSON souborech. Bedrock často mění syntaxi a pokud použiješ starou verzi na novém formátu kódu, hra to ignoruje.
+￼ Content Log: Tvůj nejlepší přítel při debugování. Sleduj ho!
+￼ Oficiální dokumentace (Microsoft Learn): learn.microsoft.com/en-us/minecraft/creator/
+￼ Komunitní Wiki a návody: bedrock.dev a wiki.bedrock.dev
+Hodně štěstí při vývoji! Limitem je jen tvá fantazie a výpočetní výkon zařízení.
