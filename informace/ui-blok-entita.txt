@@ -1,0 +1,31 @@
+Detailní Průvodce: Uživatelská Rozhraní, Logika Bloků a AI Entit v Bedrocku
+Tento dokument je specializovaným průvodcem pro tvorbu pokročilého UI (uživatelských rozhraní), state enginu pro vlastní bloky a AI/behaviorálních stromů pro entity v Minecraft Bedrock Edition.
+1. Uživatelská Rozhraní (UI) a Návrhové Vzory
+V Bedrocku máme k dispozici dvě cesty ke tvorbě rozhraní:
+1. Scripting API (⁠@minecraft/server-ui⁠): Dynamické dialogy generované přímo ze skriptu (doporučeno pro systémy, shopy, questy).
+2. JSON Custom UI (Resource Pack): Úprava nebo tvorba nativních herních obrazovek v RP pomocí ⁠.json⁠ souborů ve složce ⁠RP/ui/⁠.
+A) Kompletní Návrhový Vzor Pro Server-UI
+Pro komplexní aplikace v JS/TS je osvědčené oddělit tvorbu formulářů do samostatných funkcí.
+Příklad zpravení celého rozhraní Obchodu (Shop System):
+B) Nativní Custom UI Soubory (Resource Pack)
+Pro změnu nativních HUD prvků nebo inventářů upravujeme soubory ve složce ⁠RP/ui/⁠.
+Nativní UI používá specifikaci JsonUI.
+Základní principy JsonUI:
+￼ ⁠controls⁠: Pole UI prvků (panely, texty, obrázky, tlačítka).
+￼ ⁠bindings⁠: Propojení vlastností UI s vnitřními daty hry (např. zobrazení aktuálního počtu HP).
+￼ ⁠size⁠ / ⁠offset⁠: Určení velikosti a pozice na obrazovce.
+2. Pokročilá Vnitřní Logika Bloků (Block State Engine)
+Bloky v Bedrocku mohou mít vlastní stavy (States), dynamické textury, rotace a skriptovou logiku.
+A) Definováni Stavů a Permutací v JSON (Behavior Pack)
+Soubor ⁠BP/blocks/custom_generator.json⁠:
+B) Skriptová Řídící Logika Bloku (Script Custom Component)
+Skript propojený s bloku registrujeme pomocí ⁠BlockCustomComponent⁠ v JS/TS:
+3. Komplexní AI a Vnitřní Logika Entit
+Entity fungují v Bedrocku na bázi Behaviorálních Stromů (Goal Selectors) a Stavových Skupin (Component Groups).
+A) Prioritizace AI Cílů (⁠BP/entities/custom_mob.json⁠)
+Příklad nastavení chování (AI) pro custom entitu:
+B) Dynamická Změna AI Entit pomocí Skriptu (JS)
+Pomocí JavaScriptu můžeme spouštět eventy definované v JSONu entity, nebo přímo modifikovat její vlastnosti.
+4. Architektura a Optimalizace Výkonu
+Při navrhování vnitřní logiky bloků a entit je nutné dbát na výkon (FPS a TPS serveru).
+Zásady Správného Vývoje:
