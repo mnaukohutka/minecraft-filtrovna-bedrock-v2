@@ -1,0 +1,1 @@
+užitečný zdroj textur, zvuků, a jiných materiálů z originál Minecraft: https://github.com/ZtechNetwork/MCBVanillaResourcePack.git
