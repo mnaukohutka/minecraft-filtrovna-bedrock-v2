@@ -1,0 +1,90 @@
+Kompletní Přehled Developer API a Systémů pro Minecraft Bedrock
+Tento dokument poskytuje detailní referenční přehled všech dostupných vývojářských modulů (Scripting API), výrazového jazyka Molang, Render Controllerů, Event systému a diagnostických nástrojů v nejnovější verzi Minecraft Bedrock Edition.
+1. Kompletní Přehled Scripting API Modulů (⁠@minecraft/*⁠)
+Scripting API v Bedrocku je rozděleno do několika specializovaných modulů. Všechny skripty běží v izolovaném V8 prostředí (JavaScript ES2022 / TypeScript).
+A) ⁠@minecraft/server⁠ (Hlavní logika hry)
+Základní modul pro manipulaci se světem, entitami, bloky a časem.
+￼ World & Dimension API:
+￼ ⁠world.getDimension("overworld" | "nether" | "the_end")⁠ – přístup k dimenzím.
+￼ ⁠dimension.spawnEntity(identifier, location)⁠ – vytváření entit.
+￼ ⁠dimension.setBlockPermutation(location, permutation)⁠ – bezpečné měnění bloků.
+￼ ⁠dimension.fillBlocks(volume, block)⁠ – masivní úprava bloků.
+￼ ⁠dimension.spawnParticle(effectName, location, molangVariables)⁠ – spouštění particle efektů.
+￼ ⁠dimension.playSound(soundName, location, options)⁠ – přehrávání zvuků na pozici.
+￼ Entity API:
+￼ ⁠entity.applyImpulse(vector)⁠ – aplikace fyzikálních sil (odhození/pohyb).
+￼ ⁠entity.addEffect(effectType, duration, options)⁠ – udělování potion efektů.
+￼ ⁠entity.getComponent(componentId)⁠ – přístup k vlastnostem (např. ⁠minecraft:health⁠, ⁠minecraft:inventory⁠).
+￼ ⁠entity.teleport(location, dimensionOptions)⁠ – precizní teleportace.
+￼ ⁠entity.runCommandAsync(command)⁠ – bezpečné spouštění příkazů.
+￼ Block & Container API:
+￼ ⁠block.getItemStack()⁠ – získání dropů z bloku.
+￼ ⁠block.setPermutation(permutation)⁠ – úprava stavu bloku (např. rotace, zapnut/vypnut).
+￼ ⁠Container⁠ – manipulace s inventáři truhlic, stojanů na brnění atd.
+￼ System & Scheduler:
+￼ ⁠system.run(callback)⁠ – spuštění kódu v dalším serverovém ticku.
+￼ ⁠system.runInterval(callback, intervalInTicks)⁠ – opakovaný časovač (20 ticků = 1 vteřina).
+￼ ⁠system.runTimeout(callback, delayInTicks)⁠ – jednorázový odložený časovač.
+￼ ⁠system.clearRun(runId)⁠ – zrušení časovače.
+B) ⁠@minecraft/server-ui⁠ (Uivatelské Rozhraní)
+Umožňuje vytvářet dialogová okna, formuláře a výběry bez nutnosti úpravy HTML/CSS.
+￼ ⁠ActionFormData⁠ – Nabídka s tlačítky a obrázky (vhodné pro hlavní menu, shopy).
+￼ ⁠ModalFormData⁠ – Kompletní formulář (obsahuje inputy, slidery, přepínače, dropdowny).
+￼ ⁠MessageFormData⁠ – Jednoduchý pop-up dialog (dva vybrané stavové knoflíky, např. "Ano / Ne").
+Příklad pokročilého ⁠ModalFormData⁠:
+C) ⁠@minecraft/server-admin⁠ (Administrace Serveru)
+Určeno pro dedikované servery (BDS). Umožňuje načítat tajné klíče, proměnné prostředí a spravovat konfiguraci bez exponování dat klientům.
+￼ ⁠variables.get("SECRET_KEY")⁠ – bezpečné čtení dat z ⁠secrets.json⁠.
+D) ⁠@minecraft/server-net⁠ (Síťová Komunikace)
+Experimentální modul určený pro dedikované servery. Umožňuje odesílat HTTP/HTTPS požadavky na vnější servery (REST API, Webhooky na Discord, databáze).
+￼ ⁠http.request(request)⁠ / ⁠http.get(url)⁠ / ⁠http.post(url)⁠ – odesílání POST/GET požadavků.
+2. Event Systém (Události v Reálném Čase)
+Eventy se dělí na ⁠beforeEvents⁠ (spouštějí se před vykonáním akce a lze je stornovat) a ⁠afterEvents⁠ (spouštějí se po reakci hry, slouží ke zpětné vazbě).
+Klávesové Události & Akce Hráče (⁠beforeEvents⁠):
+￼ ⁠beforeEvents.itemUse⁠ – stornování/přepsání použití předmětu (pravé tlačítko myši).
+￼ ⁠beforeEvents.playerBreakBlock⁠ – zabránění zničení bloku na základě podmínek.
+￼ ⁠beforeEvents.entityHurt⁠ – úprava obdrženého poškození nebo kompletní blokace zásahu.
+Reakční Události (⁠afterEvents⁠):
+￼ ⁠afterEvents.entityDie⁠ – sledování zabití entit, vytváření vlastních zkušeností (XP) a custom dropů.
+￼ ⁠afterEvents.playerSpawn⁠ – inicializace hráčských dat po připojení nebo respawnu.
+￼ ⁠afterEvents.chatSend⁠ – tvorba custom chatu, filtrů nebo zpracování chatu pro příkazy.
+￼ ⁠afterEvents.worldInitialize⁠ – registrace Script Custom Components pro bloky a itemy.
+3. Molang – Výrazový Jazyk Minecraftu
+Molang je lehký, extrémně rychlý matematický a logický skriptovací jazyk používaný v animacích, rendererech, částicích a JSON logice entit bez použití JavaScriptu.
+Syntaxe a Proměnné:
+￼ ⁠query.*⁠ (nebo ⁠q.*⁠) – Čtení dat ze hry (např. ⁠q.health⁠, ⁠q.is_sneaking⁠, ⁠q.anim_time⁠).
+￼ ⁠variable.*⁠ (nebo ⁠v.*⁠) – Uživatelské proměnné definované vývojářem.
+￼ ⁠context.*⁠ (nebo ⁠c.*⁠) – Kontextové informace předané událostí (např. ⁠c.item_stack⁠).
+￼ ⁠math.*⁠ – Matematické funkce (⁠math.sin⁠, ⁠math.cos⁠, ⁠math.clamp⁠, ⁠math.random⁠).
+Příklad Molang výrazu:
+4. Render Controllers a Animace (Resource Pack)
+Jedná se o systémy, které určují, jak se entity zobrazují, jaké používají textury, geometrie a jak reagují na pohyb.
+A) Render Controllers (⁠RP/render_controllers/⁠)
+Propojují 3D model (geometry), textury a materiály s entitou pomocí Molang podmínek.
+B) Animation Controllers (⁠RP/animation_controllers/⁠)
+Přehrávají vizuální animace (vytvořené např. v Blockbenchi) na základě stavu entity.
+5. Příkazový Systém (Commands & GameTests)
+Nativní příkazový řádek v Bedrocku byl v nejnovějších verzích rozšířen o pokročilé funkce.
+Klíčové Příkazy pro Vývojáře:
+￼ ⁠/scriptevent <messageId: string> <message: string>⁠ – odeslání zprávy z přikazového bloku přímo do JavaScriptu!
+￼ JS naslouchá přes ⁠system.afterEvents.scriptEventReceive⁠.
+￼ ⁠/damage <target> <amount> [cause]⁠ – udělí přímé poškození entitě s určenou příčinou (např. freezing, entity_attack).
+￼ ⁠/camera <players> set <preset>⁠ – Custom Camera API! Umožňuje přepnout kameru hráče do izometrického pohledu, pohledu ze shora (Top-down) nebo fixní nahrávací pozice.
+￼ ⁠/dialogue⁠ – spouštění NPC dialogových oken z rozhraní hry.
+￼ ⁠/inputpermission⁠ – dynamické zamknutí ovládání (zakázání pohybu nebo otáčení kamery hráče).
+GameTest Framework (⁠@minecraft/server-gametest⁠)
+Oficiální testovací rámec od Mojangu pro automatické testování funkcionality addonu (např. v CI/CD pipeline). Umožňuje vytvářet testovací struktury ve světě a sledovat, zda kód funguje správně.
+6. Diagnostika, Profiling a Debugging
+Pro profesionální vývoj addonů nabízí Bedrock výkonné diagnostické nástroje.
+A) Content Log GUI & File
+￼ Zobrazení ve hře: Zapíná se v ⁠Settings -> Creator -> Enable Content Log GUI⁠. Zobrazuje chyby v chybějících texturách, špatných JSON klíčích a JS výjimkách v reálném čase.
+￼ Soubor logu: Nachází se v ⁠%localappdata%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\logs\ContentLog.txt⁠.
+B) Profiling Skriptů (Chrome DevTools Debugging)
+Skripty běžící v Bedrocku lze v reálném čase debugovat přes vývojářské nástroje prohlížeče Chrome!
+1. Spusť Minecraft s parametrem: ⁠bedrock_server.exe --script-enables-dev-docs⁠ nebo přes konzoli povol skriptovací port.
+2. Otevři v Chrome adresu: ⁠chrome://inspect⁠.
+3. Připoj se na port Minecraftu (vzákladním nastavení ⁠9229⁠).
+4. Můžeš využívat Breakpoints, sledovat Call Stack, analyzovat Memory Leaks a provádět CPU Profiling JavaScriptového kódu!
+C) Profiling Výkonu (⁠/script profiler⁠)
+￼ Příkaz ⁠/script profiler start⁠ spustí nahrávání spotřeby paměti a procesorového času jednotlivých skriptů.
+￼ Po zadání ⁠/script profiler stop⁠ vytvoří hra podrobný ⁠.cpuprofile⁠ soubor, který lze načíst do jakéhokoli analýzátoru kódu pro odhalení lagů (lag spikes).
