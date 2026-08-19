@@ -1,0 +1,45 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "filtrovna:golem_inside",
+      "is_spawnable": false,
+      "is_summonable": true
+    },
+    "components": {
+      "minecraft:type_family": {
+        "families": ["inanimate", "filtrovna_golem"]
+      },
+      "minecraft:inventory": {
+        "inventory_size": 37,
+        "container_type": "container"
+      },
+      "minecraft:scale": {
+        "value": 0.55
+      },
+      "minecraft:movement": {
+        "value": 0.3
+      },
+      "minecraft:health": {
+        "value": 15,
+        "max": 15
+      },
+      "minecraft:interact": {
+        "interactions": [
+          {
+            "on_interact": {
+              "filters": {
+                "test": "has_equipment",
+                "subject": "other",
+                "domain": "hand",
+                "value": "minecraft:honeycomb"
+              },
+              "event": "filtrovna:wax_golem"
+            },
+            "use_item": true
+          }
+        ]
+      }
+    }
+  }
+}

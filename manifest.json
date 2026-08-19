@@ -1,0 +1,29 @@
+--- AKTUÁLNÍ KÓD ZPRÁVě
+
+{
+  "format_version": 2,
+  "header": {
+    "name": "Filtrovna Behavior Pack",
+    "description": "Intellentní třídící systém s Měděnými Golemy",
+    "uuid": "f8a1b2c3-d4e5-4a6b-8c7d-9e0f1a2b3c4d",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 0]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "e7a1b2c3-d4e5-4a6b-8c7d-9e0f1a2b3c4e",
+      "version": [1, 0, 0]
+    },
+    {
+      "type": "script",
+      "uuid": "d6a1b2c3-d4e5-4a6b-8c7d-9e0f1a2b3c4f",
+      "version": [1, 0, 0]
+    },
+    {
+      "type": "script",
+      "uuid": "d6a1b2c3-d4e5-4a6b-8c7d-9e0f1a2b3c4g",
+      "version": [1, 0, 0]
+    }
+  ]
+}

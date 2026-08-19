@@ -1,0 +1,318 @@
+---
+
+**Kódový požadován pro správbu Bedrock pluginu**
+
+---
+
+### **Vytvořené komentáře**
+1. **System constants**
+   - `FILTER_BLOCK_SIZE`: 64  # Bedrock's default block size
+   - `BITMAP_SIZE`: 8  # Bedrock's bitmap size
+
+### **Specifikace vysledec**
+
+---
+
+### **SpecifikACE VYSLEDE**
+
+---
+
+#### **1.1 NÁZV A IDENTIFIKACE**
+Název systému: Filrovna  
+ID bloku: filtrovna:filtr  
+ID vnitřního golema: filtrovna:golem_inside  
+Display name: Filrovna  
+Kategorie: Redstone / Item Transport  
+Stackable: Ano (64)  
+Hardness: 3.5  
+Resistance: 6.0  
+Sound group: Copper  
+Map color: #B87333 (měděná)  
+
+#### **1.2 ARCHITECTURA FILTR BLOKU A GOLEMA UVNITŘ**
+ filtration je 1×1×1 blok s průhledným předním sklem.  
+Vnitř bloku stojí Měděné Golema (filtrovna:golem_inside).  
+ Entita plní DVĚ ZÁSADNÍ ROLE:  
+ - Inventář blok: Nese 37-slotový container, čímž obchází omezení Bedrock Engine u custom bloků.  
+ - Vizuální 3D model & Animace: Golem je viditelný přes přední sklo, reaguje na stav bloku (přikývnutí, kroutí hlavou, hází předměty, zmatkuje při zaseknutí) a má svítící oči.  
+ Směrové třydění:  
+ - VSTUP: Levá strana (označenažlý plus) - 9 slotů, 3×3.  
+ - MATCH: Spodní strana (označena zeleným kolečkem) - 10 slotů, 3×3 - výstup dolů.  
+ - NE: Pravá strana (označena červeným mínus) - 10 slotů, 3×3 - výstup prédleve.  
+
+#### **1.3 PRAXY ZA FILTR ZA FILTR **
+
+// System behavior
+function systembehavior() {
+  const block = this.block;
+  
+  // Add blocks directly to Bedrock's system using Bedrock's add method
+  bedrock.add(block, block.id, block.id.golem_inside, block.id.f filtration, block.id.gummehole, block.id.gummehole.id.gummehole);
+}
+
+// System for moving items
+function intervalsystemevent(end, start, itemId) {
+  const system = this.system;
+  const block = this.block;
+  const renderer = thisrenderer;
+
+  if (itemId === this.item_id) {
+    system.update(itemId, renderer, { 
+      map: {
+        block: {
+          inputSlot: start,
+          items: itemId === this.item_id ? [itemId] : []
+        }
+      }
+    });
+  }
+}
+
+---
+
+### **2.1 SYNTAXE PŘÍKAZY PRO SPRÁVU (SCRIPT EVENTS)**
+// Handle interval events for item moving
+scriptevent filtrationvna:set 0 8 16:stone 100
+scriptevent filtrationvna:set 9 18 16:diamond 3
+
+---
+
+### **3.1 PŘÍKAZY PRO SPRÁVU (SCRIPT BEHAVIOR)**
+// Filter block filter
+function filter() {
+  const block = this.block;
+  const items = this.items;
+  
+  // Use Bedrock's add method with an array of items
+  return block.add(items);
+}
+
+// Filter block gummehole
+function gummehole() {
+  const block = this.block;
+  const items = this.items;
+  const itemsToMove = this.itemsToMove;
+  
+  // Ensure all items are moved to their proper slots
+  while (itemsToMove) {
+    const item = itemsToMove.shift(items);
+    const slot = block.getSlot(item.id);
+    slot.add(item);
+  }
+}
+
+---
+
+### **4.1 PRAXY ZA FILTR PRO FILTR **
+
+// Animation and plotting for dropping items
+function dropAnimation(itemId, slotId, renderer) {
+  const items = this.items;
+  const map = this.map;
+  const block = this.block;
+
+  // Move items to their slot
+  items.sort((a, b) => a.id - b.id).forEach(item => {
+    block.add(item.id, slotId);
+    renderer.add(item, { x: item.x, y: item.y });
+  });
+
+  // Animate moving items
+  renderer.animate({
+    interval: this.interval, 
+    start: 0,
+    items: items,
+    itemId: itemId,
+    slotId: slotId
+  });
+}
+
+// Collision detection
+function collided(a, b) {
+  const map = this.map;
+  return map.collision(a, b);
+}
+
+---
+
+### **5.1 VYHODNěNÉ KODOVY POJEDNÁVANOS**
+
+// Filtr block
+const filtrationBlock = {
+  id: filtrationvna,
+  gummehole: gummehole,
+  filtration: filtration,
+  gummeholeId: gummeholeId,
+  gummeholeResistance: 0.8,
+  gummeholeResistanceHardness: 3.5
+};
+
+// Filter block gummehole
+const gummeholeBlock = {
+  id: gummeholeId,
+  add: add,
+  remove: remove,
+  removeAll: removeAll,
+  available: available,
+  total: total
+};
+
+// Bedrock filters
+const bedrockFilters = {
+  BLOCK_SIZE: 64,
+  BITMAP_SIZE: 8
+};
+
+---
+
+### **5.2 NEKAYKOVÉ PRAXY PRO SPRÁVU**
+
+// Create a renderer for 3D rendering
+const renderer = {
+  map: {
+    blocks: {
+      blocks: {
+        blocks: {
+          blocks: {
+            blocks: {
+              blocks: {
+                blocks: {
+                  blocks: {
+                    blocks: {
+                      blocks: {
+                        blocks: {
+                          blocks: {
+                            blocks: {
+                              blocks: {
+                                blocks: {
+                                  blocks: {
+                                    blocks: {
+                                      blocks: {
+                                        blocks: {
+                      stone: 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+---
+
+### **5.3 PRAXY ZA FILTR ZA FILTR (VYHODNěNÉ KODOVY POJEDNÁVANOS)**
+
+// Simple filter implementation
+function filter(itemId, slotId, renderer) {
+  const items = this.items;
+  const map = this.map;
+
+  if (itemId === this.item_id) {
+    renderer.add(itemId, {
+      position: {
+        x: 0,
+        z: 0
+      }
+    });
+  }
+
+  // Simple movement check
+  renderer.animate({
+    interval: this.interval,
+    start: 0,
+    items: items,
+    itemId: this.item_id,
+    slotId: slotId
+  });
+}
+
+---
+
+### **5.4 PROVÍSO VYHODNěNÉ KODOVY POJEDNÁVANOS**
+
+// Collision detection for Bedrock
+function collision(a, b) {
+  const map = this.map;
+  return map.collision(a, b);
+}
+
+---
+
+### **5.5 PRAVDOZDANNO VYHODNÉ POJEDNÁVANOS**
+
+// Bedrock filters
+const bedrockFilters = {
+  BLOCK_SIZE: 64,
+  BITMAP_SIZE: 8
+};
+
+---
+
+### **5.6 VYHODNĚNÉ PRAXY PRO SPRÁVU (PYTHON)**
+
+import bedrock
+from bedrock import *
+import random
+
+items = []
+itemsToMove = []
+
+def createRenderer(items):
+    renderer = {
+        map: {
+            blocks: {
+                blocks: {
+                    blocks: {
+                        blocks: {
+                            blocks: {
+                                blocks: {
+                                    blocks: {
+                                        blocks: {
+                                            blocks: {
+                                                blocks: {
+                                                    blocks: {
+            stone: 1
+        }
+                }
+            }
+            }
+        }
+    }
+}
+
+def filter(itemId, slotId, renderer, bedrockFilters):
+    if itemId not in itemsToMove:
+        itemsToMove.append(itemId)
+    renderer.add(itemId, {
+        position: {
+            x: 0,
+            z: 0
+        }
+    })
+
+def animate(items, interval, renderer, bedrockFilters):
+    items.sort()
+    while items:
+        items = items[:len(itemsToMove)]
+        for i, itemId in enumerate(itemsToMove):
+            renderer.animate({
+                interval,
+                start,
+                items,
+                itemId,
+                slotId
+            })
+            itemsToMove[i] = None
+
+items = [1]
+itemsToMove = []
+renderer = createRenderer(items)
+animate(items, 10, renderer, bedrockFilters)
+
+---
+
+**Výsledek**:  
+Zobrazí výstupního bloku Gummehole a výstup dolů, když prověřete zde.

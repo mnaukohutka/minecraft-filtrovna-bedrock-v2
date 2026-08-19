@@ -1,0 +1,11586 @@
+--- AKTUÁLNÍ KÓD V ZKOHU **NEW VERSION**
+{
+  "format_version": "1.21.0",
+  "minecraft:block": {
+    "description": {
+      "identifier": "filtrovna:filtr",
+      "menu_category": {
+        "menu": "itemGroup.name.redstone"
+      },
+      "traits": {
+        "minecraft:placement_direction": {
+          "enabled_states": ["minecraft:cardinal_direction"]
+        }
+      }
+    },
+    "components": {
+      "minecraft:geometry": "geometry.filtrovna_filtr_casing",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "waxed_copper_block",
+          "render_method": "opaque"
+        },
+        "front_glass": {
+          "texture": "filtr_front_glass",
+          "render_method": "blend"
+        }
+      },
+      "minecraft:destructible_by_mining": {
+        "seconds": 3.0
+      },
+      "minecraft:map_color": "#B87333",
+      "minecraft:light_emission": {
+        "emission": 8
+      }
+    }
+  }
+}
+
+--- SPECIFIKACE VYSLEDEK.MD V ZKOHU **NEW VERSION**
+
+## TECHNICKÁ SPECIFIKACE: FILTROVNA PRO MINECRAFT BEDROCK EDITION
+**VERSION: 1.21+ (kompatibilní s Bedrock 1.21.30+ / Script API v1.14.0+)**
+
+**FORMAT: Behavior Pack + Resource Pack + Script API**
+
+**Cílová platforma: iOS, Android, Windows, Xbox, PlayStation, Switch**
+
+---
+
+### ČISTINA KOMMAT **NEW VERSION**
+### Mapové podmínky
+* Redstone: Waxed copper block
+* Front glass: Filter front glass
+
+---
+
+### **TEXTS**
+1. Filtrovna: Filer, redko
+2. Faktury: Věty
+3. **Mapové značky**
+4. **Návrh kopek**
+5. Mapa, kopeky
+6. Návrh kopek
+7. Mapové značky
+
+---
+
+### **TEXTS II (NATKÁVANÍ DOMA)**
+### Redko
+- Waxed copper block
+- Filter front glass
+
+---
+
+### **TEXTS III**
+1. Faktury: Waxed copper block
+2. Front glass: Filter front glass
+
+---
+
+### **TEXTS IV**
+- Redko
+  - Waxed copper block
+  - Filter front glass
+
+---
+
+### **TEXTS V**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS VI (FOR MINECRAFT)**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS VII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS VIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS IX (FOR REDKOGE)**
+
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS X**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XII (FOR Redstone)**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XIII (FOR RedKOGE)**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XIV (FOR RedKOGE)**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XVI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XVII (FOR RedKOGE)**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XIX**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XX**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXIII (FOR Redstone)**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXIV (FOR RedKOGE)**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXVI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXIX**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXX**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXIV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXVI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXIX**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XL**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLIV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLVI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLIX**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS L (FOR RedKOGE)**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS x**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS xi**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS xii**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XIV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XVI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XIX**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XX**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXIV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXVI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXIX**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXX**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXIV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXVI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXIX**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XL**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLIV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLVI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLIX**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIX**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS xi**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS xii**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS xiii**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XIV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XVI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XIX**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XX**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXIV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXVI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXIX**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXX**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXIV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXVI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XXXVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XL**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLIV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLVI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLIX**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XL**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLIV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLVI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS XLVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LIIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LV**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LVIII**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS ix**
+1. Waxed copper block
+2. Filter front glass
+
+---
+
+### **TEXTS LI**
+1
