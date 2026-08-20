@@ -531,8 +531,7 @@ system.runInterval(() => {
 
     for (const golem of miniGolems) {
       // Zkontrolovat, zda není navoskován
-      const componentGroups = golem.getComponentGroups();
-      if (componentGroups.includes("filtrovna:waxed")) continue;
+      if (golem.hasComponent("filtrovna:waxed")) continue;
 
       // Získat aktuální stav oxidace
       let currentState = null;
