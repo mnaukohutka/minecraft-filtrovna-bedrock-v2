@@ -518,44 +518,32 @@ function processMiniGolem(golem, dimension) {
 // OXIDACE MINI COPPER GOLEMŮ
 // =============================================================================
 
-system.runInterval(() => {
-  const dimensions = ["overworld", "nether", "the_end"];
-  const random = Math.random();
-  
-  // 10% šance na oxidaci každou minutu
-  if (random > 0.1) return;
+for (const golem of miniGolems) {
+  // Zkontrolovat, zda není navoskován
+  if (golem.hasComponent("filtrovna:waxed")) continue;
 
-  for (const dimName of dimensions) {
-    const dimension = world.getDimension(dimName);
-    const miniGolems = dimension.getEntities({ type: "filtrovna:mini_copper_golem" });
-
-    for (const golem of miniGolems) {
-      // Zkontrolovat, zda není navoskován
-      if (golem.hasComponent("filtrovna:waxed")) continue;
-
-      // Získat aktuální stav oxidace
-      let currentState = null;
-      if (componentGroups.includes("filtrovna:oxidized")) {
-        currentState = "oxidized";
-      } else if (componentGroups.includes("filtrovna:weathered")) {
-        currentState = "weathered";
-      } else if (componentGroups.includes("filtrovna:exposed")) {
-        currentState = "exposed";
-      } else if (componentGroups.includes("filtrovna:copper")) {
-        currentState = "copper";
-      }
-
-      // Pokud není v základním stavu, pokročit v oxidaci
-      if (currentState === "copper") {
-        golem.triggerEvent("filtrovna:oxidize");
-      } else if (currentState === "exposed") {
-        golem.triggerEvent("filtrovna:oxidize");
-      } else if (currentState === "weathered") {
-        golem.triggerEvent("filtrovna:oxidize");
-      }
-    }
+  // Získat aktuální stav oxidace pomocí hasComponent
+  let currentState = null;
+  if (golem.hasComponent("filtrovna:oxidized")) {
+    currentState = "oxidized";
+  } else if (golem.hasComponent("filtrovna:weathered")) {
+    currentState = "weathered";
+  } else if (golem.hasComponent("filtrovna:exposed")) {
+    currentState = "exposed";
+  } else {
+    currentState = "copper";
   }
-}, 1200); // Každou minutu (1200 ticků)
+
+  // Pokud není v základním stavu, pokročit v oxidaci
+  if (currentState === "copper") {
+    golem.triggerEvent("filtrovna:oxidize");
+  } else if (currentState === "exposed") {
+    golem.triggerEvent("filtrovna:oxidize");
+  } else if (currentState === "weathered") {
+    golem.triggerEvent("filtrovna:oxidize");
+  }
+}
+
 
 // =============================================================================
 // POMOCNÉ FUNKCE
