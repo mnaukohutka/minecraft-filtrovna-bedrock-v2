@@ -1,17 +1,39 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Filtrovna Resource Pack",
-    "description": "Textury, modely a lokalizace pro Filtrovna addon",
-    "uuid": "f8a1b2c3-d4e5-4a6b-8c7d-9e0f1a2b3c4e",
+    "name": "Filtrovna Behavior Pack",
+    "description": "Inteligentní třídící systém s Měděnými Golemy pro Minecraft Bedrock Edition",
+    "uuid": "f8a1b2c3-d4e5-4a6b-8c7d-9e0f1a2b3c4d",
     "version": [1, 0, 0],
-    "min_engine_version": [1, 21, 30],
-    "author": "mnaukohutka"
+    "min_engine_version": [1, 21, 30]
   },
   "modules": [
     {
-      "type": "resources",
-      "uuid": "f7a1b2c3-d4e5-4a6b-8c7d-9e0f1a2b3c4e",
+      "language": "javascript",
+      "type": "script",
+      "uuid": "...",
+      "version": [1, 0, 0],
+      "entry": "scripts/main.js"
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.14.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "1.2.0"
+    }
+  ],
+  "capabilities": {
+    "script_eval": true
+  },
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.14.0"
+    },
+    {
+      "uuid": "f8a1b2c3-d4e5-4a6b-8c7d-9e0f1a2b3c4e",
       "version": [1, 0, 0]
     }
   ]
