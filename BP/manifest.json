@@ -2,17 +2,29 @@
   "format_version": 2,
   "header": {
     "name": "Filtrovna Behavior Pack",
-    "description": "Inteligentní třídící systém s Měděnými Golemy pro Minecraft Bedrock Edition",
+    "description": "Inteligentní³³ tᵉdᵉlᵢcí³³ systᵉm s Mᵉdᵉnymi Golemy pro Minecraft Bedrock Edition",
     "uuid": "f8a1b2c3-d4e5-4a6b-8c7d-9e0f1a2b3c4d",
-    "version": [1, 0, 0],
-    "min_engine_version": [1, 21, 30]
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      30
+    ]
   },
   "modules": [
     {
       "language": "javascript",
       "type": "script",
-      "uuid": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
-      "version": [1, 0, 0],
+      "uuid": "c370f8d1-5452-414b-90c5-1f1cd2d8bdc6",
+      "version": [
+        1,
+        0,
+        0
+      ],
       "entry": "scripts/main.js"
     },
     {
@@ -33,8 +45,12 @@
       "version": "1.14.0"
     },
     {
-      "uuid": "f8a1b2c3-d4e5-4a6b-8c7d-9e0f1a2b3c4e",
-      "version": [1, 0, 0]
+      "uuid": "7e6ce9ce-8950-4f9f-b0de-e1b1071297ae",
+      "version": [
+        1,
+        0,
+        0
+      ]
     }
   ]
 }
