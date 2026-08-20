@@ -518,30 +518,17 @@ function processMiniGolem(golem, dimension) {
 // OXIDACE MINI COPPER GOLEMŮ
 // =============================================================================
 
-for (const golem of miniGolems) {
-  // Zkontrolovat, zda není navoskován
-  if (golem.hasComponent("filtrovna:waxed")) continue;
+if (golem.hasComponent("filtrovna:waxed")) continue;
 
-  // Získat aktuální stav oxidace pomocí hasComponent
-  let currentState = null;
-  if (golem.hasComponent("filtrovna:oxidized")) {
-    currentState = "oxidized";
-  } else if (golem.hasComponent("filtrovna:weathered")) {
-    currentState = "weathered";
-  } else if (golem.hasComponent("filtrovna:exposed")) {
-    currentState = "exposed";
-  } else {
-    currentState = "copper";
-  }
-
-  // Pokud není v základním stavu, pokročit v oxidaci
-  if (currentState === "copper") {
-    golem.triggerEvent("filtrovna:oxidize");
-  } else if (currentState === "exposed") {
-    golem.triggerEvent("filtrovna:oxidize");
-  } else if (currentState === "weathered") {
-    golem.triggerEvent("filtrovna:oxidize");
-  }
+let currentState = null;
+if (golem.hasComponent("filtrovna:oxidized")) {
+  currentState = "oxidized";
+} else if (golem.hasComponent("filtrovna:weathered")) {
+  currentState = "weathered";
+} else if (golem.hasComponent("filtrovna:exposed")) {
+  currentState = "exposed";
+} else {
+  currentState = "copper";
 }
 
 
