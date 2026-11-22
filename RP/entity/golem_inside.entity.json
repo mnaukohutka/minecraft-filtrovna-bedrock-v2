@@ -1,0 +1,59 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "filtrovna:golem_inside",
+      "min_engine_version": "1.26.0",
+      "materials": {
+        "default": "copper_golem",
+        "eyes": "copper_golem_eyes"
+      },
+      "textures": {
+        "default": "textures/entity/copper_golem/copper_golem",
+        "exposed": "textures/entity/copper_golem/copper_golem_exposed",
+        "weathered": "textures/entity/copper_golem/copper_golem_weathered",
+        "oxidized": "textures/entity/copper_golem/copper_golem_oxidized",
+        "eyes_default": "textures/entity/copper_golem/copper_golem_eyes",
+        "eyes_exposed": "textures/entity/copper_golem/copper_golem_eyes_exposed",
+        "eyes_weathered": "textures/entity/copper_golem/copper_golem_eyes_weathered",
+        "eyes_oxidized": "textures/entity/copper_golem/copper_golem_eyes_oxidized"
+      },
+      "geometry": {
+        "default": "geometry.copper_golem"
+      },
+      "animations": {
+        "idle": "animation.filtrovna.golem_inside.idle",
+        "inspect": "animation.filtrovna.golem_inside.inspect",
+        "process_down": "animation.filtrovna.golem_inside.process_down",
+        "process_right": "animation.filtrovna.golem_inside.process_right",
+        "stuck": "animation.filtrovna.golem_inside.stuck"
+      },
+      "scripts": {
+        "pre_animation": [
+          "v.index = 0;"
+        ],
+        "animate": [
+          {
+            "idle": "q.property('filtrovna:status') == 'idle'"
+          },
+          {
+            "inspect": "q.property('filtrovna:status') == 'processing'"
+          },
+          {
+            "process_down": "q.property('filtrovna:status') == 'match' || q.property('filtrovna:status') == 'drop'"
+          },
+          {
+            "process_right": "q.property('filtrovna:status') == 'ne'"
+          },
+          {
+            "stuck": "q.property('filtrovna:status') == 'stuck'"
+          }
+        ]
+      },
+      "render_controllers": [
+        "controller.render.filtrovna.copper_golem",
+        "controller.render.filtrovna.copper_golem_eyes"
+      ]
+    }
+  }
+}

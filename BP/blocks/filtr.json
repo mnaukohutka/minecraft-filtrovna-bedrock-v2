@@ -1,52 +1,61 @@
 {
-  "format_version": "1.21.0",
+  "format_version": "1.26.50",
   "minecraft:block": {
     "description": {
       "identifier": "filtrovna:filtr",
       "menu_category": {
-        "category": "items_to_blocks",
+        "category": "construction",
         "group": "itemGroup.name.redstone"
       },
       "traits": {
         "minecraft:placement_direction": {
-          "enabled_states": ["minecraft:cardinal_direction"]
+          "enabled_states": [
+            "minecraft:cardinal_direction"
+          ],
+          "y_rotation_offset": 180
         }
+      },
+      "states": {
+        "filtrovna:status": [
+          "idle",
+          "processing",
+          "match",
+          "ne",
+          "drop",
+          "stuck"
+        ],
+        "filtrovna:blink": [
+          "off",
+          "on"
+        ]
       }
     },
     "components": {
-      "minecraft:geometry": "geometry.filtrovna_filtr",
+      "minecraft:geometry": {
+        "identifier": "geometry.filtrovna_filtr_casing",
+        "bone_visibility": {
+          "bulb_green": true,
+          "bulb_yellow": false,
+          "bulb_blue": false,
+          "bulb_orange": false,
+          "bulb_white": false,
+          "bulb_red": false,
+          "casing": true,
+          "glass": true
+        }
+      },
       "minecraft:material_instances": {
         "*": {
+          "texture": "waxed_copper_block",
+          "render_method": "opaque"
+        },
+        "casing": {
           "texture": "waxed_copper_block",
           "render_method": "opaque"
         },
         "front_glass": {
           "texture": "filtr_front_glass",
           "render_method": "blend"
-        },
-        "front_bulb_green": {
-          "texture": "filtr_front_bulb_green",
-          "render_method": "opaque"
-        },
-        "front_bulb_blue": {
-          "texture": "filtr_front_bulb_blue",
-          "render_method": "opaque"
-        },
-        "front_bulb_yellow": {
-          "texture": "filtr_front_bulb_yellow",
-          "render_method": "opaque"
-        },
-        "front_bulb_orange": {
-          "texture": "filtr_front_bulb_orange",
-          "render_method": "opaque"
-        },
-        "front_bulb_red": {
-          "texture": "filtr_front_bulb_red",
-          "render_method": "opaque"
-        },
-        "front_bulb_white": {
-          "texture": "filtr_front_bulb_white",
-          "render_method": "opaque"
         },
         "bottom_bulb": {
           "texture": "filtr_bottom_bulb",
@@ -62,58 +71,237 @@
         },
         "top_grate": {
           "texture": "filtr_top_grate",
-          "render_method": "opaque"
+          "render_method": "alpha_test"
         },
         "back_grate": {
           "texture": "filtr_back_grate",
-          "render_method": "opaque"
+          "render_method": "alpha_test"
+        },
+        "bulb_green": {
+          "texture": "filtr_front_bulb_green",
+          "render_method": "alpha_test"
+        },
+        "bulb_yellow": {
+          "texture": "filtr_front_bulb_yellow",
+          "render_method": "alpha_test"
+        },
+        "bulb_blue": {
+          "texture": "filtr_front_bulb_blue",
+          "render_method": "alpha_test"
+        },
+        "bulb_orange": {
+          "texture": "filtr_front_bulb_orange",
+          "render_method": "alpha_test"
+        },
+        "bulb_white": {
+          "texture": "filtr_front_bulb_white",
+          "render_method": "alpha_test"
+        },
+        "bulb_red": {
+          "texture": "filtr_front_bulb_red",
+          "render_method": "alpha_test"
         }
       },
       "minecraft:destructible_by_mining": {
-        "seconds": 3.5
+        "seconds_to_destroy": 3.5
       },
-      "minecraft:explosion_resistance": {
-        "resistance": 6.0
+      "minecraft:destructible_by_explosion": {
+        "explosion_resistance": 6.0
       },
       "minecraft:map_color": "#B87333",
-      "minecraft:sound": "copper",
-      "minecraft:light_emission": {
-        "emission": 8
+      "minecraft:sound": {
+        "sound": "copper"
       },
-      "minecraft:placement_filter": {
-        "conditions": [
-          {
-            "block_filter": {
-              "tags": "minecraft:replaceable"
-            },
-            "allowed": true
-          }
-        ]
-      }
+      "minecraft:light_emission": 8,
+      "minecraft:light_dampening": 0,
+      "minecraft:collision_box": true,
+      "minecraft:selection_box": true,
+      "minecraft:destruction_particles": {
+        "texture": "waxed_copper_block",
+        "tint_method": "none",
+        "particle_count": 40
+      },
+      "minecraft:block_entity": {
+        "dynamic_properties": true
+      },
+      "minecraft:tick": {
+        "interval_range": [
+          2,
+          2
+        ],
+        "looping": true
+      },
+      "minecraft:custom_components": [
+        "filtrovna:filtr_logic"
+      ]
     },
     "permutations": [
       {
         "condition": "q.block_state('minecraft:cardinal_direction') == 'north'",
         "components": {
-          "minecraft:rotation": [0, 0, 0]
+          "minecraft:transformation": {
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          }
         }
       },
       {
         "condition": "q.block_state('minecraft:cardinal_direction') == 'south'",
         "components": {
-          "minecraft:rotation": [0, 180, 0]
+          "minecraft:transformation": {
+            "rotation": [
+              0,
+              180,
+              0
+            ]
+          }
         }
       },
       {
         "condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
         "components": {
-          "minecraft:rotation": [0, 270, 0]
+          "minecraft:transformation": {
+            "rotation": [
+              0,
+              270,
+              0
+            ]
+          }
         }
       },
       {
         "condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
         "components": {
-          "minecraft:rotation": [0, 90, 0]
+          "minecraft:transformation": {
+            "rotation": [
+              0,
+              90,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('filtrovna:status') == 'idle'",
+        "components": {
+          "minecraft:geometry": {
+            "identifier": "geometry.filtrovna_filtr_casing",
+            "bone_visibility": {
+              "bulb_green": true,
+              "bulb_yellow": false,
+              "bulb_blue": false,
+              "bulb_orange": false,
+              "bulb_white": false,
+              "bulb_red": false,
+              "casing": true,
+              "glass": true
+            }
+          },
+          "minecraft:light_emission": 8
+        }
+      },
+      {
+        "condition": "q.block_state('filtrovna:status') == 'processing'",
+        "components": {
+          "minecraft:geometry": {
+            "identifier": "geometry.filtrovna_filtr_casing",
+            "bone_visibility": {
+              "bulb_green": false,
+              "bulb_yellow": true,
+              "bulb_blue": false,
+              "bulb_orange": false,
+              "bulb_white": false,
+              "bulb_red": false,
+              "casing": true,
+              "glass": true
+            }
+          },
+          "minecraft:light_emission": 10
+        }
+      },
+      {
+        "condition": "q.block_state('filtrovna:status') == 'match'",
+        "components": {
+          "minecraft:geometry": {
+            "identifier": "geometry.filtrovna_filtr_casing",
+            "bone_visibility": {
+              "bulb_green": false,
+              "bulb_yellow": false,
+              "bulb_blue": true,
+              "bulb_orange": false,
+              "bulb_white": false,
+              "bulb_red": false,
+              "casing": true,
+              "glass": true
+            }
+          },
+          "minecraft:light_emission": 12
+        }
+      },
+      {
+        "condition": "q.block_state('filtrovna:status') == 'ne'",
+        "components": {
+          "minecraft:geometry": {
+            "identifier": "geometry.filtrovna_filtr_casing",
+            "bone_visibility": {
+              "bulb_green": false,
+              "bulb_yellow": false,
+              "bulb_blue": false,
+              "bulb_orange": true,
+              "bulb_white": false,
+              "bulb_red": false,
+              "casing": true,
+              "glass": true
+            }
+          },
+          "minecraft:light_emission": 12
+        }
+      },
+      {
+        "condition": "q.block_state('filtrovna:status') == 'drop'",
+        "components": {
+          "minecraft:geometry": {
+            "identifier": "geometry.filtrovna_filtr_casing",
+            "bone_visibility": {
+              "bulb_green": false,
+              "bulb_yellow": false,
+              "bulb_blue": false,
+              "bulb_orange": false,
+              "bulb_white": true,
+              "bulb_red": false,
+              "casing": true,
+              "glass": true
+            }
+          },
+          "minecraft:light_emission": 15
+        }
+      },
+      {
+        "condition": "q.block_state('filtrovna:status') == 'stuck'",
+        "components": {
+          "minecraft:geometry": {
+            "identifier": "geometry.filtrovna_filtr_casing",
+            "bone_visibility": {
+              "bulb_green": false,
+              "bulb_yellow": false,
+              "bulb_blue": false,
+              "bulb_orange": false,
+              "bulb_white": false,
+              "bulb_red": true,
+              "casing": true,
+              "glass": true
+            }
+          },
+          "minecraft:light_emission": 6
+        }
+      },
+      {
+        "condition": "q.block_state('filtrovna:status') == 'stuck' && q.block_state('filtrovna:blink') == 'on'",
+        "components": {
+          "minecraft:light_emission": 0
         }
       }
     ]

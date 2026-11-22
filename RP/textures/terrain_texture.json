@@ -1,21 +1,20 @@
 {
-  "resource_pack_name": "Filtrovna",
+  "resource_pack_name": "filtrovna",
   "texture_name": "atlas.terrain",
   "padding": 8,
   "num_mips": 4,
-  "textures": [
-    "textures/blocks/filtr_front_glass",
-    "textures/blocks/filtr_front_bulb_green",
-    "textures/blocks/filtr_front_bulb_blue",
-    "textures/blocks/filtr_front_bulb_yellow",
-    "textures/blocks/filtr_front_bulb_orange",
-    "textures/blocks/filtr_front_bulb_red",
-    "textures/blocks/filtr_front_bulb_white",
-    "textures/blocks/filtr_bottom_bulb",
-    "textures/blocks/filtr_side_plus",
-    "textures/blocks/filtr_side_minus",
-    "textures/blocks/filtr_top_grate",
-    "textures/blocks/filtr_back_grate",
-    "textures/blocks/copper_bulb"
-  ]
+  "textures": {
+    "filtr_front_glass": "textures/blocks/filtr_front_glass",
+    "filtr_front_bulb_green": "textures/blocks/filtr_front_bulb_green",
+    "filtr_front_bulb_yellow": "textures/blocks/filtr_front_bulb_yellow",
+    "filtr_front_bulb_blue": "textures/blocks/filtr_front_bulb_blue",
+    "filtr_front_bulb_orange": "textures/blocks/filtr_front_bulb_orange",
+    "filtr_front_bulb_white": "textures/blocks/filtr_front_bulb_white",
+    "filtr_front_bulb_red": "textures/blocks/filtr_front_bulb_red",
+    "filtr_bottom_bulb": "textures/blocks/filtr_bottom_bulb",
+    "filtr_side_plus": "textures/blocks/filtr_side_plus",
+    "filtr_side_minus": "textures/blocks/filtr_side_minus",
+    "filtr_top_grate": "textures/blocks/filtr_top_grate",
+    "filtr_back_grate": "textures/blocks/filtr_back_grate"
+  }
 }

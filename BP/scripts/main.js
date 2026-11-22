@@ -1,551 +1,1454 @@
-// =============================================================================
-// FILTROVNA - Inteligentní třídící systém pro Minecraft Bedrock Edition
-// Verze: 1.0.0
-// Kompatibilita: Bedrock 1.21.30+ / Script API v1.14.0+
-// Autor: mnaukohutka
-// =============================================================================
-
-import { world, system, ItemStack, BlockPermutation } from "@minecraft/server";
+import {
+  world,
+  system,
+  ItemStack,
+  ItemTypes,
+  EquipmentSlot,
+} from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 
-// =============================================================================
-// KONSTANTY
-// =============================================================================
+const FILTER_ID = "filtrovna:filtr";
+const INSIDE_ID = "filtrovna:golem_inside";
+const MINI_ID = "filtrovna:mini_copper_golem";
+const DIMENSIONS = ["minecraft:overworld", "minecraft:nether", "minecraft:the_end"];
 
-// Slotové rozložení inventáře (37 slotů celkem)
-const SLOTS = {
-  VSTUP: { start: 0, end: 8, size: 9 },      // Levá strana - vstupní položky
-  FILTR: { start: 9, end: 18, size: 10 },    // Definice filtru - co se má třídit
-  MATCH: { start: 19, end: 27, size: 9 },    // Spodní strana - shodné položky
-  NE: { start: 28, end: 36, size: 9 }        // Pravá strana - odpad
+const VSTUP = { start: 0, end: 8, size: 9 };
+const FILTR = { start: 9, end: 18, size: 10 };
+const MATCH = { start: 19, end: 27, size: 9 };
+const NE = { start: 28, end: 36, size: 9 };
+const SECTIONS = { vstup: VSTUP, filtr: FILTR, match: MATCH, ne: NE };
+const SECTION_TITLE = {
+  vstup: "filtrovna.ui.section.vstup",
+  filtr: "filtrovna.ui.section.filtr",
+  match: "filtrovna.ui.section.match",
+  ne: "filtrovna.ui.section.ne",
 };
 
-// Stavy bloku a příslušné barvy světla
-const STATES = {
-  IDLE: { color: "#00FF00", light: 8, name: "idle" },
-  PROCESSING: { color: "#FFFF00", light: 10, name: "processing" },
-  MATCH: { color: "#0080FF", light: 12, name: "match" },
-  NE: { color: "#FF8000", light: 12, name: "ne" },
-  DROP: { color: "#FFFFFF", light: 15, name: "drop" },
-  STUCK: { color: "#FF0000", light: 6, name: "stuck" }
+const OXIDATION = ["unoxidized", "exposed", "weathered", "oxidized"];
+const OXIDATION_FACTOR = {
+  unoxidized: 1,
+  exposed: 0.85,
+  weathered: 0.7225,
+  oxidized: 0.614125,
 };
+const BASE_SPEED = 0.3;
+const MAX_CARRY = 10;
+const OXIDATION_INTERVAL_MS = 300000;
+const OXIDATION_CHANCE = 0.25;
 
-// =============================================================================
-// REGISTRACE DYNAMICKÝCH VLASTNOSTÍ
-// =============================================================================
+const spawnCooldown = new Map();
 
-// Registrace dynamických vlastností pro bloky
-world.afterEvents.worldInitialize.subscribe((event) => {
-  const worldProperties = event.world.getDynamicProperties();
-  
-  // Registrace vlastností pro Filtr blok
-  worldProperties.defineString("filtrovna:golem_id");
-  worldProperties.defineString("filtrovna:state");
-  worldProperties.defineNumber("filtrovna:last_tick");
-  
-  console.log("[Filtrovna] Dynamické vlastnosti zaregistrovány");
-});
+function logErr(where, err) {
+  try {
+    console.warn(`[Filtrovna] ${where}: ${err?.message ?? err}`);
+  } catch {}
+}
 
-// =============================================================================
-// VYTVOŘENÍ GOLEMA UVNITŘ BLOKU PŘI UMÍSTĚNÍ
-// =============================================================================
+function safeGetEntities(dimension, options) {
+  try {
+    return dimension.getEntities(options);
+  } catch {
+    return [];
+  }
+}
 
-world.afterEvents.playerPlaceBlock.subscribe((event) => {
-  if (event.block.typeId !== "filtrovna:filtr") return;
+function safeRemove(entity) {
+  try {
+    entity.remove();
+  } catch {}
+}
 
-  const loc = event.block.location;
-  const dimension = event.dimension;
-  
-  // Vytvoření golema uvnitř bloku
-  const golem = dimension.spawnEntity("filtrovna:golem_inside", {
-    x: loc.x + 0.5,
-    y: loc.y + 0.1,
-    z: loc.z + 0.5
+function getContainer(entity) {
+  if (!entity || !entity.isValid) return undefined;
+  try {
+    return entity.getComponent("minecraft:inventory")?.container;
+  } catch {
+    return undefined;
+  }
+}
+
+function countItems(container) {
+  let total = 0;
+  for (let i = 0; i < container.size; i++) {
+    const item = container.getItem(i);
+    if (item) total += item.amount;
+  }
+  return total;
+}
+
+function countItemsIn(container, section) {
+  let total = 0;
+  for (let i = section.start; i <= section.end; i++) {
+    const item = container.getItem(i);
+    if (item) total += item.amount;
+  }
+  return total;
+}
+
+function sectionHasItems(container, section) {
+  for (let i = section.start; i <= section.end; i++) {
+    if (container.getItem(i)) return true;
+  }
+  return false;
+}
+
+function firstNonEmpty(container, start, end) {
+  for (let i = start; i <= end; i++) {
+    if (container.getItem(i)) return i;
+  }
+  return -1;
+}
+
+function makeStack(itemType, amount) {
+  const stack = new ItemStack(itemType, 1);
+  const maximum = Math.max(1, stack.maxAmount || 64);
+  stack.amount = Math.max(1, Math.min(amount, maximum));
+  return stack;
+}
+
+function insertIntoSection(container, start, end, stack) {
+  if (!stack || stack.amount <= 0) return 0;
+  let remaining = stack.amount;
+  const max = stack.maxAmount ?? 64;
+
+  for (let i = start; i <= end && remaining > 0; i++) {
+    const existing = container.getItem(i);
+    if (!existing || existing.typeId !== stack.typeId) continue;
+    const room = max - existing.amount;
+    if (room <= 0) continue;
+    const move = Math.min(room, remaining);
+    existing.amount += move;
+    container.setItem(i, existing);
+    remaining -= move;
+  }
+
+  for (let i = start; i <= end && remaining > 0; i++) {
+    if (container.getItem(i)) continue;
+    const copy = stack.clone();
+    copy.amount = remaining;
+    container.setItem(i, copy);
+    remaining = 0;
+  }
+
+  return stack.amount - remaining;
+}
+
+function ejectContainer(container, dimension, location) {
+  for (let i = 0; i < container.size; i++) {
+    let item;
+    try {
+      item = container.getItem(i);
+    } catch {
+      continue;
+    }
+    if (!item) continue;
+    try {
+      dimension.spawnItem(item, location);
+      container.setItem(i, undefined);
+    } catch (err) {
+      logErr("eject", err);
+    }
+  }
+}
+
+function distanceSq(a, b) {
+  const dx = a.x - b.x;
+  const dy = a.y - b.y;
+  const dz = a.z - b.z;
+  return dx * dx + dy * dy + dz * dz;
+}
+
+function cardinalDirection(block) {
+  try {
+    return block.permutation.getState("minecraft:cardinal_direction") ?? "south";
+  } catch {
+    return "south";
+  }
+}
+
+function yawFor(block) {
+  switch (cardinalDirection(block)) {
+    case "north":
+      return 180;
+    case "east":
+      return 270;
+    case "west":
+      return 90;
+    default:
+      return 0;
+  }
+}
+
+function vstupOffset(block) {
+  switch (cardinalDirection(block)) {
+    case "north":
+      return { x: -1, y: 0, z: 0 };
+    case "south":
+      return { x: 1, y: 0, z: 0 };
+    case "east":
+      return { x: 0, y: 0, z: -1 };
+    case "west":
+      return { x: 0, y: 0, z: 1 };
+    default:
+      return { x: 1, y: 0, z: 0 };
+  }
+}
+
+function setBlockStatus(block, status) {
+  try {
+    const permutation = block.permutation;
+    if (permutation.getState("filtrovna:status") !== status) {
+      block.setPermutation(permutation.withState("filtrovna:status", status));
+    }
+  } catch {}
+}
+
+function setBlink(block, enabled) {
+  try {
+    const permutation = block.permutation;
+    const value = enabled ? "on" : "off";
+    if (permutation.getState("filtrovna:blink") !== value) {
+      block.setPermutation(permutation.withState("filtrovna:blink", value));
+    }
+  } catch {}
+}
+
+function setGolemStatus(golem, status) {
+  try {
+    if (golem.getProperty("filtrovna:status") !== status) {
+      golem.setProperty("filtrovna:status", status);
+    }
+  } catch {}
+}
+
+function setStatus(block, golem, status) {
+  setBlockStatus(block, status);
+  if (golem) setGolemStatus(golem, status);
+  if (status !== "stuck") setBlink(block, false);
+}
+
+function getGolem(block) {
+  let id;
+  try {
+    id = block.getDynamicProperty("filtrovna:golem_id");
+  } catch {
+    return undefined;
+  }
+  if (typeof id !== "string") return undefined;
+  let entity;
+  try {
+    entity = world.getEntity(id);
+  } catch {
+    return undefined;
+  }
+  if (!entity || !entity.isValid || entity.typeId !== INSIDE_ID) return undefined;
+  try {
+    if (entity.dimension.id !== block.dimension.id) return undefined;
+  } catch {
+    return undefined;
+  }
+  return entity;
+}
+
+function keepGolemInPlace(golem, block) {
+  const target = { x: block.x + 0.5, y: block.y + 0.07, z: block.z + 0.5 };
+  try {
+    if (distanceSq(golem.location, target) > 0.04) {
+      golem.teleport(target);
+    }
+    golem.setRotation({ x: yawFor(block), y: 0 });
+  } catch {}
+}
+
+function ensureFilter(block, dimension, spawnIfMissing) {
+  if (!block || block.typeId !== FILTER_ID) return undefined;
+
+  const existing = getGolem(block);
+  if (existing) {
+    keepGolemInPlace(existing, block);
+    return existing;
+  }
+
+  const center = { x: block.x + 0.5, y: block.y + 0.07, z: block.z + 0.5 };
+  const nearby = safeGetEntities(dimension, {
+    type: INSIDE_ID,
+    location: center,
+    maxDistance: 0.8,
+  });
+  if (nearby.length > 0) {
+    const adopted = nearby[0];
+    try {
+      block.setDynamicProperty("filtrovna:golem_id", adopted.id);
+    } catch {}
+    keepGolemInPlace(adopted, block);
+    return adopted;
+  }
+  if (!spawnIfMissing) return undefined;
+
+  const key = `${dimension.id}|${block.x},${block.y},${block.z}`;
+  const now = system.currentTick;
+  const blockedUntil = spawnCooldown.get(key) ?? 0;
+  if (blockedUntil > now) return undefined;
+
+  const position = { x: block.x + 0.5, y: block.y + 0.07, z: block.z + 0.5 };
+  let golem;
+  try {
+    golem = dimension.spawnEntity(INSIDE_ID, position);
+  } catch {
+    try {
+      golem = dimension.spawnEntity(INSIDE_ID, { x: position.x, y: block.y + 1.05, z: position.z });
+      golem.teleport(position);
+    } catch (err) {
+      spawnCooldown.set(key, now + 100);
+      logErr("spawnInside", err);
+      return undefined;
+    }
+  }
+
+  try {
+    golem.setRotation({ x: yawFor(block), y: 0 });
+    golem.setProperty("filtrovna:status", "idle");
+    golem.setDynamicProperty("filtrovna:block", `${dimension.id}|${block.x},${block.y},${block.z}`);
+    block.setDynamicProperty("filtrovna:golem_id", golem.id);
+  } catch (err) {
+    logErr("initInside", err);
+  }
+  return golem;
+}
+
+function onFilterPlaced(block, dimension) {
+  if (!block || block.typeId !== FILTER_ID) return;
+  const golem = ensureFilter(block, dimension, true);
+  if (golem) setStatus(block, golem, "idle");
+  try {
+    block.setDynamicProperty("filtrovna:stuck_ticks", 0);
+    block.setDynamicProperty("filtrovna:drop_until", 0);
+  } catch {}
+}
+
+function onFilterBroken(block, dimension) {
+  const center = { x: block.x + 0.5, y: block.y + 0.5, z: block.z + 0.5 };
+  const golems = safeGetEntities(dimension, {
+    type: INSIDE_ID,
+    location: center,
+    maxDistance: 0.8,
   });
 
-  if (!golem) {
-    console.error("[Filtrovna] Nepodařilo se vytvořit golema uvnitř bloku");
+  try {
+    const id = block.getDynamicProperty("filtrovna:golem_id");
+    if (typeof id === "string") {
+      const stored = world.getEntity(id);
+      if (stored && stored.isValid && stored.dimension.id === dimension.id) golems.push(stored);
+    }
+  } catch {}
+
+  const seen = new Set();
+  for (const golem of golems) {
+    if (seen.has(golem.id)) continue;
+    seen.add(golem.id);
+    const inventory = getContainer(golem);
+    if (inventory) {
+      ejectContainer(inventory, dimension, { x: center.x, y: block.y + 0.6, z: center.z });
+    }
+    safeRemove(golem);
+  }
+}
+
+function filterHas(container, typeId) {
+  for (let i = FILTR.start; i <= FILTR.end; i++) {
+    const filter = container.getItem(i);
+    if (filter && filter.typeId === typeId) return true;
+  }
+  return false;
+}
+
+function outputDropLocation(block, matched) {
+  if (matched) {
+    return { x: block.x + 0.5, y: block.y - 0.3, z: block.z + 0.5 };
+  }
+  const offset = vstupOffset(block);
+  return {
+    x: block.x + 0.5 - offset.x,
+    y: block.y + 0.5,
+    z: block.z + 0.5 - offset.z,
+  };
+}
+
+function isSpaceFree(dimension, location) {
+  try {
+    const block = dimension.getBlock({
+      x: Math.floor(location.x),
+      y: Math.floor(location.y),
+      z: Math.floor(location.z),
+    });
+    if (!block) return true;
+    return block.isAir || block.isLiquid;
+  } catch {
+    return true;
+  }
+}
+
+function tickFilter(block, dimension) {
+  if (!block || block.typeId !== FILTER_ID) return;
+
+  const golem = ensureFilter(block, dimension, true);
+  if (!golem) return;
+  keepGolemInPlace(golem, block);
+
+  const inventory = getContainer(golem);
+  if (!inventory) return;
+
+  const inputSlot = firstNonEmpty(inventory, VSTUP.start, VSTUP.end);
+  if (inputSlot < 0) {
+    let dropUntil = 0;
+    try {
+      dropUntil = Number(block.getDynamicProperty("filtrovna:drop_until") ?? 0) || 0;
+    } catch {}
+    setStatus(block, golem, dropUntil > Date.now() ? "drop" : "idle");
+    try {
+      block.setDynamicProperty("filtrovna:stuck_ticks", 0);
+    } catch {}
     return;
   }
 
-  // Nastavení rotace golema podle orientace bloku
-  const facing = event.block.permutation.getState("minecraft:cardinal_direction");
-  let rotationY = 0;
-  
-  switch (facing) {
-    case "west": rotationY = 90; break;
-    case "north": rotationY = 180; break;
-    case "east": rotationY = 270; break;
-    default: rotationY = 0; // south
-  }
+  const item = inventory.getItem(inputSlot);
+  if (!item) return;
 
-  golem.setRotation(rotationY, 0);
-  
-  // Uložení ID golema do dynamických vlastností bloku
-  event.block.setDynamicProperty("golem_id", golem.id);
-  event.block.setDynamicProperty("filtrovna:state", STATES.IDLE.name);
-  
-  console.log(`[Filtrovna] Golem vytvořen na pozici (${loc.x}, ${loc.y}, ${loc.z}) s ID: ${golem.id}`);
-});
+  try {
+    block.setDynamicProperty("filtrovna:drop_until", 0);
+  } catch {}
+  setStatus(block, golem, "processing");
 
-// =============================================================================
-// ZNIČENÍ BLOKU A VYHOZENÍ OBSAHU
-// =============================================================================
+  const filterIsEmpty = !sectionHasItems(inventory, FILTR);
+  const matched = filterIsEmpty || filterHas(inventory, item.typeId);
+  const target = matched ? MATCH : NE;
 
-world.afterEvents.playerBreakBlock.subscribe((event) => {
-  if (event.brokenBlockPermutation.type.id !== "filtrovna:filtr") return;
-
-  const block = event.brokenBlockPermutation;
-  const golemId = block.getDynamicProperty("golem_id");
-  
-  if (!golemId) {
-    console.warn("[Filtrovna] Blok nemá přiřazené ID golema");
+  const moved = insertIntoSection(inventory, target.start, target.end, item);
+  if (moved > 0) {
+    if (moved >= item.amount) inventory.setItem(inputSlot, undefined);
+    else {
+      item.amount -= moved;
+      inventory.setItem(inputSlot, item);
+    }
+    setStatus(block, golem, matched ? "match" : "ne");
+    try {
+      block.setDynamicProperty("filtrovna:stuck_ticks", 0);
+    } catch {}
     return;
   }
 
-  const golem = world.getEntity(golemId);
-  if (!golem) {
-    console.warn(`[Filtrovna] Golem s ID ${golemId} nebyl nalezen`);
+  const dropLocation = outputDropLocation(block, matched);
+  let stuck = 0;
+  try {
+    stuck = Number(block.getDynamicProperty("filtrovna:stuck_ticks") ?? 0) || 0;
+  } catch {}
+
+  if (!isSpaceFree(dimension, dropLocation)) {
+    stuck++;
+    try {
+      block.setDynamicProperty("filtrovna:stuck_ticks", stuck);
+    } catch {}
+    setStatus(block, golem, "stuck");
+    setBlink(block, Math.floor(stuck / 5) % 2 === 0);
     return;
   }
 
-  // Vyhození obsahu inventáře golema do světa
-  const inv = golem.getComponent("minecraft:inventory")?.container;
-  if (inv) {
-    for (let i = 0; i < inv.size; i++) {
-      const item = inv.getItem(i);
-      if (item) {
-        event.dimension.spawnItem(item, event.block.location);
+  try {
+    dimension.spawnItem(item, dropLocation);
+    inventory.setItem(inputSlot, undefined);
+    setStatus(block, golem, "drop");
+    try {
+      block.setDynamicProperty("filtrovna:stuck_ticks", 0);
+      block.setDynamicProperty("filtrovna:drop_until", Date.now() + 1000);
+    } catch {}
+  } catch (err) {
+    logErr("drop", err);
+    stuck++;
+    try {
+      block.setDynamicProperty("filtrovna:stuck_ticks", stuck);
+    } catch {}
+    setStatus(block, golem, "stuck");
+    setBlink(block, Math.floor(stuck / 5) % 2 === 0);
+  }
+}
+
+function applyOxidation(golem, level) {
+  const factor = OXIDATION_FACTOR[level] ?? 1;
+  try {
+    golem.getComponent("minecraft:movement")?.setCurrentValue(BASE_SPEED * factor);
+  } catch {}
+}
+
+function tickOxidation(golem, dimension) {
+  let now = 0;
+  try {
+    now = Date.now();
+  } catch {}
+
+  let next = 0;
+  try {
+    next = Number(golem.getDynamicProperty("filtrovna:next_oxidation") ?? 0) || 0;
+  } catch {}
+
+  if (next === 0) {
+    try {
+      golem.setDynamicProperty("filtrovna:next_oxidation", now + OXIDATION_INTERVAL_MS);
+    } catch {}
+    return;
+  }
+  if (now < next) return;
+
+  try {
+    golem.setDynamicProperty("filtrovna:next_oxidation", now + OXIDATION_INTERVAL_MS);
+  } catch {}
+
+  let waxed = false;
+  try {
+    waxed = golem.getProperty("filtrovna:is_waxed") === true;
+  } catch {}
+  if (waxed) return;
+
+  let level = "unoxidized";
+  try {
+    level = golem.getProperty("filtrovna:oxidation_level") ?? "unoxidized";
+  } catch {}
+  const index = OXIDATION.indexOf(level);
+  if (index < 0 || index >= OXIDATION.length - 1) return;
+  if (Math.random() > OXIDATION_CHANCE) return;
+
+  const nextLevel = OXIDATION[index + 1];
+  try {
+    golem.setProperty("filtrovna:oxidation_level", nextLevel);
+  } catch {
+    return;
+  }
+  applyOxidation(golem, nextLevel);
+  try {
+    dimension.playSound(
+      nextLevel === "oxidized"
+        ? "mob.copper_golem.oxidized.spin"
+        : "mob.copper_golem.weathered.spin",
+      golem.location,
+      { volume: 1, pitch: 1 },
+    );
+  } catch {}
+}
+
+function findNearbyFilter(golem, dimension) {
+  let best;
+
+  for (const inside of safeGetEntities(dimension, {
+    type: INSIDE_ID,
+    location: golem.location,
+    maxDistance: 4,
+  })) {
+    const location = inside.location;
+    const block = dimension.getBlock({
+      x: Math.floor(location.x),
+      y: Math.floor(location.y),
+      z: Math.floor(location.z),
+    });
+    if (!block || block.typeId !== FILTER_ID) continue;
+    const d = distanceSq(golem.location, {
+      x: block.x + 0.5,
+      y: block.y + 0.5,
+      z: block.z + 0.5,
+    });
+    if (!best || d < best.distance) best = { block, distance: d };
+  }
+  if (best) return best;
+
+  const base = {
+    x: Math.floor(golem.location.x),
+    y: Math.floor(golem.location.y),
+    z: Math.floor(golem.location.z),
+  };
+  for (let dx = -2; dx <= 2; dx++) {
+    for (let dy = -1; dy <= 1; dy++) {
+      for (let dz = -2; dz <= 2; dz++) {
+        const block = dimension.getBlock({ x: base.x + dx, y: base.y + dy, z: base.z + dz });
+        if (!block || block.typeId !== FILTER_ID) continue;
+        const d = distanceSq(golem.location, {
+          x: block.x + 0.5,
+          y: block.y + 0.5,
+          z: block.z + 0.5,
+        });
+        if (!best || d < best.distance) best = { block, distance: d };
       }
     }
   }
-
-  // Odstranění golema
-  golem.remove();
-  
-  console.log(`[Filtrovna] Blok zničen, obsah vyhozen, golem ${golemId} odstraněn`);
-});
-
-// =============================================================================
-// UI INTERAKCE - OTEVŘENÍ INVENTÁŘE
-// =============================================================================
-
-world.afterEvents.playerInteractWithBlock.subscribe((event) => {
-  if (event.block.typeId !== "filtrovna:filtr") return;
-
-  const golemId = event.block.getDynamicProperty("golem_id");
-  if (!golemId) {
-    event.player.sendMessage("§cChyba: Golem nebyl nalezen!");
-    return;
-  }
-
-  const golem = world.getEntity(golemId);
-  if (!golem) {
-    event.player.sendMessage("§cChyba: Golem neexistuje!");
-    return;
-  }
-
-  openFilterUI(event.player, golem, event.block);
-});
-
-// =============================================================================
-// UI FUNKCE
-// =============================================================================
-
-function openFilterUI(player, golem, block) {
-  const form = new ActionFormData()
-    .title("§6Filtr - Správa Golema")
-    .body("§7Vyberte sekci inventáře pro správu:")
-    .button("§aVSTUP (0-8)\n§7Vstupní položky")
-    .button("§eFILTR PRAVIDLA (9-18)\n§7Definice třídění")
-    .button("§9VÝSTUP - MATCH (19-27)\n§7Shodné položky")
-    .button("§cODPAD - NE (28-36)\n§7Neshodné položky")
-    .button("§4Zavřít");
-
-  form.show(player).then((response) => {
-    if (response.canceled || response.selection === 4) return;
-
-    const section = Object.keys(SLOTS)[response.selection];
-    openInventorySection(player, golem, block, section);
-  });
+  return best;
 }
 
-function openInventorySection(player, golem, block, section) {
-  const slots = SLOTS[section];
-  const inv = golem.getComponent("minecraft:inventory")?.container;
-  
-  if (!inv) {
-    player.sendMessage("§cChyba: Inventář není dostupný!");
-    return;
-  }
-
-  // Získání obsahu vybrané sekce
-  const items = [];
-  for (let i = slots.start; i <= slots.end; i++) {
-    const item = inv.getItem(i);
-    items.push(item ? `${item.typeId} (${item.amount})` : "Prázdný");
-  }
-
-  const form = new ModalFormData()
-    .title(`§6Filtr - ${section.toUpperCase()}`)
-    .dropdown("Vyberte slot", Array.from({ length: slots.size }, (_, i) => `Slot ${i + slots.start}`),
-      0)
-    .textField("Položka (ID)", "Příklad: minecraft:stone")
-    .slider("Množství", 1, 64, 1, 1)
-    .toggle("Vyprázdnit slot", false);
-
-  form.show(player).then((response) => {
-    if (response.canceled) return;
-
-    const slotIndex = slots.start + response.formValues[0];
-    const itemId = response.formValues[1];
-    const amount = response.formValues[2];
-    const clearSlot = response.formValues[3];
-
-    if (clearSlot) {
-      inv.setItem(slotIndex, undefined);
-      player.sendMessage(`§aSlot ${slotIndex} vyprázdněn`);
-    } else if (itemId) {
-      const itemStack = new ItemStack(itemId, amount);
-      inv.setItem(slotIndex, itemStack);
-      player.sendMessage(`§aDo slotu ${slotIndex} vloženo: ${itemId} (${amount})`);
-    }
-  });
+function isCopperChest(typeId) {
+  return typeId.startsWith("minecraft:") && typeId.includes("copper_chest");
 }
 
-// =============================================================================
-// SCRIPT EVENT PRO NASTAVENÍ OBSAHU
-// =============================================================================
+function findNearbyChest(golem, dimension) {
+  const base = {
+    x: Math.floor(golem.location.x),
+    y: Math.floor(golem.location.y),
+    z: Math.floor(golem.location.z),
+  };
+  let best;
 
-system.afterEvents.scriptEventReceive.subscribe((event) => {
-  if (event.id !== "filtrovna:set") return;
-
-  const args = event.message.split(" ");
-  if (args.length < 3) {
-    console.error("[Filtrovna] Neplatný příkaz: " + event.message);
-    return;
-  }
-
-  const start = parseInt(args[0]);
-  const end = parseInt(args[1]);
-  const itemId = args[2];
-  const amount = parseInt(args[3] || "1");
-
-  if (isNaN(start) || isNaN(end) || isNaN(amount)) {
-    console.error("[Filtrovna] Neplatné číselné hodnoty");
-    return;
-  }
-
-  if (event.sourceBlock) {
-    const golemId = event.sourceBlock.getDynamicProperty("golem_id");
-    if (golemId) {
-      const golem = world.getEntity(golemId);
-      const inv = golem?.getComponent("minecraft:inventory")?.container;
-      
-      if (inv) {
-        for (let i = start; i <= end; i++) {
-          inv.setItem(i, new ItemStack(itemId, amount));
+  for (let dx = -3; dx <= 3; dx++) {
+    for (let dy = -1; dy <= 1; dy++) {
+      for (let dz = -3; dz <= 3; dz++) {
+        const block = dimension.getBlock({ x: base.x + dx, y: base.y + dy, z: base.z + dz });
+        if (!block) continue;
+        if (!isCopperChest(block.typeId) && block.typeId !== "minecraft:ender_chest") continue;
+        if (block.typeId === "minecraft:ender_chest") {
+          let ownerId;
+          try {
+            ownerId = golem.getDynamicProperty("filtrovna:owner");
+          } catch {}
+          if (typeof ownerId !== "string") continue;
+          let owner;
+          try {
+            owner = world.getEntity(ownerId);
+          } catch {}
+          if (!owner || !owner.isValid || owner.dimension.id !== dimension.id) continue;
+          const chestCenter = { x: block.x + 0.5, y: block.y + 0.5, z: block.z + 0.5 };
+          if (distanceSq(owner.location, chestCenter) > 256) continue;
         }
-        console.log(`[Filtrovna] Nastaveno ${end - start + 1} slotů na ${itemId} (${amount})`);
+        let container;
+        try {
+          container = block.getComponent("minecraft:inventory")?.container;
+        } catch {}
+        if (!container || countItems(container) === 0) continue;
+        const d = distanceSq(golem.location, {
+          x: block.x + 0.5,
+          y: block.y + 0.5,
+          z: block.z + 0.5,
+        });
+        if (!best || d < best.distance) best = { container, distance: d };
       }
     }
   }
-});
+  return best?.container;
+}
 
-// =============================================================================
-// HLAVNÍ TICK LOGIKA - TŘÍDĚNÍ POLOŽEK
-// =============================================================================
+function takeFromContainer(source, destination, maximum) {
+  let taken = 0;
+  for (let i = 0; i < source.size && taken < maximum; i++) {
+    let item;
+    try {
+      item = source.getItem(i);
+    } catch {
+      continue;
+    }
+    if (!item) continue;
 
-system.runInterval(() => {
-  // Hledáme všechny golemy uvnitř bloků a zpracováváme jejich bloky
-  const dimensions = ["overworld", "nether", "the_end"];
-  
-  for (const dimName of dimensions) {
-    const dimension = world.getDimension(dimName);
-    
-    // Najít všechny golemy uvnitř bloků
-    const golems = dimension.getEntities({ type: "filtrovna:golem_inside" });
-    
-    for (const golem of golems) {
-      const golemId = golem.id;
-      const golemLoc = golem.location;
-      
-      // Získat blok na pozici golema
-      const blockX = Math.floor(golemLoc.x);
-      const blockY = Math.floor(golemLoc.y);
-      const blockZ = Math.floor(golemLoc.z);
-      
-      const blocks = dimension.getBlocks({
-        x: blockX, y: blockY, z: blockZ
-      });
-      
-      for (const block of blocks) {
-        if (block.typeId === "filtrovna:filtr") {
-          const blockGolemId = block.getDynamicProperty("golem_id");
-          if (blockGolemId === golemId) {
-            processFilterBlock(block, dimension);
-            break;
+    const wanted = Math.min(item.amount, maximum - taken);
+    const copy = item.clone();
+    copy.amount = wanted;
+
+    let leftover;
+    try {
+      leftover = destination.addItem(copy);
+    } catch {
+      break;
+    }
+    const moved = wanted - (leftover ? leftover.amount : 0);
+    if (moved <= 0) continue;
+
+    try {
+      if (item.amount === moved) source.setItem(i, undefined);
+      else {
+        item.amount -= moved;
+        source.setItem(i, item);
+      }
+    } catch {
+      continue;
+    }
+    taken += moved;
+  }
+  return taken;
+}
+
+function tickMiniGolem(golem, dimension) {
+  if (!golem.isValid) return;
+
+  const inventory = getContainer(golem);
+  if (!inventory) return;
+
+  const carrying = countItems(inventory) > 0;
+  let wasCarrying = false;
+  try {
+    wasCarrying = golem.getDynamicProperty("filtrovna:carrying") === true;
+  } catch {}
+
+  if (carrying !== wasCarrying) {
+    try {
+      golem.setDynamicProperty("filtrovna:carrying", carrying);
+    } catch {}
+    try {
+      golem.triggerEvent(carrying ? "filtrovna:become_carrying" : "filtrovna:become_empty");
+    } catch {}
+  }
+
+  if (carrying) {
+    const found = findNearbyFilter(golem, dimension);
+    if (found) {
+      const offset = vstupOffset(found.block);
+      const side = {
+        x: found.block.x + 0.5 + offset.x,
+        y: found.block.y + 0.5,
+        z: found.block.z + 0.5 + offset.z,
+      };
+      if (distanceSq(golem.location, side) <= 12.25) {
+        const inside = ensureFilter(found.block, dimension, true);
+        const destination = inside ? getContainer(inside) : undefined;
+        if (destination) {
+          let moved = 0;
+          for (let i = 0; i < inventory.size; i++) {
+            const item = inventory.getItem(i);
+            if (!item) continue;
+            const amount = insertIntoSection(destination, VSTUP.start, VSTUP.end, item);
+            if (amount > 0) {
+              if (amount >= item.amount) inventory.setItem(i, undefined);
+              else {
+                item.amount -= amount;
+                inventory.setItem(i, item);
+              }
+              moved += amount;
+            }
+            if (destination.emptySlotsCount === 0) break;
+          }
+          if (moved > 0) {
+            setStatus(found.block, inside, "processing");
+            try {
+              dimension.playSound(
+                "mob.copper_golem.chest_interaction.put_item",
+                golem.location,
+                { volume: 1, pitch: 1 },
+              );
+            } catch {}
           }
         }
       }
-    }
-  }
-}, 2); // Každé 2 ticky (0.1 vteřiny)
-
-function processFilterBlock(block, dimension) {
-  const golemId = block.getDynamicProperty("golem_id");
-  if (!golemId) return;
-
-  const golem = world.getEntity(golemId);
-  if (!golem) return;
-
-  const inv = golem.getComponent("minecraft:inventory")?.container;
-  if (!inv) return;
-
-  // Získání orientace bloku
-  const facing = block.permutation.getState("minecraft:cardinal_direction");
-  
-  // Hledání první neprázdné položky ve VSTUPU
-  let firstItemSlot = -1;
-  let firstItem = null;
-  
-  for (let i = SLOTS.VSTUP.start; i <= SLOTS.VSTUP.end; i++) {
-    const item = inv.getItem(i);
-    if (item) {
-      firstItemSlot = i;
-      firstItem = item;
-      break;
-    }
-  }
-
-  // Pokud není žádná položka ve VSTUPU, nic nedělat
-  if (!firstItem) {
-    block.setDynamicProperty("filtrovna:state", STATES.IDLE.name);
-    return;
-  }
-
-  // Nastavení stavu na PROCESSING
-  block.setDynamicProperty("filtrovna:state", STATES.PROCESSING.name);
-
-  // Kontrola, zda se položka shoduje s některým z FILTR slotů
-  let matchesFilter = false;
-  
-  for (let i = SLOTS.FILTR.start; i <= SLOTS.FILTR.end; i++) {
-    const filterItem = inv.getItem(i);
-    if (filterItem && filterItem.typeId === firstItem.typeId) {
-      matchesFilter = true;
-      break;
-    }
-  }
-
-  // Pokud FILTR je prázdný, vše jde do MATCH
-  let hasFilterItems = false;
-  for (let i = SLOTS.FILTR.start; i <= SLOTS.FILTR.end; i++) {
-    if (inv.getItem(i)) {
-      hasFilterItems = true;
-      break;
-    }
-  }
-
-  if (!hasFilterItems) {
-    matchesFilter = true;
-  }
-
-  // Zpracování podle shody
-  if (matchesFilter) {
-    // Hledání prvního volného slotu v MATCH
-    let targetSlot = -1;
-    for (let i = SLOTS.MATCH.start; i <= SLOTS.MATCH.end; i++) {
-      if (!inv.getItem(i)) {
-        targetSlot = i;
-        break;
-      }
-    }
-
-    if (targetSlot !== -1) {
-      // Přesun položky do MATCH
-      inv.setItem(targetSlot, firstItem);
-      inv.setItem(firstItemSlot, undefined);
-      block.setDynamicProperty("filtrovna:state", STATES.MATCH.name);
-      return;
     }
   } else {
-    // Hledání prvního volného slotu v NE
-    let targetSlot = -1;
-    for (let i = SLOTS.NE.start; i <= SLOTS.NE.end; i++) {
-      if (!inv.getItem(i)) {
-        targetSlot = i;
-        break;
+    const source = findNearbyChest(golem, dimension);
+    if (source) {
+      const taken = takeFromContainer(source, inventory, MAX_CARRY);
+      if (taken > 0) {
+        try {
+          dimension.playSound(
+            "mob.copper_golem.chest_interaction.take_item",
+            golem.location,
+            { volume: 1, pitch: 1 },
+          );
+        } catch {}
       }
-    }
-
-    if (targetSlot !== -1) {
-      // Přesun položky do NE
-      inv.setItem(targetSlot, firstItem);
-      inv.setItem(firstItemSlot, undefined);
-      block.setDynamicProperty("filtrovna:state", STATES.NE.name);
-      return;
     }
   }
 
-  // Pokud jsou všechny cílové sloty plné, vyhodit položku
-  const loc = block.location;
-  dimension.spawnItem(firstItem, {
-    x: loc.x + 0.5,
-    y: loc.y + 1.0,
-    z: loc.z + 0.5
-  });
-  inv.setItem(firstItemSlot, undefined);
-  block.setDynamicProperty("filtrovna:state", STATES.DROP.name);
+  tickOxidation(golem, dimension);
 }
 
-// =============================================================================
-// MINI COPPER GOLEM AI - SBĚR A DORUČENÍ POLOŽEK
-// =============================================================================
+function cleanupWorld() {
+  for (const dimensionId of DIMENSIONS) {
+    let dimension;
+    try {
+      dimension = world.getDimension(dimensionId);
+    } catch {
+      continue;
+    }
 
-system.runInterval(() => {
-  const dimensions = ["overworld", "nether", "the_end"];
-  
-  for (const dimName of dimensions) {
-    const dimension = world.getDimension(dimName);
-    const miniGolems = dimension.getEntities({ type: "filtrovna:mini_copper_golem" });
+    for (const golem of safeGetEntities(dimension, { type: INSIDE_ID })) {
+      const location = golem.location;
+      const block = dimension.getBlock({
+        x: Math.floor(location.x),
+        y: Math.floor(location.y),
+        z: Math.floor(location.z),
+      });
+      if (!block || block.typeId !== FILTER_ID) {
+        const inventory = getContainer(golem);
+        if (inventory) ejectContainer(inventory, dimension, golem.location);
+        safeRemove(golem);
+        continue;
+      }
+      try {
+        block.setDynamicProperty("filtrovna:golem_id", golem.id);
+      } catch {}
+      keepGolemInPlace(golem, block);
+    }
 
-    for (const golem of miniGolems) {
-      processMiniGolem(golem, dimension);
+    for (const golem of safeGetEntities(dimension, { type: MINI_ID })) {
+      let level = "unoxidized";
+      try {
+        level = golem.getProperty("filtrovna:oxidation_level") ?? "unoxidized";
+      } catch {}
+      applyOxidation(golem, level);
+
+      const inventory = getContainer(golem);
+      const carrying = !!inventory && countItems(inventory) > 0;
+      let wasCarrying = false;
+      try {
+        wasCarrying = golem.getDynamicProperty("filtrovna:carrying") === true;
+      } catch {}
+      if (carrying !== wasCarrying) {
+        try {
+          golem.setDynamicProperty("filtrovna:carrying", carrying);
+          golem.triggerEvent(carrying ? "filtrovna:become_carrying" : "filtrovna:become_empty");
+        } catch {}
+      }
     }
   }
-}, 20); // Každých 20 ticků (1 vteřina)
+}
 
-function processMiniGolem(golem, dimension) {
-  const inv = golem.getComponent("minecraft:inventory")?.container;
-  if (!inv) return;
+function getHeldItem(player) {
+  try {
+    return player.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand);
+  } catch {
+    return undefined;
+  }
+}
 
-  // Pokud je inventář plný, hledat nejbližší Filtr blok a doručit
-  if (inv.emptySlotsCount === 0) {
-    const filterGolems = dimension.getEntities({ type: "filtrovna:golem_inside" });
-    
-    if (filterGolems.length > 0) {
-      // Najít nejbližší golem uvnitř bloku
-      let nearestGolem = null;
-      let minDistance = Infinity;
-
-      for (const filterGolem of filterGolems) {
-        const dist = Math.sqrt(
-          Math.pow(filterGolem.location.x - golem.location.x, 2) +
-          Math.pow(filterGolem.location.y - golem.location.y, 2) +
-          Math.pow(filterGolem.location.z - golem.location.z, 2)
-        );
-        if (dist < minDistance) {
-          minDistance = dist;
-          nearestGolem = filterGolem;
-        }
+function consumeHeldItem(player, held, amount) {
+  if (!held || amount <= 0) return;
+  try {
+    const equippable = player.getComponent("minecraft:equippable");
+    if (!equippable) return;
+    for (const slot of [EquipmentSlot.Mainhand, EquipmentSlot.Offhand]) {
+      const item = equippable.getEquipment(slot);
+      if (!item || item.typeId !== held.typeId) continue;
+      if (item.amount <= amount) equippable.setEquipment(slot, undefined);
+      else {
+        const copy = item.clone();
+        copy.amount -= amount;
+        equippable.setEquipment(slot, copy);
       }
-
-      if (nearestGolem) {
-        // Vložit všechny položky z inventáře Mini Golema do VSTUP slotů
-        for (let i = 0; i < inv.size; i++) {
-          const item = inv.getItem(i);
-          if (item) {
-            // Najít blok, který má tento golem přiřazený
-            const blockX = Math.floor(nearestGolem.location.x);
-            const blockY = Math.floor(nearestGolem.location.y);
-            const blockZ = Math.floor(nearestGolem.location.z);
-            
-            const blocks = dimension.getBlocks({
-              x: blockX, y: blockY, z: blockZ
-            });
-            
-            for (const block of blocks) {
-              if (block.typeId === "filtrovna:filtr") {
-                const targetGolemId = block.getDynamicProperty("golem_id");
-                if (targetGolemId === nearestGolem.id) {
-                  const targetGolem = world.getEntity(targetGolemId);
-                  if (targetGolem) {
-                    const targetInv = targetGolem.getComponent("minecraft:inventory")?.container;
-                    if (targetInv) {
-                      // Hledat první volný slot ve VSTUPU
-                      for (let j = SLOTS.VSTUP.start; j <= SLOTS.VSTUP.end; j++) {
-                        if (!targetInv.getItem(j)) {
-                          targetInv.setItem(j, item);
-                          inv.setItem(i, undefined);
-                          break;
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+      return;
     }
+  } catch (err) {
+    logErr("consumeHeld", err);
+  }
+}
+
+function damageHeldItem(player, held, amount) {
+  if (!held || amount <= 0) return;
+  try {
+    const equippable = player.getComponent("minecraft:equippable");
+    if (!equippable) return;
+    for (const slot of [EquipmentSlot.Mainhand, EquipmentSlot.Offhand]) {
+      const item = equippable.getEquipment(slot);
+      if (!item || item.typeId !== held.typeId) continue;
+      const copy = item.clone();
+      const durability = copy.getComponent("minecraft:durability");
+      if (!durability) return;
+      durability.damage = Math.min(durability.maxDurability, durability.damage + amount);
+      if (durability.damage >= durability.maxDurability) equippable.setEquipment(slot, undefined);
+      else equippable.setEquipment(slot, copy);
+      return;
+    }
+  } catch (err) {
+    logErr("damageHeld", err);
+  }
+}
+
+function addToPlayerInventory(player, item) {
+  try {
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (!container) return item;
+    return container.addItem(item) ?? undefined;
+  } catch {
+    return item;
+  }
+}
+
+function insertHeldItem(player, block, golem, held) {
+  if (!held) return;
+  const inventory = getContainer(golem);
+  if (!inventory) {
+    player.sendMessage({ translate: "filtrovna.msg.no_inventory" });
+    return;
+  }
+  const moved = insertIntoSection(inventory, VSTUP.start, VSTUP.end, held);
+  if (moved > 0) {
+    consumeHeldItem(player, held, moved);
+    player.sendMessage({ translate: "filtrovna.msg.inserted", with: [String(moved)] });
+    setStatus(block, golem, "processing");
+  } else {
+    player.sendMessage({ translate: "filtrovna.msg.input_full" });
+  }
+}
+
+function openMainUI(player, block, golem) {
+  const inventory = getContainer(golem);
+  if (!inventory) {
+    player.sendMessage({ translate: "filtrovna.msg.no_inventory" });
     return;
   }
 
-  // Pokud je inventář prázdný, hledat položky na zemi
-  if (inv.emptySlotsCount === inv.size) {
-    const items = dimension.getEntities({
-      type: "minecraft:item",
-      location: golem.location,
-      maxDistance: 8
-    });
+  let status = "idle";
+  try {
+    status = block.permutation.getState("filtrovna:status") ?? "idle";
+  } catch {}
 
-    if (items.length > 0) {
-      const itemEntity = items[0];
-      const itemStack = itemEntity.getComponent("minecraft:item")?.itemStack;
-      
-      if (itemStack) {
-        const countToTake = Math.min(itemStack.amount, 10);
-        const takenStack = itemStack.clone();
-        takenStack.amount = countToTake;
+  const counts = [
+    countItemsIn(inventory, VSTUP),
+    countItemsIn(inventory, FILTR),
+    countItemsIn(inventory, MATCH),
+    countItemsIn(inventory, NE),
+  ];
 
-        // Vložit do inventáře
-        inv.addItem(takenStack);
+  const form = new ActionFormData()
+    .title({ translate: "filtrovna.ui.title" })
+    .body({
+      rawtext: [
+        { translate: "filtrovna.ui.body" },
+        { text: "\n\n" },
+        { translate: "filtrovna.ui.status" },
+        { text: " " },
+        { translate: `filtrovna.state.${status}` },
+        { text: "\n" },
+        {
+          translate: "filtrovna.ui.counts",
+          with: counts.map((value) => String(value)),
+        },
+      ],
+    })
+    .button({ translate: "filtrovna.ui.section.vstup" })
+    .button({ translate: "filtrovna.ui.section.filtr" })
+    .button({ translate: "filtrovna.ui.section.match" })
+    .button({ translate: "filtrovna.ui.section.ne" });
 
-        // Aktualizovat položku na zemi
-        if (itemStack.amount <= countToTake) {
-          itemEntity.remove();
-        } else {
-          itemStack.amount -= countToTake;
+  const held = getHeldItem(player);
+  const insertIndex = held ? 4 : -1;
+  if (held) form.button({ translate: "filtrovna.ui.insert_held" });
+  form.button({ translate: "filtrovna.ui.close" });
+
+  form
+    .show(player)
+    .then((response) => {
+      if (response.canceled) return;
+      switch (response.selection) {
+        case 0:
+          system.run(() => openSection(player, block, golem, "vstup"));
+          break;
+        case 1:
+          system.run(() => openSection(player, block, golem, "filtr"));
+          break;
+        case 2:
+          system.run(() => openSection(player, block, golem, "match"));
+          break;
+        case 3:
+          system.run(() => openSection(player, block, golem, "ne"));
+          break;
+        default:
+          if (insertIndex >= 0 && response.selection === insertIndex) {
+            insertHeldItem(player, block, golem, getHeldItem(player));
+          }
+          break;
+      }
+    })
+    .catch(() => {});
+}
+
+function openSection(player, block, golem, key) {
+  const inventory = getContainer(golem);
+  if (!inventory) return;
+  const section = SECTIONS[key];
+  if (!section) return;
+
+  const form = new ActionFormData().title({ translate: SECTION_TITLE[key] });
+  for (let i = section.start; i <= section.end; i++) {
+    const item = inventory.getItem(i);
+    form.button(item ? `§7${i}§r §f${item.typeId} §7x${item.amount}` : `§7${i}§r §8—`);
+  }
+  form.button({ translate: "filtrovna.ui.back" });
+
+  form
+    .show(player)
+    .then((response) => {
+      if (response.canceled) return;
+      const index = response.selection;
+      if (typeof index !== "number") return;
+      if (index >= 0 && index < section.size) {
+        const slot = section.start + index;
+        system.run(() => openSlotEditor(player, block, golem, key, slot));
+      } else {
+        system.run(() => openMainUI(player, block, golem));
+      }
+    })
+    .catch(() => {});
+}
+
+function openSlotEditor(player, block, golem, key, slot) {
+  const inventory = getContainer(golem);
+  if (!inventory) return;
+  const current = inventory.getItem(slot);
+
+  const form = new ModalFormData()
+    .title({ translate: "filtrovna.ui.slot_editor" })
+    .textField(
+      { translate: "filtrovna.ui.item_id" },
+      { translate: "filtrovna.ui.item_id_placeholder" },
+      { defaultValue: current?.typeId ?? "" },
+    )
+    .slider({ translate: "filtrovna.ui.amount" }, 1, 64, {
+      defaultValue: current?.amount ?? 1,
+      valueStep: 1,
+    })
+    .toggle({ translate: "filtrovna.ui.clear" }, { defaultValue: false })
+    .toggle({ translate: "filtrovna.ui.take" }, { defaultValue: false });
+
+  form
+    .show(player)
+    .then((response) => {
+      if (response.canceled) return;
+      const values = response.formValues ?? [];
+      const itemId = String(values[0] ?? "").trim();
+      const amount = Math.max(1, Math.min(64, Math.floor(Number(values[1] ?? 1))));
+      const clear = values[2] === true;
+      const take = values[3] === true;
+
+      if (take) {
+        if (current) {
+          const leftover = addToPlayerInventory(player, current);
+          inventory.setItem(slot, leftover);
         }
+      } else if (clear) {
+        inventory.setItem(slot, undefined);
+      } else if (itemId.length > 0) {
+        const normalized = itemId.includes(":") ? itemId : `minecraft:${itemId}`;
+        const itemType = ItemTypes.get(normalized);
+        if (!itemType) {
+          player.sendMessage({ translate: "filtrovna.msg.bad_item", with: [itemId] });
+        } else {
+          try {
+            inventory.setItem(slot, makeStack(itemType, amount));
+          } catch (err) {
+            logErr("setSlot", err);
+            player.sendMessage({ translate: "filtrovna.msg.bad_item", with: [itemId] });
+          }
+        }
+      } else {
+        inventory.setItem(slot, undefined);
+      }
+
+      system.run(() => openSection(player, block, golem, key));
+    })
+    .catch(() => {});
+}
+
+function validRange(start, end) {
+  return (
+    Number.isInteger(start) &&
+    Number.isInteger(end) &&
+    start >= 0 &&
+    end <= 36 &&
+    start <= end
+  );
+}
+
+function findNearestFilterBlock(dimension, location, radius) {
+  let best;
+  for (const inside of safeGetEntities(dimension, {
+    type: INSIDE_ID,
+    location,
+    maxDistance: radius,
+  })) {
+    const position = inside.location;
+    const block = dimension.getBlock({
+      x: Math.floor(position.x),
+      y: Math.floor(position.y),
+      z: Math.floor(position.z),
+    });
+    if (!block || block.typeId !== FILTER_ID) continue;
+    const d = distanceSq(location, {
+      x: block.x + 0.5,
+      y: block.y + 0.5,
+      z: block.z + 0.5,
+    });
+    if (!best || d < best.distance) best = { block, distance: d };
+  }
+  if (best) return best.block;
+
+  const base = {
+    x: Math.floor(location.x),
+    y: Math.floor(location.y),
+    z: Math.floor(location.z),
+  };
+  const reach = Math.min(6, Math.max(1, Math.floor(radius)));
+  for (let dx = -reach; dx <= reach; dx++) {
+    for (let dy = -reach; dy <= reach; dy++) {
+      for (let dz = -reach; dz <= reach; dz++) {
+        const block = dimension.getBlock({ x: base.x + dx, y: base.y + dy, z: base.z + dz });
+        if (!block || block.typeId !== FILTER_ID) continue;
+        const d = distanceSq(location, {
+          x: block.x + 0.5,
+          y: block.y + 0.5,
+          z: block.z + 0.5,
+        });
+        if (!best || d < best.distance) best = { block, distance: d };
       }
     }
   }
+  return best?.block;
 }
 
-// =============================================================================
-// OXIDACE MINI COPPER GOLEMŮ
-// =============================================================================
+function resolveTargetBlock(event) {
+  const sourceBlock = event.sourceBlock;
+  if (sourceBlock?.typeId === FILTER_ID) return sourceBlock;
+  if (sourceBlock) {
+    const near = findNearestFilterBlock(
+      sourceBlock.dimension,
+      { x: sourceBlock.x + 0.5, y: sourceBlock.y + 0.5, z: sourceBlock.z + 0.5 },
+      8,
+    );
+    if (near) return near;
+  }
 
-if (golem.hasComponent("filtrovna:waxed")) continue;
-
-let currentState = null;
-if (golem.hasComponent("filtrovna:oxidized")) {
-  currentState = "oxidized";
-} else if (golem.hasComponent("filtrovna:weathered")) {
-  currentState = "weathered";
-} else if (golem.hasComponent("filtrovna:exposed")) {
-  currentState = "exposed";
-} else {
-  currentState = "copper";
+  const sourceEntity = event.sourceEntity;
+  if (sourceEntity?.typeId === "minecraft:player") {
+    try {
+      const hit = sourceEntity.getBlockFromViewDirection({
+        maxDistance: 8,
+        includeLiquidBlocks: false,
+        includePassableBlocks: false,
+      });
+      if (hit?.block?.typeId === FILTER_ID) return hit.block;
+    } catch {}
+    return findNearestFilterBlock(sourceEntity.dimension, sourceEntity.location, 16);
+  }
+  return undefined;
 }
 
-
-// =============================================================================
-// POMOCNÉ FUNKCE
-// =============================================================================
-
-// Funkce pro získání stavu bloku
-function getBlockState(block) {
-  const state = block.getDynamicProperty("filtrovna:state");
-  return STATES[state?.toUpperCase()] || STATES.IDLE;
+function sendFeedback(player, message) {
+  if (player) {
+    player.sendMessage(message);
+  } else {
+    try {
+      console.warn(`[Filtrovna] ${message?.translate ?? JSON.stringify(message)}`);
+    } catch {}
+  }
 }
 
-// =============================================================================
-// LOGOVÁNÍ
-// =============================================================================
+system.beforeEvents.startup.subscribe((init) => {
+  try {
+    init.blockComponentRegistry.registerCustomComponent("filtrovna:filtr_logic", {
+      onPlace: (event) => {
+        system.run(() => {
+          try {
+            onFilterPlaced(event.block, event.dimension);
+          } catch (err) {
+            logErr("onPlace", err);
+          }
+        });
+      },
+      onBreak: (event) => {
+        if (event.brokenBlockPermutation?.type?.id !== FILTER_ID) return;
+        system.run(() => {
+          try {
+            onFilterBroken(event.block, event.dimension);
+          } catch (err) {
+            logErr("onBreak", err);
+          }
+        });
+      },
+      onTick: (event) => {
+        try {
+          tickFilter(event.block, event.dimension);
+        } catch (err) {
+          logErr("onTick", err);
+        }
+      },
+    });
+  } catch (err) {
+    logErr("register", err);
+  }
+});
 
-console.log("[Filtrovna] §aAddon úspěšně načten!");
-console.log("[Filtrovna] §7Verze: 1.0.0 | Kompatibilita: Bedrock 1.21.30+");
-console.log("[Filtrovna] §7Script API: v1.14.0+");
+world.afterEvents.worldLoad.subscribe(() => {
+  system.run(() => {
+    try {
+      cleanupWorld();
+    } catch (err) {
+      logErr("worldLoad", err);
+    }
+  });
+});
+
+world.beforeEvents.entityItemPickup.subscribe(
+  (event) => {
+    const entity = event.entity;
+    if (entity.typeId !== MINI_ID) return;
+
+    const inventory = getContainer(entity);
+    if (!inventory) return;
+
+    const total = countItems(inventory);
+    if (total >= MAX_CARRY) {
+      event.cancel = true;
+      return;
+    }
+
+    const itemEntity = event.item;
+    let stack;
+    try {
+      stack = itemEntity.getComponent("minecraft:item")?.itemStack;
+    } catch {
+      return;
+    }
+    if (!stack) return;
+
+    const remaining = MAX_CARRY - total;
+    if (stack.amount <= remaining) return;
+
+    event.cancel = true;
+    system.run(() => {
+      if (!itemEntity.isValid) return;
+      let current;
+      try {
+        current = itemEntity.getComponent("minecraft:item")?.itemStack;
+      } catch {
+        return;
+      }
+      if (!current) return;
+
+      const copy = current.clone();
+      copy.amount = Math.min(remaining, current.amount);
+
+      let leftover;
+      try {
+        leftover = inventory.addItem(copy);
+      } catch {
+        return;
+      }
+      const moved = copy.amount - (leftover ? leftover.amount : 0);
+      if (moved <= 0) return;
+
+      const rest = current.amount - moved;
+      const location = itemEntity.location;
+      try {
+        itemEntity.remove();
+      } catch {}
+      if (rest > 0) {
+        const remainingStack = current.clone();
+        remainingStack.amount = rest;
+        try {
+          entity.dimension.spawnItem(remainingStack, location);
+        } catch {}
+      }
+    });
+  },
+  { entityFilter: { type: MINI_ID } },
+);
+
+world.afterEvents.playerInteractWithBlock.subscribe((event) => {
+  if (!event.isFirstEvent) return;
+  if (event.block.typeId !== FILTER_ID) return;
+
+  const player = event.player;
+  const golem = ensureFilter(event.block, event.block.dimension, true);
+  if (!golem) {
+    player.sendMessage({ translate: "filtrovna.msg.no_golem" });
+    return;
+  }
+
+  if (event.itemStack && player.isSneaking) {
+    insertHeldItem(player, event.block, golem, event.itemStack);
+    return;
+  }
+
+  system.run(() => openMainUI(player, event.block, golem));
+});
+
+world.afterEvents.playerInteractWithEntity.subscribe((event) => {
+  const target = event.target;
+  if (target.typeId !== MINI_ID) return;
+
+  const player = event.player;
+  const held = event.itemStack;
+  if (!held) return;
+
+  if (held.typeId === "minecraft:honeycomb") {
+    let waxed = false;
+    try {
+      waxed = target.getProperty("filtrovna:is_waxed") === true;
+    } catch {}
+    if (waxed) {
+      player.sendMessage({ translate: "filtrovna.msg.already_waxed" });
+      return;
+    }
+    try {
+      target.setProperty("filtrovna:is_waxed", true);
+      target.setDynamicProperty("filtrovna:owner", player.id);
+      target.setDynamicProperty("filtrovna:owner_name", player.name);
+    } catch (err) {
+      logErr("wax", err);
+      return;
+    }
+    consumeHeldItem(player, held, 1);
+    try {
+      target.dimension.playSound("mob.copper_golem.spin", target.location, {
+        volume: 1,
+        pitch: 1,
+      });
+      target.dimension.spawnParticle("minecraft:wax_on", target.location);
+    } catch {}
+    player.sendMessage({ translate: "filtrovna.msg.waxed" });
+    return;
+  }
+
+  if (held.typeId.endsWith("_axe")) {
+    let waxed = false;
+    let level = "unoxidized";
+    try {
+      waxed = target.getProperty("filtrovna:is_waxed") === true;
+      level = target.getProperty("filtrovna:oxidation_level") ?? "unoxidized";
+    } catch {}
+    const index = OXIDATION.indexOf(level);
+
+    if (waxed) {
+      try {
+        target.setProperty("filtrovna:is_waxed", false);
+      } catch (err) {
+        logErr("unwax", err);
+        return;
+      }
+      player.sendMessage({ translate: "filtrovna.msg.unwaxed" });
+    } else if (index > 0) {
+      const nextLevel = OXIDATION[index - 1];
+      try {
+        target.setProperty("filtrovna:oxidation_level", nextLevel);
+      } catch (err) {
+        logErr("scrape", err);
+        return;
+      }
+      applyOxidation(target, nextLevel);
+      player.sendMessage({ translate: "filtrovna.msg.scraped" });
+    } else {
+      player.sendMessage({ translate: "filtrovna.msg.already_clean" });
+      return;
+    }
+
+    damageHeldItem(player, held, 1);
+    try {
+      target.dimension.playSound(
+        "mob.copper_golem.chest_interaction.take_item",
+        target.location,
+        { volume: 1, pitch: 1 },
+      );
+      target.dimension.spawnParticle("minecraft:wax_off", target.location);
+    } catch {}
+  }
+});
+
+system.afterEvents.scriptEventReceive.subscribe(
+  (event) => {
+    const id = event.id;
+    if (id !== "filtrovna:set" && id !== "filtrovna:clear") return;
+
+    const args = event.message.trim().split(/\s+/).filter(Boolean);
+    const player =
+      event.sourceEntity?.typeId === "minecraft:player" ? event.sourceEntity : undefined;
+    let block;
+    let index = 0;
+
+    if (args.length >= 5 && args.slice(0, 3).every((value) => /^-?\d+$/.test(value))) {
+      const x = parseInt(args[0], 10);
+      const y = parseInt(args[1], 10);
+      const z = parseInt(args[2], 10);
+      const dimension =
+        player?.dimension ?? event.sourceEntity?.dimension ?? event.sourceBlock?.dimension;
+      if (dimension) block = dimension.getBlock({ x, y, z });
+      index = 3;
+    }
+    if (!block) block = resolveTargetBlock(event);
+    if (!block || block.typeId !== FILTER_ID) {
+      sendFeedback(player, { translate: "filtrovna.msg.no_target" });
+      return;
+    }
+
+    const golem = ensureFilter(block, block.dimension, true);
+    const inventory = golem ? getContainer(golem) : undefined;
+    if (!inventory) {
+      sendFeedback(player, { translate: "filtrovna.msg.no_inventory" });
+      return;
+    }
+
+    if (id === "filtrovna:clear") {
+      const start = parseInt(args[index] ?? "", 10);
+      const end = parseInt(args[index + 1] ?? "", 10);
+      if (!validRange(start, end)) {
+        sendFeedback(player, { translate: "filtrovna.msg.bad_range" });
+        return;
+      }
+      for (let i = start; i <= end; i++) inventory.setItem(i, undefined);
+      sendFeedback(player, {
+        translate: "filtrovna.msg.cleared",
+        with: [String(start), String(end)],
+      });
+      return;
+    }
+
+    const start = parseInt(args[index] ?? "", 10);
+    const end = parseInt(args[index + 1] ?? "", 10);
+    const rawItemId = args[index + 2];
+    const amount = Math.max(
+      1,
+      Math.min(64, parseInt(args[index + 3] ?? "1", 10) || 1),
+    );
+
+    if (!validRange(start, end) || !rawItemId) {
+      sendFeedback(player, { translate: "filtrovna.msg.bad_range" });
+      return;
+    }
+
+    if (rawItemId === "air" || rawItemId === "minecraft:air") {
+      for (let i = start; i <= end; i++) inventory.setItem(i, undefined);
+      sendFeedback(player, {
+        translate: "filtrovna.msg.cleared",
+        with: [String(start), String(end)],
+      });
+      return;
+    }
+
+    const itemId = rawItemId.includes(":") ? rawItemId : `minecraft:${rawItemId}`;
+    const itemType = ItemTypes.get(itemId);
+    if (!itemType) {
+      sendFeedback(player, { translate: "filtrovna.msg.bad_item", with: [rawItemId] });
+      return;
+    }
+
+    for (let i = start; i <= end; i++) {
+      inventory.setItem(i, makeStack(itemType, amount));
+    }
+    sendFeedback(player, {
+      translate: "filtrovna.msg.set",
+      with: [String(start), String(end), itemId, String(amount)],
+    });
+  },
+  { namespaces: ["filtrovna"] },
+);
+
+system.runInterval(() => {
+  for (const dimensionId of DIMENSIONS) {
+    let dimension;
+    try {
+      dimension = world.getDimension(dimensionId);
+    } catch {
+      continue;
+    }
+    for (const golem of safeGetEntities(dimension, { type: MINI_ID })) {
+      try {
+        tickMiniGolem(golem, dimension);
+      } catch (err) {
+        logErr("miniTick", err);
+      }
+    }
+  }
+}, 20);
+
+system.runInterval(() => {
+  try {
+    cleanupWorld();
+  } catch (err) {
+    logErr("cleanup", err);
+  }
+}, 100);

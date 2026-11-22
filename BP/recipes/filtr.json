@@ -4,7 +4,9 @@
     "description": {
       "identifier": "filtrovna:filtr"
     },
-    "tags": ["crafting_table"],
+    "tags": [
+      "crafting_table"
+    ],
     "pattern": [
       "MCM",
       "SGS",
@@ -30,6 +32,11 @@
     "result": {
       "item": "filtrovna:filtr",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

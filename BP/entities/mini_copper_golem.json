@@ -1,187 +1,203 @@
 {
-  "format_version": "1.21.0",
+  "format_version": "1.26.0",
   "minecraft:entity": {
     "description": {
       "identifier": "filtrovna:mini_copper_golem",
       "is_spawnable": true,
       "is_summonable": true,
-      "is_experimental": false
+      "properties": {
+        "filtrovna:oxidation_level": {
+          "type": "enum",
+          "values": [
+            "unoxidized",
+            "exposed",
+            "weathered",
+            "oxidized"
+          ],
+          "default": "unoxidized",
+          "client_sync": true
+        },
+        "filtrovna:is_waxed": {
+          "type": "bool",
+          "default": false,
+          "client_sync": true
+        }
+      }
     },
     "components": {
       "minecraft:type_family": {
-        "families": ["mob", "copper_golem", "filtrovna_helper"]
+        "families": [
+          "mob",
+          "copper_golem",
+          "filtrovna_helper",
+          "filtrovna_mini_golem"
+        ]
       },
       "minecraft:inventory": {
         "inventory_size": 10,
         "container_type": "container",
-        "restrict_to_owner": true
+        "private": false,
+        "can_be_siphoned_from": false
       },
       "minecraft:scale": {
         "value": 0.55
       },
-      "minecraft:movement": {
-        "value": 0.3
-      },
-      "minecraft:movement.basic": {
-        "max_turn": 50.0
+      "minecraft:collision_box": {
+        "width": 0.5,
+        "height": 0.9
       },
       "minecraft:health": {
         "value": 15,
         "max": 15
       },
+      "minecraft:movement": {
+        "value": 0.3
+      },
+      "minecraft:movement.basic": {
+        "max_turn": 50
+      },
+      "minecraft:navigation.walk": {
+        "avoid_damage_blocks": true,
+        "can_pass_doors": true,
+        "avoid_water": true,
+        "can_open_doors": true,
+        "using_door_annotation": true
+      },
+      "minecraft:jump.static": {},
+      "minecraft:can_climb": {},
       "minecraft:physics": {
         "has_gravity": true,
         "has_collision": true
       },
-      "minecraft:pushable": {
-        "is_pushable": true,
-        "is_pushable_by_piston": true
+      "minecraft:pushable_by_entity": {
+        "presets": [
+          {
+            "push_mode": "default"
+          }
+        ]
+      },
+      "minecraft:pushable_by_block": {},
+      "minecraft:knockback_resistance": {
+        "value": 0.4
+      },
+      "minecraft:nameable": {},
+      "minecraft:persistent": {},
+      "minecraft:behavior.float": {
+        "priority": 0
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 7,
+        "speed_multiplier": 0.8,
+        "xz_dist": 8
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 8,
+        "look_distance": 8,
+        "look_time": {
+          "min": 2,
+          "max": 4
+        }
+      },
+      "minecraft:behavior.random_look_around": {
+        "priority": 9
       },
       "minecraft:interact": {
         "interactions": [
           {
             "on_interact": {
-              "filters": {
-                "test": "has_equipment",
-                "subject": "other",
-                "domain": "hand",
-                "value": "minecraft:honeycomb"
-              },
               "event": "filtrovna:wax_golem",
-              "use_item": true,
-              "transform_to_item": ""
-            }
+              "target": "self"
+            },
+            "use_item": false,
+            "hurt_item": 0,
+            "play_sounds": [],
+            "swing": true
           }
         ]
-      },
-      "minecraft:navigation.walk": {
-        "can_path_over_water": true,
-        "can_walk_over_powder_snow": true,
-        "can_walk_in_lava": false
-      },
-      "minecraft:navigation.climb": {
-        "max_height": 1
-      },
-      "minecraft:navigation.swim": {
-        "can_path_over_water": true
-      },
-      "minecraft:navigation.fly": {
-        "can_path_over_water": false
-      },
-      "minecraft:sensor.vibration": {
-        "range": 16.0
-      },
-      "minecraft:breathable": {
-        "total_supply": 15,
-        "suffocate_time": 0
-      },
-      "minecraft:damage_sensor": {
-        "triggers": {
-          "cause": "all",
-          "deals_damage": true
-        }
-      },
-      "minecraft:nametag": {
-        "always_show": false
       }
     },
     "component_groups": {
-      "filtrovna:copper": {
-        "components": {
-          "minecraft:scale": {
-            "value": 0.55
-          },
-          "minecraft:movement": {
-            "value": 0.3
-          }
+      "filtrovna:empty": {
+        "minecraft:behavior.pickup_items": {
+          "priority": 1,
+          "max_dist": 16,
+          "search_height": 8,
+          "goal_radius": 1.5,
+          "speed_multiplier": 1.4,
+          "can_pickup_any_item": true,
+          "can_pickup_to_hand_or_equipment": false,
+          "track_target": true,
+          "pickup_based_on_chance": false
+        },
+        "minecraft:behavior.move_to_block": {
+          "priority": 2,
+          "target_blocks": [
+            "minecraft:copper_chest",
+            "minecraft:exposed_copper_chest",
+            "minecraft:weathered_copper_chest",
+            "minecraft:oxidized_copper_chest",
+            "minecraft:waxed_copper_chest",
+            "minecraft:waxed_exposed_copper_chest",
+            "minecraft:waxed_weathered_copper_chest",
+            "minecraft:waxed_oxidized_copper_chest",
+            "minecraft:ender_chest"
+          ],
+          "search_range": 16,
+          "search_height": 8,
+          "goal_radius": 2.5,
+          "speed_multiplier": 1.2,
+          "tick_interval": 20,
+          "target_selection_method": "nearest"
         }
       },
-      "filtrovna:exposed": {
-        "components": {
-          "minecraft:scale": {
-            "value": 0.55
-          },
-          "minecraft:movement": {
-            "value": 0.255
-          }
-        }
-      },
-      "filtrovna:weathered": {
-        "components": {
-          "minecraft:scale": {
-            "value": 0.55
-          },
-          "minecraft:movement": {
-            "value": 0.21
-          }
-        }
-      },
-      "filtrovna:oxidized": {
-        "components": {
-          "minecraft:scale": {
-            "value": 0.55
-          },
-          "minecraft:movement": {
-            "value": 0.175
-          }
-        }
-      },
-      "filtrovna:waxed": {
-        "components": {
-          "minecraft:scale": {
-            "value": 0.55
-          },
-          "minecraft:movement": {
-            "value": 0.3
-          }
+      "filtrovna:carrying": {
+        "minecraft:behavior.move_to_block": {
+          "priority": 1,
+          "target_blocks": [
+            "filtrovna:filtr"
+          ],
+          "search_range": 32,
+          "search_height": 8,
+          "goal_radius": 2.5,
+          "speed_multiplier": 1.4,
+          "tick_interval": 20,
+          "target_selection_method": "nearest"
         }
       }
     },
     "events": {
-      "filtrovna:wax_golem": {
+      "minecraft:entity_spawned": {
         "add": {
-          "component_groups": ["filtrovna:waxed"]
-        },
-        "remove": {
-          "component_groups": ["filtrovna:copper", "filtrovna:exposed", "filtrovna:weathered", "filtrovna:oxidized"]
+          "component_groups": [
+            "filtrovna:empty"
+          ]
         }
       },
-      "filtrovna:oxidize": {
-        "sequence": [
-          {
-            "add": {
-              "component_groups": ["filtrovna:exposed"]
-            },
-            "remove": {
-              "component_groups": ["filtrovna:copper", "filtrovna:waxed"]
-            }
-          },
-          {
-            "add": {
-              "component_groups": ["filtrovna:weathered"]
-            },
-            "remove": {
-              "component_groups": ["filtrovna:exposed"]
-            }
-          },
-          {
-            "add": {
-              "component_groups": ["filtrovna:oxidized"]
-            },
-            "remove": {
-              "component_groups": ["filtrovna:weathered"]
-            }
-          }
-        ]
-      },
-      "filtrovna:deoxidize": {
+      "filtrovna:become_carrying": {
         "add": {
-          "component_groups": ["filtrovna:copper"]
+          "component_groups": [
+            "filtrovna:carrying"
+          ]
         },
         "remove": {
-          "component_groups": ["filtrovna:exposed", "filtrovna:weathered", "filtrovna:oxidized"]
+          "component_groups": [
+            "filtrovna:empty"
+          ]
         }
-      }
+      },
+      "filtrovna:become_empty": {
+        "add": {
+          "component_groups": [
+            "filtrovna:empty"
+          ]
+        },
+        "remove": {
+          "component_groups": [
+            "filtrovna:carrying"
+          ]
+        }
+      },
+      "filtrovna:wax_golem": {}
     }
   }
 }

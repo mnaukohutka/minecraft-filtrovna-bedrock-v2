@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Filtrovna Behavior Pack",
-    "description": "Inteligentní³³ tᵉdᵉlᵢcí³³ systᵉm s Mᵉdᵉnymi Golemy pro Minecraft Bedrock Edition",
+    "description": "Inteligentní třídící systém s měděnými golemy",
     "uuid": "f8a1b2c3-d4e5-4a6b-8c7d-9e0f1a2b3c4d",
     "version": [
       1,
@@ -11,46 +11,40 @@
     ],
     "min_engine_version": [
       1,
-      21,
-      30
+      26,
+      60
     ]
   },
   "modules": [
     {
-      "language": "javascript",
-      "type": "script",
-      "uuid": "c370f8d1-5452-414b-90c5-1f1cd2d8bdc6",
-      "version": [
-        1,
-        0,
-        0
-      ],
-      "entry": "scripts/main.js"
-    },
-    {
-      "module_name": "@minecraft/server",
-      "version": "1.14.0"
-    },
-    {
-      "module_name": "@minecraft/server-ui",
-      "version": "1.2.0"
-    }
-  ],
-  "capabilities": {
-    "script_eval": true
-  },
-  "dependencies": [
-    {
-      "module_name": "@minecraft/server",
-      "version": "1.14.0"
-    },
-    {
-      "uuid": "7e6ce9ce-8950-4f9f-b0de-e1b1071297ae",
+      "type": "data",
+      "uuid": "e7a1b2c3-d4e5-4a6b-8c7d-9e0f1a2b3c4e",
       "version": [
         1,
         0,
         0
       ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "d6a1b2c3-d4e5-4a6b-8c7d-9e0f1a2b3c4f",
+      "entry": "scripts/main.js",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
     }
   ]
 }

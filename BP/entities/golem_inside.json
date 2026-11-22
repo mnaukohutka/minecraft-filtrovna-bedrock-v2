@@ -1,11 +1,18 @@
 {
-  "format_version": "1.21.0",
+  "format_version": "1.26.0",
   "minecraft:entity": {
     "description": {
       "identifier": "filtrovna:golem_inside",
       "is_spawnable": false,
       "is_summonable": true,
-      "is_experimental": false
+      "properties": {
+        "filtrovna:status": {
+          "type": "enum",
+          "values": ["idle", "processing", "match", "ne", "drop", "stuck"],
+          "default": "idle",
+          "client_sync": true
+        }
+      }
     },
     "components": {
       "minecraft:type_family": {
@@ -14,82 +21,48 @@
       "minecraft:inventory": {
         "inventory_size": 37,
         "container_type": "container",
-        "restrict_to_owner": false
+        "private": true,
+        "can_be_siphoned_from": false
       },
       "minecraft:scale": {
         "value": 0.55
       },
       "minecraft:physics": {
         "has_gravity": false,
-        "has_collision": false
+        "has_collision": false,
+        "push_towards_closest_space": false
       },
-      "minecraft:pushable": {
-        "is_pushable": false,
-        "is_pushable_by_piston": false
+      "minecraft:collision_box": {
+        "width": 0.1,
+        "height": 0.1
+      },
+      "minecraft:pushable_by_entity": {
+        "presets": [
+          {
+            "push_mode": "none"
+          }
+        ]
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1.0
       },
       "minecraft:health": {
         "value": 1,
         "max": 1
       },
       "minecraft:damage_sensor": {
-        "triggers": {
-          "cause": "all",
-          "deals_damage": false
-        }
+        "triggers": [
+          {
+            "cause": "all",
+            "deals_damage": "no"
+          }
+        ]
       },
-      "minecraft:nametag": {
+      "minecraft:cannot_be_attacked": {},
+      "minecraft:persistent": {},
+      "minecraft:nameable": {
         "always_show": false,
-        "color": "#B87333"
-      }
-    },
-    "component_groups": {
-      "filtrovna:state_idle": {
-        "components": {
-          "minecraft:glow": {
-            "color": "#00FF00",
-            "strength": 8
-          }
-        }
-      },
-      "filtrovna:state_processing": {
-        "components": {
-          "minecraft:glow": {
-            "color": "#FFFF00",
-            "strength": 10
-          }
-        }
-      },
-      "filtrovna:state_match": {
-        "components": {
-          "minecraft:glow": {
-            "color": "#0080FF",
-            "strength": 12
-          }
-        }
-      },
-      "filtrovna:state_ne": {
-        "components": {
-          "minecraft:glow": {
-            "color": "#FF8000",
-            "strength": 12
-          }
-        }
-      },
-      "filtrovna:state_drop": {
-        "components": {
-          "minecraft:glow": {
-            "color": "#FFFFFF",
-            "strength": 15
-          }
-        }
-      },
-      "filtrovna:state_stuck": {
-        "components": {
-          "minecraft:glow": {
-            "color": "#FF0000",
-            "strength": 6
-          }
-        }
+        "allow_name_tag_renaming": false
       }
     }
   }
