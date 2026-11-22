@@ -8,7 +8,14 @@
       "properties": {
         "filtrovna:status": {
           "type": "enum",
-          "values": ["idle", "processing", "match", "ne", "drop", "stuck"],
+          "values": [
+            "idle",
+            "processing",
+            "match",
+            "ne",
+            "drop",
+            "stuck"
+          ],
           "default": "idle",
           "client_sync": true
         }
@@ -16,7 +23,10 @@
     },
     "components": {
       "minecraft:type_family": {
-        "families": ["inanimate", "filtrovna_golem"]
+        "family": [
+          "inanimate",
+          "filtrovna_golem"
+        ]
       },
       "minecraft:inventory": {
         "inventory_size": 37,
@@ -35,13 +45,6 @@
       "minecraft:collision_box": {
         "width": 0.1,
         "height": 0.1
-      },
-      "minecraft:pushable_by_entity": {
-        "presets": [
-          {
-            "push_mode": "none"
-          }
-        ]
       },
       "minecraft:knockback_resistance": {
         "value": 1.0
@@ -63,6 +66,10 @@
       "minecraft:nameable": {
         "always_show": false,
         "allow_name_tag_renaming": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
       }
     }
   }

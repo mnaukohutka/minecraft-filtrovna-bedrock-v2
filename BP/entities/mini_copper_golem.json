@@ -26,7 +26,7 @@
     },
     "components": {
       "minecraft:type_family": {
-        "families": [
+        "family": [
           "mob",
           "copper_golem",
           "filtrovna_helper",
@@ -69,14 +69,6 @@
         "has_gravity": true,
         "has_collision": true
       },
-      "minecraft:pushable_by_entity": {
-        "presets": [
-          {
-            "push_mode": "default"
-          }
-        ]
-      },
-      "minecraft:pushable_by_block": {},
       "minecraft:knockback_resistance": {
         "value": 0.4
       },
@@ -114,6 +106,10 @@
             "swing": true
           }
         ]
+      },
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
       }
     },
     "component_groups": {
