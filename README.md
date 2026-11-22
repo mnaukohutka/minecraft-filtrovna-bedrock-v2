@@ -58,7 +58,7 @@
 2. Zkopírujte `RP/` do `development_resource_packs/FiltrovnaRP/`.
 3. Aktivujte oba packy ve světě.
 
-> Addon vyžaduje povolené **Beta API** / experimentální funkce pro Script API a vlastní komponenty bloků.
+> Addon je stavěný na stabilní Script API 2.11.0 a nevyžaduje experimentální custom komponenty bloků. Pro jistotu mějte zapnuté **Beta APIs** pouze pokud používáte starší build hry.
 
 ## 🎮 Použití
 

@@ -37,6 +37,56 @@ const OXIDATION_INTERVAL_MS = 300000;
 const OXIDATION_CHANCE = 0.25;
 
 const spawnCooldown = new Map();
+const filterKeys = new Set();
+const FILTER_KEYS_PROPERTY = "filtrovna:filter_keys";
+
+function filterKey(block) {
+  return `${block.dimension.id}|${block.x},${block.y},${block.z}`;
+}
+
+function parseFilterKey(key) {
+  if (typeof key !== "string") return undefined;
+  const [dimensionId, coords] = key.split("|");
+  const [x, y, z] = (coords ?? "").split(",").map(Number);
+  if (!dimensionId || !Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(z)) {
+    return undefined;
+  }
+  return { dimensionId, x, y, z };
+}
+
+function getFilterBlock(parsed) {
+  try {
+    const dimension = world.getDimension(parsed.dimensionId);
+    const block = dimension.getBlock({ x: parsed.x, y: parsed.y, z: parsed.z });
+    return { dimension, block };
+  } catch {
+    return undefined;
+  }
+}
+
+function loadFilterKeys() {
+  filterKeys.clear();
+  let raw;
+  try {
+    raw = world.getDynamicProperty(FILTER_KEYS_PROPERTY);
+  } catch {
+    return;
+  }
+  if (typeof raw !== "string") return;
+  try {
+    const list = JSON.parse(raw);
+    if (!Array.isArray(list)) return;
+    for (const key of list) {
+      if (typeof key === "string") filterKeys.add(key);
+    }
+  } catch {}
+}
+
+function saveFilterKeys() {
+  try {
+    world.setDynamicProperty(FILTER_KEYS_PROPERTY, JSON.stringify([...filterKeys]));
+  } catch {}
+}
 
 function logErr(where, err) {
   try {
@@ -318,6 +368,8 @@ function ensureFilter(block, dimension, spawnIfMissing) {
 
 function onFilterPlaced(block, dimension) {
   if (!block || block.typeId !== FILTER_ID) return;
+  filterKeys.add(filterKey(block));
+  saveFilterKeys();
   const golem = ensureFilter(block, dimension, true);
   if (golem) setStatus(block, golem, "idle");
   try {
@@ -327,6 +379,8 @@ function onFilterPlaced(block, dimension) {
 }
 
 function onFilterBroken(block, dimension) {
+  filterKeys.delete(filterKey(block));
+  saveFilterKeys();
   const center = { x: block.x + 0.5, y: block.y + 0.5, z: block.z + 0.5 };
   const golems = safeGetEntities(dimension, {
     type: INSIDE_ID,
@@ -343,6 +397,7 @@ function onFilterBroken(block, dimension) {
   } catch {}
 
   const seen = new Set();
+  let removed = false;
   for (const golem of golems) {
     if (seen.has(golem.id)) continue;
     seen.add(golem.id);
@@ -351,6 +406,13 @@ function onFilterBroken(block, dimension) {
       ejectContainer(inventory, dimension, { x: center.x, y: block.y + 0.6, z: center.z });
     }
     safeRemove(golem);
+    removed = true;
+  }
+
+  if (removed) {
+    try {
+      dimension.spawnEntity(MINI_ID, { x: center.x, y: block.y + 1.05, z: center.z });
+    } catch {}
   }
 }
 
@@ -749,6 +811,21 @@ function tickMiniGolem(golem, dimension) {
 }
 
 function cleanupWorld() {
+  for (const key of [...filterKeys]) {
+    const parsed = parseFilterKey(key);
+    if (!parsed) {
+      filterKeys.delete(key);
+      continue;
+    }
+    const target = getFilterBlock(parsed);
+    if (!target || !target.block) continue;
+    if (target.block.typeId !== FILTER_ID) {
+      filterKeys.delete(key);
+      continue;
+    }
+    ensureFilter(target.block, target.dimension, true);
+  }
+
   for (const dimensionId of DIMENSIONS) {
     let dimension;
     try {
@@ -764,12 +841,14 @@ function cleanupWorld() {
         y: Math.floor(location.y),
         z: Math.floor(location.z),
       });
-      if (!block || block.typeId !== FILTER_ID) {
+      if (!block) continue;
+      if (block.typeId !== FILTER_ID) {
         const inventory = getContainer(golem);
         if (inventory) ejectContainer(inventory, dimension, golem.location);
         safeRemove(golem);
         continue;
       }
+      filterKeys.add(filterKey(block));
       try {
         block.setDynamicProperty("filtrovna:golem_id", golem.id);
       } catch {}
@@ -797,6 +876,8 @@ function cleanupWorld() {
       }
     }
   }
+
+  saveFilterKeys();
 }
 
 function getHeldItem(player) {
@@ -1128,44 +1209,32 @@ function sendFeedback(player, message) {
   }
 }
 
-system.beforeEvents.startup.subscribe((init) => {
-  try {
-    init.blockComponentRegistry.registerCustomComponent("filtrovna:filtr_logic", {
-      onPlace: (event) => {
-        system.run(() => {
-          try {
-            onFilterPlaced(event.block, event.dimension);
-          } catch (err) {
-            logErr("onPlace", err);
-          }
-        });
-      },
-      onBreak: (event) => {
-        if (event.brokenBlockPermutation?.type?.id !== FILTER_ID) return;
-        system.run(() => {
-          try {
-            onFilterBroken(event.block, event.dimension);
-          } catch (err) {
-            logErr("onBreak", err);
-          }
-        });
-      },
-      onTick: (event) => {
-        try {
-          tickFilter(event.block, event.dimension);
-        } catch (err) {
-          logErr("onTick", err);
-        }
-      },
-    });
-  } catch (err) {
-    logErr("register", err);
-  }
+world.afterEvents.playerPlaceBlock.subscribe((event) => {
+  if (event.block?.typeId !== FILTER_ID) return;
+  system.run(() => {
+    try {
+      onFilterPlaced(event.block, event.dimension);
+    } catch (err) {
+      logErr("place", err);
+    }
+  });
+});
+
+world.afterEvents.playerBreakBlock.subscribe((event) => {
+  if (event.brokenBlockPermutation?.type?.id !== FILTER_ID) return;
+  system.run(() => {
+    try {
+      onFilterBroken(event.block, event.dimension);
+    } catch (err) {
+      logErr("break", err);
+    }
+  });
 });
 
 world.afterEvents.worldLoad.subscribe(() => {
   system.run(() => {
     try {
+      loadFilterKeys();
       cleanupWorld();
     } catch (err) {
       logErr("worldLoad", err);
@@ -1426,6 +1495,27 @@ system.afterEvents.scriptEventReceive.subscribe(
   },
   { namespaces: ["filtrovna"] },
 );
+
+system.runInterval(() => {
+  for (const key of [...filterKeys]) {
+    const parsed = parseFilterKey(key);
+    if (!parsed) {
+      filterKeys.delete(key);
+      continue;
+    }
+    const target = getFilterBlock(parsed);
+    if (!target || !target.block) continue;
+    if (target.block.typeId !== FILTER_ID) {
+      filterKeys.delete(key);
+      continue;
+    }
+    try {
+      tickFilter(target.block, target.dimension);
+    } catch (err) {
+      logErr("filterTick", err);
+    }
+  }
+}, 1);
 
 system.runInterval(() => {
   for (const dimensionId of DIMENSIONS) {
