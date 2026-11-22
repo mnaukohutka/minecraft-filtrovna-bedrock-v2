@@ -826,6 +826,32 @@ function cleanupWorld() {
     ensureFilter(target.block, target.dimension, true);
   }
 
+  for (const player of world.getPlayers()) {
+    const dimension = player.dimension;
+    const base = {
+      x: Math.floor(player.location.x),
+      y: Math.floor(player.location.y),
+      z: Math.floor(player.location.z),
+    };
+    for (let dx = -8; dx <= 8; dx++) {
+      for (let dy = -8; dy <= 8; dy++) {
+        for (let dz = -8; dz <= 8; dz++) {
+          let block;
+          try {
+            block = dimension.getBlock({ x: base.x + dx, y: base.y + dy, z: base.z + dz });
+          } catch {
+            continue;
+          }
+          if (!block || block.typeId !== FILTER_ID) continue;
+          const key = filterKey(block);
+          if (filterKeys.has(key)) continue;
+          filterKeys.add(key);
+          ensureFilter(block, dimension, true);
+        }
+      }
+    }
+  }
+
   for (const dimensionId of DIMENSIONS) {
     let dimension;
     try {
@@ -845,6 +871,9 @@ function cleanupWorld() {
       if (block.typeId !== FILTER_ID) {
         const inventory = getContainer(golem);
         if (inventory) ejectContainer(inventory, dimension, golem.location);
+        try {
+          dimension.spawnEntity(MINI_ID, golem.location);
+        } catch {}
         safeRemove(golem);
         continue;
       }
