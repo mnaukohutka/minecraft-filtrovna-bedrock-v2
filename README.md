@@ -158,6 +158,6 @@ Projekt je volně šiřitelný pro osobní použití. Komerční použití vyža
 
 ---
 
-**Verze**: 1.0.0  
+**Verze**: 1.1.0  
 **Autor**: mnaukohutka  
 **Datum**: 2026
