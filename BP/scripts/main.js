@@ -1057,8 +1057,8 @@ function showFilterStatus(player, block, golem) {
   } catch {}
 
   const hint = active?.external
-    ? "§7Dvojitá truhla: 1. řada VSTUP, 2. řada FILTR, 3. řada MATCH, 4. řada NE.§r"
-    : "§7Přidej vedle filtru dvojitou truhlu (54 slotů) a otevři ji běžným truhlovým UI.§r";
+    ? "§7Dvojitá truhla: 1. řada VSTUP, 2. řada FILTR, 3. řada MATCH, 4. řada NE. Sneak + klik vloží předmět.§r"
+    : "§7Přidej vedle filtru dvojitou truhlu (54 slotů). Sneak + klik vloží předmět do VSTUPU.§r";
 
   player.sendMessage(
     `§6Filtrovna§r\nStav: §e${STATUS_TEXT[status] ?? status}§r\n` +
@@ -1075,6 +1075,19 @@ function validRange(start, end) {
     end <= 36 &&
     start <= end
   );
+}
+
+function mapSectionRange(start, end, layout) {
+  const known = [
+    [0, 8, layout.vstup],
+    [9, 18, layout.filtr],
+    [19, 27, layout.match],
+    [28, 36, layout.ne],
+  ];
+  for (const [from, to, section] of known) {
+    if (start === from && end === to) return [section.start, section.end];
+  }
+  return [start, end];
 }
 
 function findNearestFilterBlock(dimension, location, radius) {
@@ -1270,7 +1283,7 @@ world.afterEvents.playerInteractWithBlock.subscribe((event) => {
     return;
   }
 
-  if (event.itemStack) {
+  if (event.itemStack && player.isSneaking) {
     insertHeldItem(player, event.block, golem, event.itemStack);
     return;
   }
@@ -1394,8 +1407,11 @@ system.afterEvents.scriptEventReceive.subscribe(
     }
 
     if (id === "filtrovna:clear") {
-      const start = parseInt(args[index] ?? "", 10);
-      const end = parseInt(args[index + 1] ?? "", 10);
+      const [start, end] = mapSectionRange(
+        parseInt(args[index] ?? "", 10),
+        parseInt(args[index + 1] ?? "", 10),
+        active.layout,
+      );
       if (!validRange(start, end)) {
         sendFeedback(player, { translate: "filtrovna.msg.bad_range" });
         return;
@@ -1408,8 +1424,11 @@ system.afterEvents.scriptEventReceive.subscribe(
       return;
     }
 
-    const start = parseInt(args[index] ?? "", 10);
-    const end = parseInt(args[index + 1] ?? "", 10);
+    const [start, end] = mapSectionRange(
+      parseInt(args[index] ?? "", 10),
+      parseInt(args[index + 1] ?? "", 10),
+      active.layout,
+    );
     const rawItemId = args[index + 2];
     const amount = Math.max(
       1,

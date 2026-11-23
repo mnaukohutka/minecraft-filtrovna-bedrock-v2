@@ -84,7 +84,7 @@ MBM
   - 3. řada (sloty 18–26) = MATCH
   - 4. řada (sloty 27–35) = NE
   - 5.–6. řada = volné úložiště
-- **Pravý klik na blok s předmětem v ruce** vloží předmět do VSTUPU aktivního panelu.
+- **Sneak + pravý klik na blok s předmětem v ruce** vloží předmět do VSTUPU aktivního panelu.
 - **Pravý klik na blok s prázdnou rukou** zobrazí stav a počty Vstup / Filtr / Match / NE.
 - Bez přilehlé dvojité truhly se použije interní 37-slotový inventář golema; ten lze ovládat příkazy `/scriptevent`.
 
