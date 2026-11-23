@@ -46,27 +46,27 @@
       "minecraft:material_instances": {
         "*": {
           "texture": "waxed_copper_block",
-          "render_method": "opaque"
+          "render_method": "alpha_test"
         },
         "casing": {
           "texture": "waxed_copper_block",
-          "render_method": "opaque"
+          "render_method": "alpha_test"
         },
         "front_glass": {
           "texture": "filtr_front_glass",
-          "render_method": "blend"
+          "render_method": "alpha_test"
         },
         "bottom_bulb": {
           "texture": "filtr_bottom_bulb",
-          "render_method": "opaque"
+          "render_method": "alpha_test"
         },
         "side_plus": {
           "texture": "filtr_side_plus",
-          "render_method": "opaque"
+          "render_method": "alpha_test"
         },
         "side_minus": {
           "texture": "filtr_side_minus",
-          "render_method": "opaque"
+          "render_method": "alpha_test"
         },
         "top_grate": {
           "texture": "filtr_top_grate",
