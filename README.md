@@ -2,7 +2,7 @@
 
 ## 📋 Přehled
 
-**Filtrovna** je addon pro Minecraft Bedrock Edition, který přidává inteligentní třídící blok s vnitřním měděným golemem a volně pobíhající Mini Copper Golemy. Addon cílí na **Minecraft Bedrock 1.26.60** a využívá Script API `@minecraft/server` 2.11.0 a `@minecraft/server-ui` 2.3.0.
+**Filtrovna** je addon pro Minecraft Bedrock Edition, který přidává inteligentní třídící blok s vnitřním měděným golemem a volně pobíhající Mini Copper Golemy. Addon cílí na **Minecraft Bedrock 1.26.60** a využívá Script API `@minecraft/server` 2.11.0.
 
 ## ✨ Funkce
 
@@ -78,9 +78,15 @@ MBM
 
 ### Ovládání bloku
 
-- **Pravý klik** na blok otevře UI se správou všech čtyř sekcí.
-- **Sneak + pravý klik** s předmětem v ruce vloží předmět do VSTUPU.
-- V UI lze každý slot nastavit, vyprázdnit nebo vzít předmět do inventáře.
+- **Přilehlá dvojitá truhla (54 slotů)** slouží jako filtrační panel a otevírá se běžným truhlovým UI:
+  - 1. řada (sloty 0–8) = VSTUP
+  - 2. řada (sloty 9–17) = FILTR
+  - 3. řada (sloty 18–26) = MATCH
+  - 4. řada (sloty 27–35) = NE
+  - 5.–6. řada = volné úložiště
+- **Pravý klik na blok s předmětem v ruce** vloží předmět do VSTUPU aktivního panelu.
+- **Pravý klik na blok s prázdnou rukou** zobrazí stav a počty Vstup / Filtr / Match / NE.
+- Bez přilehlé dvojité truhly se použije interní 37-slotový inventář golema; ten lze ovládat příkazy `/scriptevent`.
 
 ### Příkazy `/scriptevent`
 
@@ -134,7 +140,7 @@ Filtrovna/
 ## 🔧 Technické údaje
 
 - **Minecraft Bedrock**: 1.26.60 (testováno proti schématům 1.26.60)
-- **Script API**: `@minecraft/server` 2.11.0, `@minecraft/server-ui` 2.3.0
+- **Script API**: `@minecraft/server` 2.11.0
 - **Formát bloku**: `1.26.50`
 - **ID bloku**: `filtrovna:filtr`
 - **ID entit**: `filtrovna:golem_inside`, `filtrovna:mini_copper_golem`

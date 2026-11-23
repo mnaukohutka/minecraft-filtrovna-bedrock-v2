@@ -2,8 +2,10 @@
   "resource_pack_name": "filtrovna",
   "texture_name": "atlas.items",
   "padding": 8,
-  "num_mips": 4,
-  "textures": {
-    "filtr_item": "textures/items/filtr_item"
+  "num_mip_levels": 4,
+  "texture_data": {
+    "filtr_item": {
+      "textures": "textures/items/filtr_item"
+    }
   }
 }

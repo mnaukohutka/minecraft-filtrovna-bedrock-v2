@@ -5,7 +5,6 @@ import {
   ItemTypes,
   EquipmentSlot,
 } from "@minecraft/server";
-import { ModalFormData } from "@minecraft/server-ui";
 
 const FILTER_ID = "filtrovna:filtr";
 const INSIDE_ID = "filtrovna:golem_inside";
@@ -17,6 +16,12 @@ const FILTR = { start: 9, end: 18, size: 10 };
 const MATCH = { start: 19, end: 27, size: 9 };
 const NE = { start: 28, end: 36, size: 9 };
 const SECTIONS = { vstup: VSTUP, filtr: FILTR, match: MATCH, ne: NE };
+const CHEST_LAYOUT = {
+  vstup: { start: 0, end: 8, size: 9 },
+  filtr: { start: 9, end: 17, size: 9 },
+  match: { start: 18, end: 26, size: 9 },
+  ne: { start: 27, end: 35, size: 9 },
+};
 
 const OXIDATION = ["unoxidized", "exposed", "weathered", "oxidized"];
 const OXIDATION_FACTOR = {
@@ -143,12 +148,6 @@ function countItemsIn(container, section) {
   return total;
 }
 
-function sectionHasItems(container, section) {
-  for (let i = section.start; i <= section.end; i++) {
-    if (container.getItem(i)) return true;
-  }
-  return false;
-}
 
 function firstNonEmpty(container, start, end) {
   for (let i = start; i <= end; i++) {
@@ -424,12 +423,54 @@ function onFilterBroken(block, dimension) {
   }
 }
 
-function filterHas(container, typeId) {
-  for (let i = FILTR.start; i <= FILTR.end; i++) {
+const FILTER_CONTAINER_IDS = new Set(["minecraft:chest", "minecraft:trapped_chest", "minecraft:barrel"]);
+
+function findAdjacentContainer(block) {
+  const offsets = [
+    [1, 0, 0],
+    [-1, 0, 0],
+    [0, 1, 0],
+    [0, -1, 0],
+    [0, 0, 1],
+    [0, 0, -1],
+  ];
+  for (const [dx, dy, dz] of offsets) {
+    try {
+      const other = block.dimension.getBlock({
+        x: block.x + dx,
+        y: block.y + dy,
+        z: block.z + dz,
+      });
+      if (!other || !FILTER_CONTAINER_IDS.has(other.typeId)) continue;
+      const container = other.getComponent("minecraft:inventory")?.container;
+      if (container) return container;
+    } catch {}
+  }
+  return undefined;
+}
+
+function getFilterInventory(block, golem) {
+  const chest = findAdjacentContainer(block);
+  if (chest && chest.size >= 36) {
+    return { container: chest, layout: CHEST_LAYOUT, external: true };
+  }
+  const inventory = getContainer(golem);
+  return inventory ? { container: inventory, layout: SECTIONS, external: false } : undefined;
+}
+
+function filterHas(container, layout, typeId) {
+  for (let i = layout.filtr.start; i <= layout.filtr.end; i++) {
     const filter = container.getItem(i);
     if (filter && filter.typeId === typeId) return true;
   }
   return false;
+}
+
+function filterIsEmpty(container, layout) {
+  for (let i = layout.filtr.start; i <= layout.filtr.end; i++) {
+    if (container.getItem(i)) return false;
+  }
+  return true;
 }
 
 function outputDropLocation(block, matched) {
@@ -465,10 +506,12 @@ function tickFilter(block, dimension) {
   if (!golem) return;
   keepGolemInPlace(golem, block);
 
-  const inventory = getContainer(golem);
-  if (!inventory) return;
+  const active = getFilterInventory(block, golem);
+  if (!active) return;
+  const inventory = active.container;
+  const layout = active.layout;
 
-  const inputSlot = firstNonEmpty(inventory, VSTUP.start, VSTUP.end);
+  const inputSlot = firstNonEmpty(inventory, layout.vstup.start, layout.vstup.end);
   if (inputSlot < 0) {
     let dropUntil = 0;
     try {
@@ -489,9 +532,9 @@ function tickFilter(block, dimension) {
   } catch {}
   setStatus(block, golem, "processing");
 
-  const filterIsEmpty = !sectionHasItems(inventory, FILTR);
-  const matched = filterIsEmpty || filterHas(inventory, item.typeId);
-  const target = matched ? MATCH : NE;
+  const emptyFilter = filterIsEmpty(inventory, layout);
+  const matched = emptyFilter || filterHas(inventory, layout, item.typeId);
+  const target = matched ? layout.match : layout.ne;
 
   const moved = insertIntoSection(inventory, target.start, target.end, item);
   if (moved > 0) {
@@ -769,13 +812,15 @@ function tickMiniGolem(golem, dimension) {
       };
       if (distanceSq(golem.location, side) <= 12.25) {
         const inside = ensureFilter(found.block, dimension, true);
-        const destination = inside ? getContainer(inside) : undefined;
-        if (destination) {
+        const active = inside ? getFilterInventory(found.block, inside) : undefined;
+        const destination = active?.container;
+        const layout = active?.layout;
+        if (destination && layout) {
           let moved = 0;
           for (let i = 0; i < inventory.size; i++) {
             const item = inventory.getItem(i);
             if (!item) continue;
-            const amount = insertIntoSection(destination, VSTUP.start, VSTUP.end, item);
+            const amount = insertIntoSection(destination, layout.vstup.start, layout.vstup.end, item);
             if (amount > 0) {
               if (amount >= item.amount) inventory.setItem(i, undefined);
               else {
@@ -976,83 +1021,50 @@ const STATUS_TEXT = {
   stuck: "zaseknutý",
 };
 
-function openFilterUI(player, block, golem) {
-  const inventory = getContainer(golem);
-  if (!inventory) {
+function insertHeldItem(player, block, golem, held) {
+  const active = getFilterInventory(block, golem);
+  if (!active) {
     player.sendMessage({ translate: "filtrovna.msg.no_inventory" });
     return;
   }
+  const moved = insertIntoSection(
+    active.container,
+    active.layout.vstup.start,
+    active.layout.vstup.end,
+    held,
+  );
+  if (moved <= 0) {
+    player.sendMessage({ translate: "filtrovna.msg.input_full" });
+    return;
+  }
+  consumeHeldItem(player, held, moved);
+  player.sendMessage({ translate: "filtrovna.msg.inserted", with: [String(moved)] });
+}
+
+function showFilterStatus(player, block, golem) {
+  const active = getFilterInventory(block, golem);
+  const container = active?.container;
+  const layout = active?.layout;
+
+  const inputCount = container ? countItemsIn(container, layout.vstup) : 0;
+  const filterCount = container ? countItemsIn(container, layout.filtr) : 0;
+  const matchCount = container ? countItemsIn(container, layout.match) : 0;
+  const neCount = container ? countItemsIn(container, layout.ne) : 0;
 
   let status = "idle";
   try {
     status = block.permutation.getState("filtrovna:status") ?? "idle";
   } catch {}
 
-  const counts = [
-    countItemsIn(inventory, VSTUP),
-    countItemsIn(inventory, FILTR),
-    countItemsIn(inventory, MATCH),
-    countItemsIn(inventory, NE),
-  ];
+  const hint = active?.external
+    ? "§7Dvojitá truhla: 1. řada VSTUP, 2. řada FILTR, 3. řada MATCH, 4. řada NE.§r"
+    : "§7Přidej vedle filtru dvojitou truhlu (54 slotů) a otevři ji běžným truhlovým UI.§r";
 
-  const form = new ModalFormData()
-    .title("Filtrovna")
-    .header("Filtr")
-    .label(
-      `Stav: ${STATUS_TEXT[status] ?? status} | Vstup: ${counts[0]} | Filtr: ${counts[1]} | Match: ${counts[2]} | NE: ${counts[3]}\n` +
-        "Napiš ID předmětu do slotu. Prázdné pole slot vyčistí. Skrčený pravý klik vloží držený předmět do vstupu.",
-    )
-    .divider();
-
-  for (let slot = FILTR.start; slot <= FILTR.end; slot++) {
-    const item = inventory.getItem(slot);
-    form.textField(`Slot ${slot}`, "minecraft:diamond", {
-      defaultValue: item?.typeId ?? "",
-    });
-  }
-
-  form.toggle("Vyprázdnit celý filtr", { defaultValue: false }).submitButton("Uložit");
-
-  form
-    .show(player)
-    .then((response) => {
-      if (response.canceled) return;
-      const values = response.formValues ?? [];
-      const clearAll = values[FILTR.size] === true;
-      let changed = false;
-
-      if (clearAll) {
-        for (let slot = FILTR.start; slot <= FILTR.end; slot++) {
-          inventory.setItem(slot, undefined);
-        }
-        changed = true;
-      } else {
-        for (let i = 0; i < FILTR.size; i++) {
-          const slot = FILTR.start + i;
-          const raw = String(values[i] ?? "").trim();
-          if (!raw) {
-            inventory.setItem(slot, undefined);
-            changed = true;
-            continue;
-          }
-          const itemId = raw.includes(":") ? raw : `minecraft:${raw}`;
-          const itemType = ItemTypes.get(itemId);
-          if (!itemType) {
-            player.sendMessage({ translate: "filtrovna.msg.bad_item", with: [raw] });
-            continue;
-          }
-          try {
-            inventory.setItem(slot, makeStack(itemType, 1));
-            changed = true;
-          } catch {
-            player.sendMessage({ translate: "filtrovna.msg.bad_item", with: [raw] });
-          }
-        }
-      }
-
-      if (changed) player.sendMessage({ translate: "filtrovna.msg.filter_saved" });
-    })
-    .catch(() => {});
+  player.sendMessage(
+    `§6Filtrovna§r\nStav: §e${STATUS_TEXT[status] ?? status}§r\n` +
+      `Vstup: §f${inputCount}§r | Filtr: §f${filterCount}§r | Match: §f${matchCount}§r | NE: §f${neCount}§r\n` +
+      hint,
+  );
 }
 
 function validRange(start, end) {
@@ -1258,12 +1270,12 @@ world.afterEvents.playerInteractWithBlock.subscribe((event) => {
     return;
   }
 
-  if (event.itemStack && player.isSneaking) {
+  if (event.itemStack) {
     insertHeldItem(player, event.block, golem, event.itemStack);
     return;
   }
 
-  system.run(() => openFilterUI(player, event.block, golem));
+  system.run(() => showFilterStatus(player, event.block, golem));
 });
 
 world.afterEvents.playerInteractWithEntity.subscribe((event) => {
@@ -1374,7 +1386,8 @@ system.afterEvents.scriptEventReceive.subscribe(
     }
 
     const golem = ensureFilter(block, block.dimension, true);
-    const inventory = golem ? getContainer(golem) : undefined;
+    const active = golem ? getFilterInventory(block, golem) : undefined;
+    const inventory = active?.container;
     if (!inventory) {
       sendFeedback(player, { translate: "filtrovna.msg.no_inventory" });
       return;
