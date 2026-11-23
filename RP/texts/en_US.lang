@@ -15,6 +15,7 @@ filtrovna.ui.section.filtr=§eFILTER — rules (9–18)
 filtrovna.ui.section.match=§eMATCH — output down (19–27)
 filtrovna.ui.section.ne=§eNE — waste (28–36)
 filtrovna.ui.insert_held=§aInsert held item into INPUT
+filtrovna.ui.insert_held_slot=§aInsert held item
 filtrovna.ui.close=Close
 filtrovna.ui.back=Back
 filtrovna.ui.slot_editor=Edit slot
@@ -33,6 +34,9 @@ filtrovna.state.stuck=Stuck
 
 filtrovna.msg.inserted=§aInserted %s items into INPUT.
 filtrovna.msg.input_full=§cINPUT is full.
+filtrovna.msg.no_held=§cYou are not holding an item.
+filtrovna.msg.slot_occupied=§cThat slot contains a different item.
+filtrovna.msg.slot_full=§cThat slot is full.
 filtrovna.msg.no_golem=§cThe inner golem is missing. Try placing the block again.
 filtrovna.msg.no_inventory=§cThe golem inventory is not available.
 filtrovna.msg.bad_item=§cInvalid item ID: %s

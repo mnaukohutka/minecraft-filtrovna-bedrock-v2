@@ -2,7 +2,7 @@
 
 ## 📋 Přehled
 
-**Filtrovna** je addon pro Minecraft Bedrock Edition, který přidává inteligentní třídící blok s vnitřním měděným golemem a volně pobíhající Mini Copper Golemy. Addon cílí na **Minecraft Bedrock 1.26.60** a využívá Script API `@minecraft/server` 2.11.0.
+**Filtrovna** je addon pro Minecraft Bedrock Edition, který přidává inteligentní třídící blok s vnitřním měděným golemem a volně pobíhající Mini Copper Golemy. Addon cílí na **Minecraft Bedrock 1.26.60** a využívá Script API `@minecraft/server` 2.11.0 a `@minecraft/server-ui` 2.3.0.
 
 ## ✨ Funkce
 
@@ -78,15 +78,15 @@ MBM
 
 ### Ovládání bloku
 
-- **Přilehlá dvojitá truhla (54 slotů)** slouží jako filtrační panel a otevírá se běžným truhlovým UI:
+- **Pravý klik na blok** otevře vlastní okno `CustomForm` se čtyřmi sekcemi a 36 sloty. Kliknutím na slot otevřeš editor (vzít předmět, vložit držený, vyprázdnit).
+- **Sneak + pravý klik s předmětem v ruce** vloží předmět přímo do VSTUPU.
+- **Přilehlá dvojitá truhla (54 slotů)** je volitelné skutečné truhlové UI; okno s ní pracuje:
   - 1. řada (sloty 0–8) = VSTUP
   - 2. řada (sloty 9–17) = FILTR
   - 3. řada (sloty 18–26) = MATCH
   - 4. řada (sloty 27–35) = NE
   - 5.–6. řada = volné úložiště
-- **Sneak + pravý klik na blok s předmětem v ruce** vloží předmět do VSTUPU aktivního panelu.
-- **Pravý klik na blok s prázdnou rukou** zobrazí stav a počty Vstup / Filtr / Match / NE.
-- Bez přilehlé dvojité truhly se použije interní 37-slotový inventář golema; ten lze ovládat příkazy `/scriptevent`.
+- Bez přilehlé dvojité truhly okno pracuje s interním 37-slotovým inventářem golema; ten lze ovládat i příkazy `/scriptevent`.
 
 ### Příkazy `/scriptevent`
 
@@ -140,7 +140,7 @@ Filtrovna/
 ## 🔧 Technické údaje
 
 - **Minecraft Bedrock**: 1.26.60 (testováno proti schématům 1.26.60)
-- **Script API**: `@minecraft/server` 2.11.0
+- **Script API**: `@minecraft/server` 2.11.0, `@minecraft/server-ui` 2.3.0
 - **Formát bloku**: `1.26.50`
 - **ID bloku**: `filtrovna:filtr`
 - **ID entit**: `filtrovna:golem_inside`, `filtrovna:mini_copper_golem`

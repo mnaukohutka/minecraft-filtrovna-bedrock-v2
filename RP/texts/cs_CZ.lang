@@ -15,6 +15,7 @@ filtrovna.ui.section.filtr=§eFILTR — pravidla (9–18)
 filtrovna.ui.section.match=§eMATCH — výstup dolů (19–27)
 filtrovna.ui.section.ne=§eNE — odpad (28–36)
 filtrovna.ui.insert_held=§aVložit držený předmět do VSTUPU
+filtrovna.ui.insert_held_slot=§aVložit držený předmět
 filtrovna.ui.close=Zavřít
 filtrovna.ui.back=Zpět
 filtrovna.ui.slot_editor=Úprava slotu
@@ -33,6 +34,9 @@ filtrovna.state.stuck=Zaseknutý
 
 filtrovna.msg.inserted=§aVloženo %s ks do VSTUPU.
 filtrovna.msg.input_full=§cVSTUP je plný.
+filtrovna.msg.no_held=§cV ruce nic nedržíš.
+filtrovna.msg.slot_occupied=§cSlot je obsazený jiným předmětem.
+filtrovna.msg.slot_full=§cSlot je plný.
 filtrovna.msg.no_golem=§cVnitřní golem chybí. Zkuste blok položit znovu.
 filtrovna.msg.no_inventory=§cInventář golema není dostupný.
 filtrovna.msg.bad_item=§cNeplatné ID předmětu: %s

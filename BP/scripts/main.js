@@ -5,6 +5,9 @@ import {
   ItemTypes,
   EquipmentSlot,
 } from "@minecraft/server";
+import * as ui from "@minecraft/server-ui";
+
+const CustomForm = ui.CustomForm;
 
 const FILTER_ID = "filtrovna:filtr";
 const INSIDE_ID = "filtrovna:golem_inside";
@@ -1041,6 +1044,149 @@ function insertHeldItem(player, block, golem, held) {
   player.sendMessage({ translate: "filtrovna.msg.inserted", with: [String(moved)] });
 }
 
+function takeFromSlot(player, container, index) {
+  const item = container.getItem(index);
+  if (!item) return;
+  const inventory = getContainer(player);
+  if (!inventory) return;
+  try {
+    const leftover = inventory.addItem(item.clone());
+    container.setItem(index, leftover ?? undefined);
+  } catch (err) {
+    logErr("takeSlot", err);
+  }
+}
+
+function insertHeldIntoSlot(player, container, index) {
+  const held = getHeldItem(player);
+  if (!held) {
+    player.sendMessage({ translate: "filtrovna.msg.no_held" });
+    return;
+  }
+  const existing = container.getItem(index);
+  if (!existing) {
+    container.setItem(index, held.clone());
+    consumeHeldItem(player, held, held.amount);
+    return;
+  }
+  if (existing.typeId !== held.typeId) {
+    player.sendMessage({ translate: "filtrovna.msg.slot_occupied" });
+    return;
+  }
+  const room = (existing.maxAmount ?? 64) - existing.amount;
+  if (room <= 0) {
+    player.sendMessage({ translate: "filtrovna.msg.slot_full" });
+    return;
+  }
+  const move = Math.min(room, held.amount);
+  existing.amount += move;
+  container.setItem(index, existing);
+  consumeHeldItem(player, held, move);
+}
+
+function openSlotEditor(player, block, golem, index) {
+  if (typeof CustomForm !== "function") return;
+  const active = getFilterInventory(block, golem);
+  if (!active) return;
+  const { container } = active;
+  const item = container.getItem(index);
+  let editor;
+  try {
+    editor = new CustomForm(player, `§6Filtrovna §7— slot ${index}`);
+  } catch (err) {
+    logErr("customFormSlotCreate", err);
+    showFilterStatus(player, block, golem);
+    return;
+  }
+  editor.label(item ? `§f${item.typeId} §7x${item.amount}` : "§8Prázdný slot");
+
+  const closeAndReopen = () => {
+    try {
+      editor.close();
+    } catch {}
+    system.run(() => openFilterWindow(player, block, golem));
+  };
+
+  editor.button({ translate: "filtrovna.ui.take" }, () => {
+    takeFromSlot(player, container, index);
+    closeAndReopen();
+  });
+  editor.button({ translate: "filtrovna.ui.insert_held_slot" }, () => {
+    insertHeldIntoSlot(player, container, index);
+    closeAndReopen();
+  });
+  editor.button({ translate: "filtrovna.ui.clear" }, () => {
+    container.setItem(index, undefined);
+    closeAndReopen();
+  });
+  editor.button({ translate: "filtrovna.ui.back" }, closeAndReopen);
+  editor.closeButton();
+  try {
+    editor.show().catch((err) => logErr("customFormSlot", err));
+  } catch (err) {
+    logErr("customFormSlot", err);
+  }
+}
+
+function openFilterWindow(player, block, golem) {
+  if (typeof CustomForm !== "function") {
+    showFilterStatus(player, block, golem);
+    return;
+  }
+  const active = getFilterInventory(block, golem);
+  if (!active) {
+    player.sendMessage({ translate: "filtrovna.msg.no_inventory" });
+    return;
+  }
+  const { container, layout, external } = active;
+  let form;
+  try {
+    form = new CustomForm(player, "§6Filtrovna");
+  } catch (err) {
+    logErr("customFormCreate", err);
+    showFilterStatus(player, block, golem);
+    return;
+  }
+  form.header(external ? "§6Filtrovna §7— dvojitá truhla" : "§6Filtrovna §7— vnitřní inventář");
+  form.label(
+    `§7Vstup: §f${countItemsIn(container, layout.vstup)}§7 | Filtr: §f${countItemsIn(container, layout.filtr)}§7 | Match: §f${countItemsIn(container, layout.match)}§7 | NE: §f${countItemsIn(container, layout.ne)}`,
+  );
+
+  const sections = [
+    ["VSTUP", layout.vstup],
+    ["FILTR", layout.filtr],
+    ["MATCH", layout.match],
+    ["NE", layout.ne],
+  ];
+  for (const [title, section] of sections) {
+    form.header(`§e${title} §7(${section.start}–${section.end})`);
+    for (let i = section.start; i <= section.end; i++) {
+      const item = container.getItem(i);
+      const label = item
+        ? `§7${i}: §f${item.typeId} §7x${item.amount}`
+        : `§7${i}: §8(prázdný)`;
+      form.button(label, () => {
+        try {
+          form.close();
+        } catch {}
+        system.run(() => openSlotEditor(player, block, golem, i));
+      });
+    }
+  }
+
+  form.label(
+    external
+      ? "§7Truhla: 1. řada VSTUP, 2. řada FILTR, 3. řada MATCH, 4. řada NE."
+      : "§7Přidej vedle filtru dvojitou truhlu pro skutečné truhlové UI.",
+  );
+  form.closeButton();
+  try {
+    form.show().catch((err) => logErr("customForm", err));
+  } catch (err) {
+    logErr("customForm", err);
+  }
+}
+
 function showFilterStatus(player, block, golem) {
   const active = getFilterInventory(block, golem);
   const container = active?.container;
@@ -1288,7 +1434,7 @@ world.afterEvents.playerInteractWithBlock.subscribe((event) => {
     return;
   }
 
-  system.run(() => showFilterStatus(player, event.block, golem));
+  system.run(() => openFilterWindow(player, event.block, golem));
 });
 
 world.afterEvents.playerInteractWithEntity.subscribe((event) => {
