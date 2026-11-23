@@ -47,3 +47,4 @@ filtrovna.msg.scraped=§aOxidation scraped down one level.
 filtrovna.msg.already_clean=§eThe golem is already clean.
 
 item.spawn_egg.entity.filtrovna:mini_copper_golem.name=Mini Copper Golem
+filtrovna.msg.filter_saved=§aFilter saved.

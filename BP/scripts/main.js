@@ -5,7 +5,7 @@ import {
   ItemTypes,
   EquipmentSlot,
 } from "@minecraft/server";
-import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
+import { ModalFormData } from "@minecraft/server-ui";
 
 const FILTER_ID = "filtrovna:filtr";
 const INSIDE_ID = "filtrovna:golem_inside";
@@ -17,12 +17,6 @@ const FILTR = { start: 9, end: 18, size: 10 };
 const MATCH = { start: 19, end: 27, size: 9 };
 const NE = { start: 28, end: 36, size: 9 };
 const SECTIONS = { vstup: VSTUP, filtr: FILTR, match: MATCH, ne: NE };
-const SECTION_TITLE = {
-  vstup: "filtrovna.ui.section.vstup",
-  filtr: "filtrovna.ui.section.filtr",
-  match: "filtrovna.ui.section.match",
-  ne: "filtrovna.ui.section.ne",
-};
 
 const OXIDATION = ["unoxidized", "exposed", "weathered", "oxidized"];
 const OXIDATION_FACTOR = {
@@ -105,6 +99,20 @@ function safeGetEntities(dimension, options) {
 function safeRemove(entity) {
   try {
     entity.remove();
+  } catch {}
+}
+
+function getBlockDynamic(block, key) {
+  try {
+    return block.getComponent("minecraft:dynamic_properties")?.get(key);
+  } catch {
+    return undefined;
+  }
+}
+
+function setBlockDynamic(block, key, value) {
+  try {
+    block.getComponent("minecraft:dynamic_properties")?.set(key, value);
   } catch {}
 }
 
@@ -280,7 +288,7 @@ function setStatus(block, golem, status) {
 function getGolem(block) {
   let id;
   try {
-    id = block.getDynamicProperty("filtrovna:golem_id");
+    id = getBlockDynamic(block, "filtrovna:golem_id");
   } catch {
     return undefined;
   }
@@ -328,7 +336,7 @@ function ensureFilter(block, dimension, spawnIfMissing) {
   if (nearby.length > 0) {
     const adopted = nearby[0];
     try {
-      block.setDynamicProperty("filtrovna:golem_id", adopted.id);
+      setBlockDynamic(block, "filtrovna:golem_id", adopted.id);
     } catch {}
     keepGolemInPlace(adopted, block);
     return adopted;
@@ -359,7 +367,7 @@ function ensureFilter(block, dimension, spawnIfMissing) {
     golem.setRotation({ x: yawFor(block), y: 0 });
     golem.setProperty("filtrovna:status", "idle");
     golem.setDynamicProperty("filtrovna:block", `${dimension.id}|${block.x},${block.y},${block.z}`);
-    block.setDynamicProperty("filtrovna:golem_id", golem.id);
+    setBlockDynamic(block, "filtrovna:golem_id", golem.id);
   } catch (err) {
     logErr("initInside", err);
   }
@@ -373,8 +381,8 @@ function onFilterPlaced(block, dimension) {
   const golem = ensureFilter(block, dimension, true);
   if (golem) setStatus(block, golem, "idle");
   try {
-    block.setDynamicProperty("filtrovna:stuck_ticks", 0);
-    block.setDynamicProperty("filtrovna:drop_until", 0);
+    setBlockDynamic(block, "filtrovna:stuck_ticks", 0);
+    setBlockDynamic(block, "filtrovna:drop_until", 0);
   } catch {}
 }
 
@@ -389,7 +397,7 @@ function onFilterBroken(block, dimension) {
   });
 
   try {
-    const id = block.getDynamicProperty("filtrovna:golem_id");
+    const id = getBlockDynamic(block, "filtrovna:golem_id");
     if (typeof id === "string") {
       const stored = world.getEntity(id);
       if (stored && stored.isValid && stored.dimension.id === dimension.id) golems.push(stored);
@@ -464,11 +472,11 @@ function tickFilter(block, dimension) {
   if (inputSlot < 0) {
     let dropUntil = 0;
     try {
-      dropUntil = Number(block.getDynamicProperty("filtrovna:drop_until") ?? 0) || 0;
+      dropUntil = Number(getBlockDynamic(block, "filtrovna:drop_until") ?? 0) || 0;
     } catch {}
     setStatus(block, golem, dropUntil > Date.now() ? "drop" : "idle");
     try {
-      block.setDynamicProperty("filtrovna:stuck_ticks", 0);
+      setBlockDynamic(block, "filtrovna:stuck_ticks", 0);
     } catch {}
     return;
   }
@@ -477,7 +485,7 @@ function tickFilter(block, dimension) {
   if (!item) return;
 
   try {
-    block.setDynamicProperty("filtrovna:drop_until", 0);
+    setBlockDynamic(block, "filtrovna:drop_until", 0);
   } catch {}
   setStatus(block, golem, "processing");
 
@@ -494,7 +502,7 @@ function tickFilter(block, dimension) {
     }
     setStatus(block, golem, matched ? "match" : "ne");
     try {
-      block.setDynamicProperty("filtrovna:stuck_ticks", 0);
+      setBlockDynamic(block, "filtrovna:stuck_ticks", 0);
     } catch {}
     return;
   }
@@ -502,13 +510,13 @@ function tickFilter(block, dimension) {
   const dropLocation = outputDropLocation(block, matched);
   let stuck = 0;
   try {
-    stuck = Number(block.getDynamicProperty("filtrovna:stuck_ticks") ?? 0) || 0;
+    stuck = Number(getBlockDynamic(block, "filtrovna:stuck_ticks") ?? 0) || 0;
   } catch {}
 
   if (!isSpaceFree(dimension, dropLocation)) {
     stuck++;
     try {
-      block.setDynamicProperty("filtrovna:stuck_ticks", stuck);
+      setBlockDynamic(block, "filtrovna:stuck_ticks", stuck);
     } catch {}
     setStatus(block, golem, "stuck");
     setBlink(block, Math.floor(stuck / 5) % 2 === 0);
@@ -520,14 +528,14 @@ function tickFilter(block, dimension) {
     inventory.setItem(inputSlot, undefined);
     setStatus(block, golem, "drop");
     try {
-      block.setDynamicProperty("filtrovna:stuck_ticks", 0);
-      block.setDynamicProperty("filtrovna:drop_until", Date.now() + 1000);
+      setBlockDynamic(block, "filtrovna:stuck_ticks", 0);
+      setBlockDynamic(block, "filtrovna:drop_until", Date.now() + 1000);
     } catch {}
   } catch (err) {
     logErr("drop", err);
     stuck++;
     try {
-      block.setDynamicProperty("filtrovna:stuck_ticks", stuck);
+      setBlockDynamic(block, "filtrovna:stuck_ticks", stuck);
     } catch {}
     setStatus(block, golem, "stuck");
     setBlink(block, Math.floor(stuck / 5) % 2 === 0);
@@ -879,7 +887,7 @@ function cleanupWorld() {
       }
       filterKeys.add(filterKey(block));
       try {
-        block.setDynamicProperty("filtrovna:golem_id", golem.id);
+        setBlockDynamic(block, "filtrovna:golem_id", golem.id);
       } catch {}
       keepGolemInPlace(golem, block);
     }
@@ -959,34 +967,16 @@ function damageHeldItem(player, held, amount) {
   }
 }
 
-function addToPlayerInventory(player, item) {
-  try {
-    const container = player.getComponent("minecraft:inventory")?.container;
-    if (!container) return item;
-    return container.addItem(item) ?? undefined;
-  } catch {
-    return item;
-  }
-}
+const STATUS_TEXT = {
+  idle: "nečinný",
+  processing: "zpracovává",
+  match: "třídí",
+  ne: "odmítá",
+  drop: "vyhazuje",
+  stuck: "zaseknutý",
+};
 
-function insertHeldItem(player, block, golem, held) {
-  if (!held) return;
-  const inventory = getContainer(golem);
-  if (!inventory) {
-    player.sendMessage({ translate: "filtrovna.msg.no_inventory" });
-    return;
-  }
-  const moved = insertIntoSection(inventory, VSTUP.start, VSTUP.end, held);
-  if (moved > 0) {
-    consumeHeldItem(player, held, moved);
-    player.sendMessage({ translate: "filtrovna.msg.inserted", with: [String(moved)] });
-    setStatus(block, golem, "processing");
-  } else {
-    player.sendMessage({ translate: "filtrovna.msg.input_full" });
-  }
-}
-
-function openMainUI(player, block, golem) {
+function openFilterUI(player, block, golem) {
   const inventory = getContainer(golem);
   if (!inventory) {
     player.sendMessage({ translate: "filtrovna.msg.no_inventory" });
@@ -1005,142 +995,62 @@ function openMainUI(player, block, golem) {
     countItemsIn(inventory, NE),
   ];
 
-  const form = new ActionFormData()
-    .title({ translate: "filtrovna.ui.title" })
-    .body({
-      rawtext: [
-        { translate: "filtrovna.ui.body" },
-        { text: "\n\n" },
-        { translate: "filtrovna.ui.status" },
-        { text: " " },
-        { translate: `filtrovna.state.${status}` },
-        { text: "\n" },
-        {
-          translate: "filtrovna.ui.counts",
-          with: counts.map((value) => String(value)),
-        },
-      ],
-    })
-    .button({ translate: "filtrovna.ui.section.vstup" })
-    .button({ translate: "filtrovna.ui.section.filtr" })
-    .button({ translate: "filtrovna.ui.section.match" })
-    .button({ translate: "filtrovna.ui.section.ne" });
-
-  const held = getHeldItem(player);
-  const insertIndex = held ? 4 : -1;
-  if (held) form.button({ translate: "filtrovna.ui.insert_held" });
-  form.button({ translate: "filtrovna.ui.close" });
-
-  form
-    .show(player)
-    .then((response) => {
-      if (response.canceled) return;
-      switch (response.selection) {
-        case 0:
-          system.run(() => openSection(player, block, golem, "vstup"));
-          break;
-        case 1:
-          system.run(() => openSection(player, block, golem, "filtr"));
-          break;
-        case 2:
-          system.run(() => openSection(player, block, golem, "match"));
-          break;
-        case 3:
-          system.run(() => openSection(player, block, golem, "ne"));
-          break;
-        default:
-          if (insertIndex >= 0 && response.selection === insertIndex) {
-            insertHeldItem(player, block, golem, getHeldItem(player));
-          }
-          break;
-      }
-    })
-    .catch(() => {});
-}
-
-function openSection(player, block, golem, key) {
-  const inventory = getContainer(golem);
-  if (!inventory) return;
-  const section = SECTIONS[key];
-  if (!section) return;
-
-  const form = new ActionFormData().title({ translate: SECTION_TITLE[key] });
-  for (let i = section.start; i <= section.end; i++) {
-    const item = inventory.getItem(i);
-    form.button(item ? `§7${i}§r §f${item.typeId} §7x${item.amount}` : `§7${i}§r §8—`);
-  }
-  form.button({ translate: "filtrovna.ui.back" });
-
-  form
-    .show(player)
-    .then((response) => {
-      if (response.canceled) return;
-      const index = response.selection;
-      if (typeof index !== "number") return;
-      if (index >= 0 && index < section.size) {
-        const slot = section.start + index;
-        system.run(() => openSlotEditor(player, block, golem, key, slot));
-      } else {
-        system.run(() => openMainUI(player, block, golem));
-      }
-    })
-    .catch(() => {});
-}
-
-function openSlotEditor(player, block, golem, key, slot) {
-  const inventory = getContainer(golem);
-  if (!inventory) return;
-  const current = inventory.getItem(slot);
-
   const form = new ModalFormData()
-    .title({ translate: "filtrovna.ui.slot_editor" })
-    .textField(
-      { translate: "filtrovna.ui.item_id" },
-      { translate: "filtrovna.ui.item_id_placeholder" },
-      { defaultValue: current?.typeId ?? "" },
+    .title("Filtrovna")
+    .header("Filtr")
+    .label(
+      `Stav: ${STATUS_TEXT[status] ?? status} | Vstup: ${counts[0]} | Filtr: ${counts[1]} | Match: ${counts[2]} | NE: ${counts[3]}\n` +
+        "Napiš ID předmětu do slotu. Prázdné pole slot vyčistí. Skrčený pravý klik vloží držený předmět do vstupu.",
     )
-    .slider({ translate: "filtrovna.ui.amount" }, 1, 64, {
-      defaultValue: current?.amount ?? 1,
-      valueStep: 1,
-    })
-    .toggle({ translate: "filtrovna.ui.clear" }, { defaultValue: false })
-    .toggle({ translate: "filtrovna.ui.take" }, { defaultValue: false });
+    .divider();
+
+  for (let slot = FILTR.start; slot <= FILTR.end; slot++) {
+    const item = inventory.getItem(slot);
+    form.textField(`Slot ${slot}`, "minecraft:diamond", {
+      defaultValue: item?.typeId ?? "",
+    });
+  }
+
+  form.toggle("Vyprázdnit celý filtr", { defaultValue: false }).submitButton("Uložit");
 
   form
     .show(player)
     .then((response) => {
       if (response.canceled) return;
       const values = response.formValues ?? [];
-      const itemId = String(values[0] ?? "").trim();
-      const amount = Math.max(1, Math.min(64, Math.floor(Number(values[1] ?? 1))));
-      const clear = values[2] === true;
-      const take = values[3] === true;
+      const clearAll = values[FILTR.size] === true;
+      let changed = false;
 
-      if (take) {
-        if (current) {
-          const leftover = addToPlayerInventory(player, current);
-          inventory.setItem(slot, leftover);
+      if (clearAll) {
+        for (let slot = FILTR.start; slot <= FILTR.end; slot++) {
+          inventory.setItem(slot, undefined);
         }
-      } else if (clear) {
-        inventory.setItem(slot, undefined);
-      } else if (itemId.length > 0) {
-        const normalized = itemId.includes(":") ? itemId : `minecraft:${itemId}`;
-        const itemType = ItemTypes.get(normalized);
-        if (!itemType) {
-          player.sendMessage({ translate: "filtrovna.msg.bad_item", with: [itemId] });
-        } else {
+        changed = true;
+      } else {
+        for (let i = 0; i < FILTR.size; i++) {
+          const slot = FILTR.start + i;
+          const raw = String(values[i] ?? "").trim();
+          if (!raw) {
+            inventory.setItem(slot, undefined);
+            changed = true;
+            continue;
+          }
+          const itemId = raw.includes(":") ? raw : `minecraft:${raw}`;
+          const itemType = ItemTypes.get(itemId);
+          if (!itemType) {
+            player.sendMessage({ translate: "filtrovna.msg.bad_item", with: [raw] });
+            continue;
+          }
           try {
-            inventory.setItem(slot, makeStack(itemType, amount));
-          } catch (err) {
-            logErr("setSlot", err);
-            player.sendMessage({ translate: "filtrovna.msg.bad_item", with: [itemId] });
+            inventory.setItem(slot, makeStack(itemType, 1));
+            changed = true;
+          } catch {
+            player.sendMessage({ translate: "filtrovna.msg.bad_item", with: [raw] });
           }
         }
-      } else {
-        inventory.setItem(slot, undefined);
       }
 
-      system.run(() => openSection(player, block, golem, key));
+      if (changed) player.sendMessage({ translate: "filtrovna.msg.filter_saved" });
     })
     .catch(() => {});
 }
@@ -1353,7 +1263,7 @@ world.afterEvents.playerInteractWithBlock.subscribe((event) => {
     return;
   }
 
-  system.run(() => openMainUI(player, event.block, golem));
+  system.run(() => openFilterUI(player, event.block, golem));
 });
 
 world.afterEvents.playerInteractWithEntity.subscribe((event) => {

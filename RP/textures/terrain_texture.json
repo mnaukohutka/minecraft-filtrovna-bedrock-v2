@@ -15,6 +15,7 @@
     "filtr_side_plus": "textures/blocks/filtr_side_plus",
     "filtr_side_minus": "textures/blocks/filtr_side_minus",
     "filtr_top_grate": "textures/blocks/filtr_top_grate",
-    "filtr_back_grate": "textures/blocks/filtr_back_grate"
+    "filtr_back_grate": "textures/blocks/filtr_back_grate",
+    "copper_block": "textures/blocks/copper_block"
   }
 }

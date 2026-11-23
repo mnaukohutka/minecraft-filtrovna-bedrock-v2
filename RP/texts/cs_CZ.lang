@@ -47,3 +47,4 @@ filtrovna.msg.scraped=§aOxidace očištěna o jeden stupeň.
 filtrovna.msg.already_clean=§eGolem je již čistý.
 
 item.spawn_egg.entity.filtrovna:mini_copper_golem.name=Mini měděný golem
+filtrovna.msg.filter_saved=§aFiltr uložen.

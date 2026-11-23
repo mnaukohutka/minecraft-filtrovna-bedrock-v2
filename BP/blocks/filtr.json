@@ -45,60 +45,60 @@
       },
       "minecraft:material_instances": {
         "*": {
-          "texture": "waxed_copper_block",
-          "render_method": "alpha_test"
+          "texture": "copper_block",
+          "render_method": "blend"
         },
         "casing": {
-          "texture": "waxed_copper_block",
-          "render_method": "alpha_test"
+          "texture": "copper_block",
+          "render_method": "blend"
         },
         "front_glass": {
           "texture": "filtr_front_glass",
-          "render_method": "alpha_test"
+          "render_method": "blend"
         },
         "bottom_bulb": {
           "texture": "filtr_bottom_bulb",
-          "render_method": "alpha_test"
+          "render_method": "blend"
         },
         "side_plus": {
           "texture": "filtr_side_plus",
-          "render_method": "alpha_test"
+          "render_method": "blend"
         },
         "side_minus": {
           "texture": "filtr_side_minus",
-          "render_method": "alpha_test"
+          "render_method": "blend"
         },
         "top_grate": {
           "texture": "filtr_top_grate",
-          "render_method": "alpha_test"
+          "render_method": "blend"
         },
         "back_grate": {
           "texture": "filtr_back_grate",
-          "render_method": "alpha_test"
+          "render_method": "blend"
         },
         "bulb_green": {
           "texture": "filtr_front_bulb_green",
-          "render_method": "alpha_test"
+          "render_method": "blend"
         },
         "bulb_yellow": {
           "texture": "filtr_front_bulb_yellow",
-          "render_method": "alpha_test"
+          "render_method": "blend"
         },
         "bulb_blue": {
           "texture": "filtr_front_bulb_blue",
-          "render_method": "alpha_test"
+          "render_method": "blend"
         },
         "bulb_orange": {
           "texture": "filtr_front_bulb_orange",
-          "render_method": "alpha_test"
+          "render_method": "blend"
         },
         "bulb_white": {
           "texture": "filtr_front_bulb_white",
-          "render_method": "alpha_test"
+          "render_method": "blend"
         },
         "bulb_red": {
           "texture": "filtr_front_bulb_red",
-          "render_method": "alpha_test"
+          "render_method": "blend"
         }
       },
       "minecraft:destructible_by_mining": {
@@ -116,7 +116,7 @@
       "minecraft:collision_box": true,
       "minecraft:selection_box": true,
       "minecraft:destruction_particles": {
-        "texture": "waxed_copper_block",
+        "texture": "copper_block",
         "tint_method": "none",
         "particle_count": 40
       },
