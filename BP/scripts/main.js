@@ -25,6 +25,12 @@ const CHEST_LAYOUT = {
   match: { start: 18, end: 26, size: 9 },
   ne: { start: 27, end: 35, size: 9 },
 };
+const SMALL_CHEST_LAYOUT = {
+  vstup: { start: 0, end: 8, size: 9 },
+  filtr: { start: 9, end: 17, size: 9 },
+  match: { start: 18, end: 22, size: 5 },
+  ne: { start: 23, end: 26, size: 4 },
+};
 
 const OXIDATION = ["unoxidized", "exposed", "weathered", "oxidized"];
 const OXIDATION_FACTOR = {
@@ -316,7 +322,7 @@ function keepGolemInPlace(golem, block) {
     if (distanceSq(golem.location, target) > 0.04) {
       golem.teleport(target);
     }
-    golem.setRotation({ x: yawFor(block), y: 0 });
+    golem.setRotation({ x: 0, y: yawFor(block) });
   } catch {}
 }
 
@@ -366,7 +372,7 @@ function ensureFilter(block, dimension, spawnIfMissing) {
   }
 
   try {
-    golem.setRotation({ x: yawFor(block), y: 0 });
+    golem.setRotation({ x: 0, y: yawFor(block) });
     golem.setProperty("filtrovna:status", "idle");
     golem.setDynamicProperty("filtrovna:block", `${dimension.id}|${block.x},${block.y},${block.z}`);
     setBlockDynamic(block, "filtrovna:golem_id", golem.id);
@@ -429,36 +435,41 @@ function onFilterBroken(block, dimension) {
 const FILTER_CONTAINER_IDS = new Set(["minecraft:chest", "minecraft:trapped_chest", "minecraft:barrel"]);
 
 function findAdjacentContainer(block) {
-  const offsets = [
-    [1, 0, 0],
-    [-1, 0, 0],
-    [0, 1, 0],
-    [0, -1, 0],
-    [0, 0, 1],
-    [0, 0, -1],
-  ];
-  for (const [dx, dy, dz] of offsets) {
-    try {
-      const other = block.dimension.getBlock({
-        x: block.x + dx,
-        y: block.y + dy,
-        z: block.z + dz,
-      });
-      if (!other || !FILTER_CONTAINER_IDS.has(other.typeId)) continue;
-      const container = other.getComponent("minecraft:inventory")?.container;
-      if (container) return container;
-    } catch {}
+  let best;
+  for (let dx = -1; dx <= 1; dx++) {
+    for (let dy = -1; dy <= 1; dy++) {
+      for (let dz = -1; dz <= 1; dz++) {
+        if (dx === 0 && dy === 0 && dz === 0) continue;
+        try {
+          const other = block.dimension.getBlock({
+            x: block.x + dx,
+            y: block.y + dy,
+            z: block.z + dz,
+          });
+          if (!other || !FILTER_CONTAINER_IDS.has(other.typeId)) continue;
+          const container = other.getComponent("minecraft:inventory")?.container;
+          if (!container) continue;
+          const distance = dx * dx + dy * dy + dz * dz;
+          if (!best || distance < best.distance) best = { container, distance };
+        } catch {}
+      }
+    }
   }
-  return undefined;
+  return best?.container;
 }
 
 function getFilterInventory(block, golem) {
   const chest = findAdjacentContainer(block);
   if (chest && chest.size >= 36) {
-    return { container: chest, layout: CHEST_LAYOUT, external: true };
+    return { container: chest, layout: CHEST_LAYOUT, external: true, kind: "double" };
+  }
+  if (chest && chest.size >= 27) {
+    return { container: chest, layout: SMALL_CHEST_LAYOUT, external: true, kind: "single" };
   }
   const inventory = getContainer(golem);
-  return inventory ? { container: inventory, layout: SECTIONS, external: false } : undefined;
+  return inventory
+    ? { container: inventory, layout: SECTIONS, external: false, kind: "internal" }
+    : undefined;
 }
 
 function filterHas(container, layout, typeId) {
@@ -1122,9 +1133,13 @@ function openSlotEditor(player, block, golem, index) {
   editor.button({ translate: "filtrovna.ui.back" }, closeAndReopen);
   editor.closeButton();
   try {
-    editor.show().catch((err) => logErr("customFormSlot", err));
+    editor.show().catch((err) => {
+      logErr("customFormSlot", err);
+      showFilterStatus(player, block, golem);
+    });
   } catch (err) {
     logErr("customFormSlot", err);
+    showFilterStatus(player, block, golem);
   }
 }
 
@@ -1138,7 +1153,7 @@ function openFilterWindow(player, block, golem) {
     player.sendMessage({ translate: "filtrovna.msg.no_inventory" });
     return;
   }
-  const { container, layout, external } = active;
+  const { container, layout } = active;
   let form;
   try {
     form = new CustomForm(player, "§6Filtrovna");
@@ -1147,7 +1162,13 @@ function openFilterWindow(player, block, golem) {
     showFilterStatus(player, block, golem);
     return;
   }
-  form.header(external ? "§6Filtrovna §7— dvojitá truhla" : "§6Filtrovna §7— vnitřní inventář");
+  const title =
+    active.kind === "double"
+      ? "§6Filtrovna §7— dvojitá truhla"
+      : active.kind === "single"
+        ? "§6Filtrovna §7— truhla"
+        : "§6Filtrovna §7— vnitřní inventář";
+  form.header(title);
   form.label(
     `§7Vstup: §f${countItemsIn(container, layout.vstup)}§7 | Filtr: §f${countItemsIn(container, layout.filtr)}§7 | Match: §f${countItemsIn(container, layout.match)}§7 | NE: §f${countItemsIn(container, layout.ne)}`,
   );
@@ -1175,15 +1196,21 @@ function openFilterWindow(player, block, golem) {
   }
 
   form.label(
-    external
+    active.kind === "double"
       ? "§7Truhla: 1. řada VSTUP, 2. řada FILTR, 3. řada MATCH, 4. řada NE."
-      : "§7Přidej vedle filtru dvojitou truhlu pro skutečné truhlové UI.",
+      : active.kind === "single"
+        ? "§7Truhla: 1. řada VSTUP, 2. řada FILTR, 3. řada MATCH (5) + NE (4)."
+        : "§7Přidej vedle filtru truhlu pro skutečné truhlové UI.",
   );
   form.closeButton();
   try {
-    form.show().catch((err) => logErr("customForm", err));
+    form.show().catch((err) => {
+      logErr("customForm", err);
+      showFilterStatus(player, block, golem);
+    });
   } catch (err) {
     logErr("customForm", err);
+    showFilterStatus(player, block, golem);
   }
 }
 
@@ -1202,9 +1229,12 @@ function showFilterStatus(player, block, golem) {
     status = block.permutation.getState("filtrovna:status") ?? "idle";
   } catch {}
 
-  const hint = active?.external
-    ? "§7Dvojitá truhla: 1. řada VSTUP, 2. řada FILTR, 3. řada MATCH, 4. řada NE. Sneak + klik vloží předmět.§r"
-    : "§7Přidej vedle filtru dvojitou truhlu (54 slotů). Sneak + klik vloží předmět do VSTUPU.§r";
+  const hint =
+    active?.kind === "double"
+      ? "§7Dvojitá truhla: 1. řada VSTUP, 2. řada FILTR, 3. řada MATCH, 4. řada NE. Sneak + klik vloží předmět.§r"
+      : active?.kind === "single"
+        ? "§7Jednoduchá truhla: 1. řada VSTUP, 2. řada FILTR, 3. řada MATCH (5) + NE (4). Pro 4×9 použij dvojitou.§r"
+        : "§7Přidej vedle filtru dvojitou truhlu (54 slotů). Sneak + klik vloží předmět do VSTUPU.§r";
 
   player.sendMessage(
     `§6Filtrovna§r\nStav: §e${STATUS_TEXT[status] ?? status}§r\n` +
@@ -1521,7 +1551,7 @@ world.afterEvents.playerInteractWithEntity.subscribe((event) => {
 system.afterEvents.scriptEventReceive.subscribe(
   (event) => {
     const id = event.id;
-    if (id !== "filtrovna:set" && id !== "filtrovna:clear") return;
+    if (id !== "filtrovna:set" && id !== "filtrovna:clear" && id !== "filtrovna:debug") return;
 
     const args = event.message.trim().split(/\s+/).filter(Boolean);
     const player =
@@ -1547,6 +1577,28 @@ system.afterEvents.scriptEventReceive.subscribe(
     const golem = ensureFilter(block, block.dimension, true);
     const active = golem ? getFilterInventory(block, golem) : undefined;
     const inventory = active?.container;
+
+    if (id === "filtrovna:debug") {
+      const rotation = golem?.getRotation?.();
+      let direction = "?";
+      try {
+        direction = block.permutation.getState("minecraft:cardinal_direction") ?? "?";
+      } catch {}
+      const counts = active
+        ? `VSTUP=${countItemsIn(inventory, active.layout.vstup)} FILTR=${countItemsIn(inventory, active.layout.filtr)} MATCH=${countItemsIn(inventory, active.layout.match)} NE=${countItemsIn(inventory, active.layout.ne)}`
+        : "bez inventáře";
+      sendFeedback(
+        player,
+        `§6Filtrovna debug§r\n` +
+          `blok: ${block.x},${block.y},${block.z} směr=${direction}\n` +
+          `aktivní: ${active?.kind ?? "none"} size=${inventory?.size ?? 0}\n` +
+          `golem: ${golem ? `${golem.id} rot=${rotation?.x ?? "?"}/${rotation?.y ?? "?"}` : "chybí"}\n` +
+          `klíč: ${filterKeys.has(filterKey(block)) ? "ano" : "ne"} (celkem ${filterKeys.size})\n` +
+          counts,
+      );
+      return;
+    }
+
     if (!inventory) {
       sendFeedback(player, { translate: "filtrovna.msg.no_inventory" });
       return;

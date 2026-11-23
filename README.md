@@ -80,12 +80,9 @@ MBM
 
 - **Pravý klik na blok** otevře vlastní okno `CustomForm` se čtyřmi sekcemi a 36 sloty. Kliknutím na slot otevřeš editor (vzít předmět, vložit držený, vyprázdnit).
 - **Sneak + pravý klik s předmětem v ruce** vloží předmět přímo do VSTUPU.
-- **Přilehlá dvojitá truhla (54 slotů)** je volitelné skutečné truhlové UI; okno s ní pracuje:
-  - 1. řada (sloty 0–8) = VSTUP
-  - 2. řada (sloty 9–17) = FILTR
-  - 3. řada (sloty 18–26) = MATCH
-  - 4. řada (sloty 27–35) = NE
-  - 5.–6. řada = volné úložiště
+- **Přilehlá truhla** je volitelné skutečné truhlové UI; okno s ní pracuje. Filtr ji hledá přímo vedle bloku (i diagonálně).
+  - **Dvojitá truhla (54 slotů):** 1. řada VSTUP (0–8), 2. řada FILTR (9–17), 3. řada MATCH (18–26), 4. řada NE (27–35), 5.–6. řada volná.
+  - **Jednoduchá truhla nebo barel (27 slotů):** 1. řada VSTUP (0–8), 2. řada FILTR (9–17), 3. řada MATCH (18–22) + NE (23–26).
 - Bez přilehlé dvojité truhly okno pracuje s interním 37-slotovým inventářem golema; ten lze ovládat i příkazy `/scriptevent`.
 
 ### Příkazy `/scriptevent`
@@ -93,6 +90,7 @@ MBM
 ```
 /scriptevent filtrovna:set <slot_start> <slot_end> <item_id> [amount]
 /scriptevent filtrovna:clear <slot_start> <slot_end>
+/scriptevent filtrovna:debug
 ```
 
 Příklady:
@@ -158,6 +156,6 @@ Projekt je volně šiřitelný pro osobní použití. Komerční použití vyža
 
 ---
 
-**Verze**: 1.1.0  
+**Verze**: 1.1.1  
 **Autor**: mnaukohutka  
 **Datum**: 2026
